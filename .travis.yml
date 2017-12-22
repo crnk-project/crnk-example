@@ -9,7 +9,6 @@ dist: trusty
 
 before_install:
  - chmod a+x gradlew
- - chmod a+x deploy.sh
 
 env:
   global:
