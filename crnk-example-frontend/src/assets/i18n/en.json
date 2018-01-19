@@ -1,0 +1,23 @@
+{
+
+	"name": "Name",
+
+	"auditInfo.ctlCreTs": "Created by",
+	"auditInfo.ctlCreUid": "Created at",
+	"auditInfo.ctlModTs": "Modified by",
+	"auditInfo.ctlModUid": "Modified at",
+
+	"action.refresh": "Refresh",
+	"action.create": "Create",
+	"action.save": "Save",
+	"action.delete": "Delete",
+	"action.select": "Select...",
+	"action.selection.accept": "Accept",
+	"action.clear": "Clear",
+	"action.add": "Add...",
+	"action.remove": "Remove",
+	"action.cancel": "Cancel",
+
+	"service.selected": "Selected service"
+
+}

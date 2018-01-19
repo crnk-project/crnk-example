@@ -1,0 +1,20 @@
+{
+	"/api/asap/*": {
+		"target": "http://localhost:28080/asap-resource-browser-demo-service/api/asap",
+		"secure": false,
+		"pathRewrite": {
+			"^/api/asap": ""
+		},
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/api/*": {
+		"target": "http://localhost:28080/asap-resource-browser-demo-service/api",
+		"secure": false,
+		"pathRewrite": {
+			"^/api": ""
+		},
+		"changeOrigin": true,
+		"logLevel": "debug"
+	}
+}

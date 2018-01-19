@@ -1,0 +1,85 @@
+apply plugin: 'com.moowork.node'
+apply plugin: 'java'
+
+node {
+	version = '6.10.3'
+	yarnVersion = '1.3.2'
+	download = true
+}
+
+configurations {
+	typescriptGenRuntime
+}
+
+dependencies {
+	typescriptGenRuntime project(':crnk-example-service')
+}
+
+apply plugin: 'crnk-gen-typescript'
+typescriptGen {
+	generateExpressions = true
+	genDir = file('src/resources')
+	npm {
+		packageName = '@crnk/example-frontend'
+		packagingEnabled = false
+	}
+	runtime {
+		configuration = 'typescriptGenRuntime'
+		spring {
+			profile = 'test'
+			configuration = 'io.crnk.example.service.ExampleConfiguration'
+		}
+	}
+}
+typescriptGen.init()
+
+generateTypescript.dependsOn ':crnk-example-service:assemble'
+
+
+task yarnRunBuild(type: YarnTask) {
+	dependsOn yarn
+	dependsOn generateTypescript
+
+	yarnCommand = ['run', 'build']
+	inputs.dir 'src'
+	inputs.files 'angular-cli.json', 'package.json'
+	outputs.dir 'build/npm'
+}
+
+task lint(type: YarnTask) {
+	description = "Run TSLint code analysis"
+	group = "Verification"
+	dependsOn yarn
+
+	yarnCommand = ['run', 'lint']
+
+	inputs.dir 'src/main/angular'
+
+	def uptodateMarkerFile = file "${buildDir}/tslint.uptodate"
+	outputs.files uptodateMarkerFile
+
+	doLast {
+		uptodateMarkerFile.with {
+			parentFile.mkdir()
+			createNewFile()
+			write System.currentTimeMillis() as String
+		}
+	}
+}
+
+assemble.dependsOn 'yarnRunBuild'
+
+check.dependsOn lint
+
+clean.doFirst {
+	delete "node_modules/"
+}
+
+apply plugin: 'java'
+sourceSets {
+	main {
+		resources {
+			srcDir yarnRunBuild.outputs.files.singleFile.parentFile
+		}
+	}
+}

@@ -1,0 +1,133 @@
+<form #formRef="ngForm">
+	<div *ngIf="movie != null">
+
+		<arb-errors [errors]="binding.unmappedErrors"></arb-errors>
+
+		<div class="card card-w-title">
+			<div class="ui-fluid">
+				<div class="ui-g">
+					<div class="ui-g-12">
+
+						<h1>Movie</h1>
+
+						<p>
+							This is an example of the manually written editor. It makes use of @crnk/angular-ngrx to take care of
+							the binding of components to the ngrx store and backend. You may also have a look at the embedd
+							examples.
+						</p>
+
+						<div class="ui-g">
+							<div class="ui-g-12 ui-md-2">
+								{{'title' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.attributes.title" />
+								<arb-control-errors [expression]="movie.attributes.title"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'year' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="number" pInputText [crnkFormExpression]="movie.attributes.year" />
+								<arb-control-errors [expression]="movie.attributes.year"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'rating' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.attributes.rating" />
+								<arb-control-errors [expression]="movie.attributes.rating"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'released' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<arb-input-local-date type="text" pInputText
+									[crnkFormExpression]="movie.attributes.released"></arb-input-local-date>
+								<arb-control-errors [expression]="movie.attributes.released"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'fullPlot' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<arb-input-textarea [crnkFormExpression]="movie.attributes.fullPlot">
+								</arb-input-textarea>
+								<arb-control-errors [expression]="movie.attributes.fullPlot"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'runtime' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<arb-input-duration [crnkFormExpression]="movie.attributes.runtime"></arb-input-duration>
+								<arb-control-errors [expression]="movie.attributes.runtime"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'closingCredits' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<p-checkbox [crnkFormExpression]="movie.attributes.closingCredits" binary="true"></p-checkbox>
+
+								<arb-control-errors [expression]="movie.attributes.closingCredits"></arb-control-errors>
+							</div>
+
+							<!--
+							<div class="ui-g-12 ui-md-2">
+								{{'directors' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.relationships.directors"/>
+								<arb-control-errors [expression]="movie.relationships.directors"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'genres' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.relationships.genres"/>
+								<arb-control-errors [expression]="movie.relationships.genres"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'languages' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.relationships.languages"/>
+								<arb-control-errors [expression]="movie.relationships.languages"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'countries' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.relationships.countries"/>
+								<arb-control-errors [expression]="movie.relationships.countries"></arb-control-errors>
+							</div>
+
+							<div class="ui-g-12 ui-md-2">
+								{{'actors' | translate}}
+							</div>
+							<div class="ui-g-12 ui-md-10">
+								<input type="text" pInputText [crnkFormExpression]="movie.relationships.actors"/>
+								<arb-control-errors [expression]="movie.relationships.actors"></arb-control-errors>
+							</div>
+								-->
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<p>
+				<button pButton [disabled]="!form.valid" (click)="binding.save()" label="Submit"></button>
+			</p>
+
+		</div>
+
+	</div>
+</form>

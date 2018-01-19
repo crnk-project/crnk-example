@@ -1,0 +1,65 @@
+<div class="card card-w-title">
+
+	This Angular application showcases four different screen use cases. The menu and implementation is
+	organized accordingly.
+
+	<p>
+
+	<table>
+		<tr>
+			<td class="arb-form-label">
+				Dynamic:
+			</td>
+			<td>
+				Fully dynamic screens to display tables and editors for resource objects. The screens are derived the
+				resource meta model obtained from the server. The meta model is translated to a presentation model,
+				stored with @ngrx/store and displayed using a set of components. Everything from presentation, routing
+				to error handling is taken care of by ARB. Have a look at the movie screens to see the a more sophisticated
+				example.
+			</td>
+		</tr>
+		<tr>
+			<td class="arb-form-label">
+				Manual:
+			</td>
+			<td>
+				This are manually implemented screens using JSON API/crnk and PrimeNG. No ARB related code is used,
+				but it showcases how to quickly (manually) implement CRUD screens and thereby makes use of the same
+				basic building blocks as ARB does (JSON API and PrimeNG).
+			</td>
+		</tr>
+		<tr>
+			<td class="arb-form-label">
+				Embedded:
+			</td>
+			<td>
+				Shows how ARB components and the meta model processing can be integrated into custom screens. This
+				is a solution in between manual and fully dynamic screens. ARB components thereby get integrated
+				into manual application components. It shows how a meta model can be translated into a presentation
+				model and displayed using PrimeNG/ARB components. Thereby, the presentation model is (or rather must)
+				not be stored with @ngrx/store and application are also free to modify it in an arbitrary manner.
+			</td>
+		</tr>
+		<tr>
+			<td class="arb-form-label">
+				System:
+			</td>
+			<td>
+				Still proof-of-concept, but in the future it will provide a set of reusable and pre-configured (dynamic)
+				ARB screens for common non-functional use cases like displaying metrics, batch status, health
+				information, auditing and more.
+			</td>
+		</tr>
+	</table>
+
+	<p>
+		Examples are work in progress and will grow in terms features overtime. They are by no means considered
+		feature complete, but just to provide a basic demonstration. Any kind of permutation between the various
+		examples and feature is possible and future updates driven by demand.
+	</p>
+
+	<p>
+		For more information have a look at the ARB developer guide.
+	</p>
+
+</div>

@@ -1,0 +1,26 @@
+{
+	"type": "labelingTypeConfig",
+	"attributes": {
+		"labelingTypeConfigId": 0,
+		"auditInfo": {
+			"ctlCreTs": null,
+			"ctlModTs": null,
+			"ctlModUid": "",
+			"ctlCreUid": ""
+		},
+		"ctlTcn": 0
+	},
+	"relationships": {
+		"labelingType": {
+			"data": null
+		},
+		"processConfiguration": {
+			"data": null
+		}
+	},
+	"id": "123",
+	"persistedResource": null,
+	"state": "CREATED",
+	"errors": [],
+	"loading": false
+}

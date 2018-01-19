@@ -6,10 +6,9 @@ import com.jayway.restassured.response.ValidatableResponse;
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepositoryV2;
 import io.crnk.core.resource.list.ResourceList;
-import io.crnk.example.service.domain.model.Project;
-import io.crnk.example.service.domain.model.ScheduleDto;
-import io.crnk.example.service.domain.model.ScheduleEntity;
-import io.crnk.example.service.domain.repository.ProjectRepository;
+import io.crnk.example.service.domain.entity.MovieEntity;
+import io.crnk.example.service.domain.resource.ScheduleDto;
+import io.crnk.example.service.domain.entity.ScheduleEntity;
 import io.crnk.example.service.domain.repository.ProjectRepository.ProjectList;
 import io.crnk.example.service.domain.repository.ProjectRepository.ProjectListLinks;
 import io.crnk.example.service.domain.repository.ProjectRepository.ProjectListMeta;
@@ -43,7 +42,7 @@ public class ExampleApplicationTest extends BaseTest {
 	@Test
 	public void testClient() {
 		ProjectRepository projectRepo = client.getResourceRepository(ProjectRepository.class);
-		QuerySpec querySpec = new QuerySpec(Project.class);
+		QuerySpec querySpec = new QuerySpec(MovieEntity.class);
 		querySpec.setLimit(10L);
 		ProjectList list = projectRepo.findAll(querySpec);
 		Assert.assertNotEquals(0, list.size());
