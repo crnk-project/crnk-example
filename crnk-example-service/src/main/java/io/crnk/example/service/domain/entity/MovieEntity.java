@@ -17,6 +17,8 @@ public class MovieEntity {
 	@JsonProperty
 	private String name;
 
+	private int year;
+
 	@OneToMany(mappedBy = "movie")
 	private List<RoleEntity> roles = new ArrayList<>();
 
@@ -46,6 +48,14 @@ public class MovieEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public List<RoleEntity> getRoles() {
