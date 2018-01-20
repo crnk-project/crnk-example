@@ -1,3 +1,3 @@
-export * from './arb.common.router.error';
-export * from './arb.common.router.navigation';
-export * from './arb.common.router.state.serializer';
+export * from './common.router.error';
+export * from './common.router.navigation';
+export * from './common.router.state.serializer';

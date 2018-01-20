@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { ResourceIdentifier } from 'ngrx-json-api';
 
 export enum AppActionTypes {
 	NOTIFICATION_SET = '[Demo] NOTIFICATION_SET',
@@ -12,7 +11,7 @@ export enum AppActionTypes {
 export class SetNotificationAction implements Action {
 	readonly type = AppActionTypes.NOTIFICATION_SET;
 
-	constructor(public id: string, message: string) {
+	constructor(public id: string, public messageKey: string) {
 	}
 }
 

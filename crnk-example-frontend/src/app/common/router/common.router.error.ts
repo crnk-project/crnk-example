@@ -3,7 +3,7 @@ import {NavigationError, NavigationStart, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {NgrxJsonApiService} from 'ngrx-json-api';
 import {QueryError} from '@crnk/angular-ngrx';
-import {Go} from './arb.common.router.navigation';
+import {Go} from './common.router.navigation';
 
 
 @Injectable()

@@ -32,6 +32,6 @@ export const ERROR_ROUTES: Routes = [
 		RouterModule],
 	providers: [ResourceResolve],
 })
-export class ManualModule {
+export class AppCommonModule {
 
 }

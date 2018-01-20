@@ -21,7 +21,7 @@
 			"mobile": false,
 			"styles": [
 				"../node_modules/primeng/resources/primeng.min.css",
-				"assets/example.scss",
+				"assets/demo.scss",
 				"../node_modules/font-awesome/css/font-awesome.min.css"
 			],
 			"scripts": [

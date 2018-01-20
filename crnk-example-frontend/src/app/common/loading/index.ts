@@ -1,1 +1,1 @@
-export * from './arb.common.loading';
+export * from './common.loading';

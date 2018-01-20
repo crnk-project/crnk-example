@@ -12,6 +12,7 @@ import 'rxjs/add/operator/distinct';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/finally';
+import 'rxjs/add/operator/timer';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/debounce';
 import 'rxjs/add/operator/catch';

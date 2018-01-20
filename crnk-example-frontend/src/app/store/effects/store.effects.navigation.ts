@@ -14,7 +14,7 @@ import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/withLatestFrom';
 
 import '../../../common/rxjs-operators';
-import { Go } from '../../common/router/arb.common.router.navigation';
+import { Go } from '../../common/router/common.router.navigation';
 import { AppActionTypes, OpenResourceAction } from '../store.actions';
 import { ApiApplySuccessAction, NgrxJsonApiActionTypes } from 'ngrx-json-api';
 import { AppState } from '../store.model';
@@ -22,7 +22,7 @@ import { apiPatchSuccessFilter } from './store.effects.utils';
 
 
 @Injectable()
-export class PresentationNavigationEffects {
+export class AppNavigationEffects {
 
 	@Effect() navigateToResource;
 

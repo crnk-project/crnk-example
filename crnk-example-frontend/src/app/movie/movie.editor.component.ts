@@ -1,10 +1,10 @@
-import {Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import '../rxjs-operators';
-import {Subscription} from 'rxjs/Subscription';
-import {BeanBinding} from '@crnk/angular-ngrx/expression';
-import {FormBinding, CrnkBindingService} from '@crnk/angular-ngrx/binding';
-import {QMovie} from 'resources';
+import { Subscription } from 'rxjs/Subscription';
+import { BeanBinding } from '@crnk/angular-ngrx/expression';
+import { FormBinding, CrnkBindingService } from '@crnk/angular-ngrx/binding';
+import { QMovie } from 'resources';
 
 @Component({
 	selector: 'demo-movie-editor',

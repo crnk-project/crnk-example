@@ -16,6 +16,9 @@ import 'rxjs/add/operator/toPromise';
 import { ManualModule } from './manual/';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClient } from '@angular/common/http';
+import { AppStoreModule } from './store/store.module';
+import { AppCommonModule } from './common/common.module';
+import { MovieModule } from './movie/movie.module';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,13 +57,14 @@ export const reducers: ActionReducerMap<any> = {};
 		BrowserAnimationsModule,
 
 		NgrxJsonApiModule.configure({
-			apiUrl: environment['asap.resource.browser.demo.server.url'],
+			apiUrl: environment['demo.server.url'],
 			resourceDefinitions: [],
 			urlBuilder: CRNK_URL_BUILDER,
 			applyEnabled: false
 		}),
 		StoreModule.forRoot(reducers, { initialState: {} }),
 		EffectsModule.forRoot([OperationsEffects]),
+		CrnkOperationsModule,
 		!environment.production ? StoreDevtoolsModule.instrument() : [],
 
 		TranslateModule.forRoot({
@@ -71,8 +75,9 @@ export const reducers: ActionReducerMap<any> = {};
 			}
 		}),
 
-		CrnkOperationsModule,
-		ManualModule,
+		AppCommonModule,
+		MovieModule,
+		AppStoreModule,
 
 	],
 	bootstrap: [
