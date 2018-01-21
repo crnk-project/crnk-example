@@ -2,6 +2,7 @@ package io.crnk.example.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.crnk.core.engine.transaction.TransactionRunner;
 import io.crnk.example.service.domain.entity.MovieEntity;
+import io.crnk.example.service.domain.entity.PersonEntity;
 import io.crnk.example.service.domain.entity.ScheduleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +35,17 @@ public class TestDataLoader {
 		transactionRunner.doInTransaction(new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
+
+				createPerson("Ben Affleck");
+				createPerson("Anna Kendrick");
+				createPerson("Robert Downey Jr.");
+				createPerson("Stan Lee");
+				createPerson("Jeff Bridges");
+				createPerson("Brad Pitt");
+				createPerson("Angelina Jolie");
+				createPerson("Leonardo DiCaprio");
+				createPerson("Kate Winslet");
+
 				createMovie("The Accountant", 2016, Arrays.asList("Ben Affleck", "Anna Kendrick"));
 				createMovie("Iron Man", 2008, Arrays.asList("Robert Downey Jr.", "Terrence Howard", "Jeff Bridges"));
 				createMovie("Titanic", 1997, Arrays.asList("Leonardo DiCaprio", "Kate Winslet"));
@@ -57,9 +70,17 @@ public class TestDataLoader {
 
 	protected MovieEntity createMovie(String title, int year, List<String> actors) {
 		MovieEntity movie = new MovieEntity();
-		movie.setId(nextId++);
+		movie.setId(UUID.randomUUID());
 		movie.setName(title);
 		em.persist(movie);
 		return movie;
+	}
+
+	protected PersonEntity createPerson(String title) {
+		PersonEntity person = new PersonEntity();
+		person.setId(UUID.randomUUID());
+		person.setName(title);
+		em.persist(person);
+		return person;
 	}
 }

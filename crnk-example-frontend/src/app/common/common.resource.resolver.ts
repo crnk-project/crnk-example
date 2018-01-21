@@ -6,6 +6,7 @@ import '../rxjs-operators';
 import { Query, NgrxJsonApiService, uuid } from 'ngrx-json-api';
 import { waitWhileLoading, assumeNoError } from '@crnk/angular-ngrx/binding';
 import { createEmptyMovie } from 'resources';
+import { SetCurrentResourceAction } from '../store';
 
 
 /**
@@ -21,7 +22,7 @@ export class ResourceResolve implements Resolve<string> {
 		const id = route.params['id'];
 		const type = route.data['resourceType'];
 		const isNew = id === 'create';
-		const queryId = type + '_' + id;
+		const queryId = type + (id ? '_' + id : '_list');
 
 		const query: Query = {
 			queryId: queryId,
@@ -34,7 +35,7 @@ export class ResourceResolve implements Resolve<string> {
 			}
 		};
 		if (query.type === 'movie') {
-			query.params.include.push('genres', 'directors', 'actors', 'writers', 'languages', 'countries');
+			//query.params.include.push('genres', 'directors', 'actors', 'writers', 'languages', 'countries');
 		}
 
 		if (isNew) {
@@ -48,6 +49,8 @@ export class ResourceResolve implements Resolve<string> {
 				resource: emptyResource
 			});
 		}
+
+		this.store.dispatch(new SetCurrentResourceAction(query.type, query.id, isNew));
 
 		this.jsonApi.putQuery({
 			query: query,

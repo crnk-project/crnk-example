@@ -1,48 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NgModule } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { ActionReducerMap, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { NgrxJsonApiModule, NgrxJsonApiService } from 'ngrx-json-api';
+import { NgrxJsonApiModule } from 'ngrx-json-api';
 import { HomeComponent } from './home';
 import { environment } from '../environments/environment';
 import { ROUTES } from './app.routes';
 import { CRNK_URL_BUILDER, CrnkOperationsModule, OperationsEffects } from '@crnk/angular-ngrx';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import * as moment from 'moment';
 import 'rxjs/add/operator/toPromise';
-import { ManualModule } from './manual/';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './common/common.module';
 import { MovieModule } from './movie/movie.module';
+import { CommonModule } from '@angular/common';
+import {
+	MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule,
+	MatSidenavModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+} from '@angular/material';
+import { AppComponent } from './app.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PersonModule } from './person';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
-@Component({
-	selector: 'demo-app',
-	template: '<arb-app-layout></arb-app-layout>'
-})
-export class AppComponent {
-
-	constructor(translate: TranslateService, router: Router, jsonApi: NgrxJsonApiService) {
-		translate.addLangs(['en', 'fr']);
-		translate.setDefaultLang('en');
-		const browserLang = translate.getBrowserLang();
-		const lang = browserLang.match(/en|fr/) ? browserLang : 'en';
-		translate.use(lang);
-
-		// make sure you use 2.8.1 version of earlier of moments, otherwise it will not be set globally
-		// => see https://github.com/moment/moment/issues/1797
-		moment.locale(lang);
-	}
-}
 
 export const reducers: ActionReducerMap<any> = {};
 
@@ -52,9 +39,11 @@ export const reducers: ActionReducerMap<any> = {};
 		HomeComponent
 	],
 	imports: [
+		CommonModule,
 		BrowserModule,
-		RouterModule.forRoot(ROUTES, { useHash: true }),
 		BrowserAnimationsModule,
+
+		HttpClientModule,
 
 		NgrxJsonApiModule.configure({
 			apiUrl: environment['demo.server.url'],
@@ -75,9 +64,52 @@ export const reducers: ActionReducerMap<any> = {};
 			}
 		}),
 
+
 		AppCommonModule,
 		MovieModule,
+		PersonModule,
 		AppStoreModule,
+
+		RouterModule.forRoot(ROUTES, { useHash: true }),
+
+		MatSidenavModule,
+		MatIconModule,
+		MatInputModule,
+		MatButtonModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatDialogModule,
+		MatSortModule,
+		MatTableModule,
+		MatTabsModule,
+		MatToolbarModule,
+		MatTooltipModule,
+		MatListModule,
+
+		/*
+		MatAutocompleteModule,
+		MatButtonToggleModule,
+
+		MatChipsModule,
+		MatDatepickerModule,
+		MatExpansionModule,
+		MatGridListModule,
+		MatMenuModule,
+		MatNativeDateModule,
+		MatPaginatorModule,
+		MatProgressBarModule,
+		MatProgressSpinnerModule,
+		MatRadioModule,
+		MatRippleModule,
+		MatSelectModule,
+		*/
+		/*
+		MatSliderModule,
+		MatSlideToggleModule,
+		MatSnackBarModule,
+
+		MatStepperModule,
+		*/
 
 	],
 	bootstrap: [

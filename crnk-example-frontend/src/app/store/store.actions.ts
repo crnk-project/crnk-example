@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export enum AppActionTypes {
 	NOTIFICATION_SET = '[Demo] NOTIFICATION_SET',
 	OPEN_RESOURCE = '[Demo] OPEN_RESOURCE',
+	SET_CURRENT_RESOURCE = '[Demo] SET_CURRENT_RESOURCE',
 }
 
 /**
@@ -26,4 +27,15 @@ export class OpenResourceAction implements Action {
 }
 
 
-export type AppActions = SetNotificationAction | OpenResourceAction ;
+/**
+ * Set currently open resource
+ */
+export class SetCurrentResourceAction implements Action {
+	readonly type = AppActionTypes.SET_CURRENT_RESOURCE;
+
+	constructor(public resourceType: string, public resourceId?: string, public create?: boolean) {
+	}
+}
+
+
+export type AppActions = SetNotificationAction | OpenResourceAction | SetCurrentResourceAction ;

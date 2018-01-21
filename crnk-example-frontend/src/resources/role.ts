@@ -3,6 +3,10 @@ import {
 	QMovie
 } from './movie';
 import {
+	Person,
+	QPerson
+} from './person';
+import {
 	BeanPath,
 	CrnkStoreResource,
 	QTypedOneResourceRelationship,
@@ -19,6 +23,7 @@ export module Role {
 	export interface Relationships {
 		[key: string]: ResourceRelationship;
 		movie?: TypedOneResourceRelationship<Movie>;
+		person?: TypedOneResourceRelationship<Person>;
 	}
 	export interface Attributes {
 		name?: string;
@@ -52,6 +57,14 @@ export module QRole {
 			}
 			return this._movie;
 		};
+		private _person: QTypedOneResourceRelationship<QPerson, Person>;
+		get person(): QTypedOneResourceRelationship<QPerson, Person> {
+			if (!this._person) {
+				this._person =
+					new QTypedOneResourceRelationship<QPerson, Person>(this, 'person', QPerson);
+			}
+			return this._person;
+		};
 	}
 	export class QAttributes extends BeanPath<Role.Attributes> {
 		name: StringPath = this.createString('name');
@@ -66,6 +79,7 @@ export let createEmptyRole = function(id: string): Role {
 		},
 		relationships: {
 			movie: {data: null},
+			person: {data: null},
 		},
 	};
 };

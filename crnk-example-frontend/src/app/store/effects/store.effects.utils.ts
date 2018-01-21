@@ -15,7 +15,7 @@ import {
 	ApiPatchSuccessAction, ApiPostFailAction, ApiPostSuccessAction, Document, NgrxJsonApiActionTypes,
 	Resource
 } from 'ngrx-json-api';
-import '../../../common/rxjs-operators';
+import '../../rxjs-operators';
 
 
 export function matchesResource(document: Document, resourceType: string, resourceId?: string) {

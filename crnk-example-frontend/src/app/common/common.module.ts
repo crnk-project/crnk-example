@@ -10,6 +10,8 @@ import {
 	NotAuthorizedComponent, ResourceErrorsComponent
 } from './error/';
 import { CommonModule } from '@angular/common';
+import { RouterEffects } from './router/common.router.navigation';
+import { EffectsModule } from '@ngrx/effects';
 
 export const ERROR_ROUTES: Routes = [
 	{ path: 'error/forbidden', component: NotAuthorizedComponent },
@@ -18,11 +20,11 @@ export const ERROR_ROUTES: Routes = [
 ];
 
 @NgModule({
-
 	imports: [CommonModule, MessagesModule,
-
 		CrnkBindingModule, FormsModule,
-		RouterModule.forChild(ERROR_ROUTES)],
+		RouterModule.forChild(ERROR_ROUTES),
+		EffectsModule.forFeature([RouterEffects])
+	],
 	declarations: [
 		NoContentComponent, NotAuthorizedComponent, InternalErrorComponent,
 		ErrorComponent, ControlErrorsComponent, ResourceErrorsComponent, ErrorsComponent
@@ -30,7 +32,9 @@ export const ERROR_ROUTES: Routes = [
 	exports: [NoContentComponent, NotAuthorizedComponent, InternalErrorComponent,
 		ErrorComponent, ControlErrorsComponent, ResourceErrorsComponent, ErrorsComponent,
 		RouterModule],
-	providers: [ResourceResolve],
+	providers: [
+		ResourceResolve
+	],
 })
 export class AppCommonModule {
 

@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class MovieEntity {
+public class PersonEntity {
 
 	@Id
 	private UUID id;
@@ -23,7 +23,7 @@ public class MovieEntity {
 	@OneToMany(mappedBy = "movie")
 	private List<RoleEntity> roles = new ArrayList<>();
 
-	public MovieEntity() {
+	public PersonEntity() {
 	}
 
 	public UUID getId() {

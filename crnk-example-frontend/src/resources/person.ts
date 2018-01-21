@@ -16,7 +16,7 @@ import {
 	TypedManyResourceRelationship
 } from 'ngrx-json-api';
 
-export module Movie {
+export module Person {
 	export interface Relationships {
 		[key: string]: ResourceRelationship;
 		roles?: TypedManyResourceRelationship<Role>;
@@ -26,25 +26,25 @@ export module Movie {
 		year?: number;
 	}
 }
-export interface Movie extends CrnkStoreResource {
-	relationships?: Movie.Relationships;
-	attributes?: Movie.Attributes;
+export interface Person extends CrnkStoreResource {
+	relationships?: Person.Relationships;
+	attributes?: Person.Attributes;
 }
-export interface MovieResult extends OneQueryResult {
-	data?: Movie;
+export interface PersonResult extends OneQueryResult {
+	data?: Person;
 }
-export interface MovieListResult extends ManyQueryResult {
-	data?: Array<Movie>;
+export interface PersonListResult extends ManyQueryResult {
+	data?: Array<Person>;
 }
-export class QMovie extends BeanPath<Movie> {
-	metaId = 'resources.movie';
+export class QPerson extends BeanPath<Person> {
+	metaId = 'resources.person';
 	id: StringPath = this.createString('id');
 	type: StringPath = this.createString('type');
-	relationships: QMovie.QRelationships = new QMovie.QRelationships(this, 'relationships');
-	attributes: QMovie.QAttributes = new QMovie.QAttributes(this, 'attributes');
+	relationships: QPerson.QRelationships = new QPerson.QRelationships(this, 'relationships');
+	attributes: QPerson.QAttributes = new QPerson.QAttributes(this, 'attributes');
 }
-export module QMovie {
-	export class QRelationships extends BeanPath<Movie.Relationships> {
+export module QPerson {
+	export class QRelationships extends BeanPath<Person.Relationships> {
 		private _roles: QTypedManyResourceRelationship<QRole, Role>;
 		get roles(): QTypedManyResourceRelationship<QRole, Role> {
 			if (!this._roles) {
@@ -54,15 +54,15 @@ export module QMovie {
 			return this._roles;
 		};
 	}
-	export class QAttributes extends BeanPath<Movie.Attributes> {
+	export class QAttributes extends BeanPath<Person.Attributes> {
 		name: StringPath = this.createString('name');
 		year: NumberPath = this.createNumber('year');
 	}
 }
-export let createEmptyMovie = function(id: string): Movie {
+export let createEmptyPerson = function(id: string): Person {
 	return {
 		id: id,
-		type: 'movie',
+		type: 'person',
 		attributes: {
 		},
 		relationships: {

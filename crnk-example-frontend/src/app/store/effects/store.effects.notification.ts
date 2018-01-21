@@ -11,11 +11,12 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/withLatestFrom';
-import '../../../common/rxjs-operators';
+import '../../rxjs-operators';
 import { NgrxJsonApiActionTypes } from 'ngrx-json-api';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store.model';
 import { AppActionTypes, SetNotificationAction } from '../store.actions';
+import { getAppState } from '../store.module';
 
 
 @Injectable()
@@ -30,7 +31,7 @@ export class AppNotificationEffects {
 
 		this.notifyUserUponEditorSaveSuccess = actions
 			.ofType(NgrxJsonApiActionTypes.API_APPLY_SUCCESS)
-			.withLatestFrom(store, (action, state) => state as AppState)
+			.withLatestFrom(store, (action, state) => getAppState(state))
 			.filter((state: AppState) => state.current != null)
 			.map((state: AppState) => {
 				return new SetNotificationAction('editor',

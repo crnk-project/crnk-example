@@ -9,6 +9,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 
 import io.crnk.example.service.domain.entity.MovieEntity;
+import io.crnk.example.service.domain.entity.PersonEntity;
 import io.crnk.example.service.domain.entity.RoleEntity;
 import io.crnk.example.service.domain.resource.ScheduleDto;
 import io.crnk.example.service.domain.entity.ScheduleEntity;
@@ -39,6 +40,7 @@ public class ExampleJpaModuleConfigurer implements JpaModuleConfigurer {
 		config.addRepository(JpaRepositoryConfig.builder(ScheduleEntity.class).build());
 		config.addRepository(JpaRepositoryConfig.builder(MovieEntity.class).build());
 		config.addRepository(JpaRepositoryConfig.builder(RoleEntity.class).build());
+		config.addRepository(JpaRepositoryConfig.builder(PersonEntity.class).build());
 
 		// additionally expose entity as a mapped dto
 		config.addRepository(

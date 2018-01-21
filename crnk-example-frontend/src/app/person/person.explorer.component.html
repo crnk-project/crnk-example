@@ -1,16 +1,11 @@
 <div class="ui-g">
 	<div class="ui-g-12">
 		<div class="card card-w-title">
-			<h1>Movies</h1>
+			<h1>Persons</h1>
 
-			<p>
-				This is an example of the manually written editor. It makes use of @crnk/angular-ngrx to take care of the binding
-				of components to the ngrx store and backend. You may also have a look at the embedd examples.
-			</p>
-
-			<p-dataTable [value]="movies.data" selectionMode="single" [(selection)]="binding.selectedResource"
+			<p-dataTable [value]="persons.data" selectionMode="single" [(selection)]="binding.selectedResource"
 					[lazy]="true" [rows]="10" [paginator]="true"
-					[totalRecords]="movies.meta?.totalResourceCount"
+					[totalRecords]="persons.meta?.totalResourceCount"
 					(onLazyLoad)="binding.onLazyLoad($event)"
 					(onRowDblclick)="open($event.data)"
 			>

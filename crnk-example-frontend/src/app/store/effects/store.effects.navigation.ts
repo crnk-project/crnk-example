@@ -13,12 +13,13 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/withLatestFrom';
 
-import '../../../common/rxjs-operators';
+import '../../rxjs-operators';
 import { Go } from '../../common/router/common.router.navigation';
 import { AppActionTypes, OpenResourceAction } from '../store.actions';
-import { ApiApplySuccessAction, NgrxJsonApiActionTypes } from 'ngrx-json-api';
+import { ApiApplySuccessAction, ApiPatchSuccessAction, NgrxJsonApiActionTypes } from 'ngrx-json-api';
 import { AppState } from '../store.model';
 import { apiPatchSuccessFilter } from './store.effects.utils';
+import { getAppState } from '../store.module';
 
 
 @Injectable()
@@ -26,19 +27,15 @@ export class AppNavigationEffects {
 
 	@Effect() navigateToResource;
 
-	@Effect({ dispatch: false }) scrollToTop;
-
 	@Effect() openExplorerOnceEditorResourceSuccessfullyDeleted$;
 
 	@Effect() openEditorByIdOnceResourceSuccessfullyPosted$;
-
-	@Effect() moveToTopOnFailure;
 
 	constructor(
 		actions$: Actions,
 		store: Store<any>
 	) {
-
+		console.log('test');
 		this.navigateToResource = actions$
 			.ofType(AppActionTypes.OPEN_RESOURCE)
 			.map((action: OpenResourceAction) => {
@@ -58,21 +55,23 @@ export class AppNavigationEffects {
 
 		this.openExplorerOnceEditorResourceSuccessfullyDeleted$ = actions$
 			.ofType(NgrxJsonApiActionTypes.API_DELETE_SUCCESS)
-			.withLatestFrom(store, (action, state) => state as AppState)
+			.withLatestFrom(store, (action, state) => getAppState(state))
 			.filter(state => state.current != null && state.current.resourceId != null)
 			.map(state => new OpenResourceAction(state.current.resourceId));
 
 
 		this.openEditorByIdOnceResourceSuccessfullyPosted$ = actions$
 			.ofType(NgrxJsonApiActionTypes.API_APPLY_SUCCESS)
-			.withLatestFrom(store, (action: ApiApplySuccessAction, state: AppState) => {
-				if (state.current) {
-					return action.payload.find(apiPatchSuccessFilter(state.current.resourceType));
+			.withLatestFrom(store, (action: ApiApplySuccessAction, state) => {
+				const appState = getAppState(state);
+				console.log('hi', state, appState);
+				if (appState.current) {
+					return action.payload.find(apiPatchSuccessFilter(appState.current.resourceType));
 				}
 				return null;
 			})
 			.filter(action => action != null)
-			.map(action => action.payload.jsonApiData.data)
+			.map((action: ApiPatchSuccessAction) => action.payload.jsonApiData.data)
 			.map(resource => new OpenResourceAction(resource.type, resource.id));
 	}
 }

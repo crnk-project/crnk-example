@@ -15,33 +15,24 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule } from '@angular/material';
+import { PersonExplorerComponent } from './person.explorer.component';
 
 export const MOVIE_ROUTES: Routes = [
 	{
-		path: 'movie', component: MovieExplorerComponent,
+		path: 'person', component: PersonExplorerComponent,
 		data: {
-			resourceType: 'movie'
+			resourceType: 'person'
 		},
 		resolve: {
 			queryId: ResourceResolve
 		}
-	},
-	{
-		path: 'movie/:id', component: MovieEditorComponent,
-		data: {
-			resourceType: 'movie'
-		},
-		resolve: {
-			queryId: ResourceResolve
-		}
-	},
+	}
 ];
 
 
 @NgModule({
 	declarations: [
-		MovieEditorComponent,
-		MovieExplorerComponent,
+		PersonExplorerComponent
 	],
 	imports: [
 		CommonModule,
@@ -60,7 +51,7 @@ export const MOVIE_ROUTES: Routes = [
 		AppCommonModule, CrnkExpressionFormModule
 	]
 })
-export class MovieModule {
+export class PersonModule {
 
 }
 

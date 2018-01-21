@@ -14,7 +14,7 @@ public class RoleEntity {
 	@Id
 	private Long id;
 
-	@JsonProperty("my-name")
+	@JsonProperty("role-name")
 	private String name;
 
 	@Size(max = 20, message = "Description may not exceed {max} characters.")
@@ -26,13 +26,12 @@ public class RoleEntity {
 	@ManyToOne
 	private MovieEntity movie;
 
+	@ManyToOne
+	private PersonEntity person;
+
 	public RoleEntity() {
 	}
 
-	public RoleEntity(Long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
 
 	public Long getId() {
 		return id;
@@ -72,5 +71,13 @@ public class RoleEntity {
 
 	public void setSomeId(Long someId) {
 		this.someId = someId;
+	}
+
+	public PersonEntity getPerson() {
+		return person;
+	}
+
+	public void setPerson(PersonEntity person) {
+		this.person = person;
 	}
 }

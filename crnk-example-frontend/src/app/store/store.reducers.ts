@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 import { Action } from '@ngrx/store';
-import { ViewModel, ViewRouteModel, ViewState } from '../../model/';
 import { AppState, initAppState } from './store.model';
 import { AppActionTypes, OpenResourceAction, SetNotificationAction } from './store.actions';
 
@@ -14,14 +13,22 @@ export function appReducer(
 			const action = actionObj as SetNotificationAction;
 			return notificationSet(state, action);
 		}
-		case AppActionTypes.OPEN_RESOURCE: {
+		case AppActionTypes.SET_CURRENT_RESOURCE: {
 			const action = actionObj as OpenResourceAction;
-			return {
-				...state,
-				current: {
-					resourceType: action.resourceType,
-					resourceId: action.resourceId,
-					create: action.create
+			if (action.resourceType) {
+				return {
+					...state,
+					current: {
+						resourceType: action.resourceType,
+						resourceId: action.resourceId,
+						create: action.create
+					}
+				}
+			}
+			else {
+				return {
+					...state,
+					current: null
 				}
 			}
 		}

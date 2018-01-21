@@ -1,0 +1,58 @@
+<mat-sidenav-container class="demo-root" fullscreen>
+
+
+	<div style="width:100%;height:100%">
+		<mat-toolbar color="primary">
+			<!--
+			<button mat-icon-button (click)="start.open('mouse')">
+				<mat-icon>menu</mat-icon>
+			</button>
+			-->
+			<div class="demo-toolbar">
+				<h1>Crnk Example</h1>
+				<div>
+					<!--
+					<button mat-icon-button href=""(click)="toggleFullscreen()" title="Toggle fullscreen">
+						<mat-icon>fullscreen</mat-icon>
+					</button>
+					-->
+					<a mat-button href="http://www.crnk.io/documentation/" >
+						Documentation
+					</a>
+				</div>
+			</div>
+		</mat-toolbar>
+
+		<div #root="dir" dir="ltr" style="width:100%;height:100%">
+
+			<mat-sidenav-container style="width:100%;height:100%">
+
+				<mat-sidenav #start mode="side" opened="true">
+					<mat-nav-list>
+						<a *ngFor="let navItem of navItems"
+								mat-list-item
+								routerLinkActive
+								#routerLinkActiveInstance="routerLinkActive"
+								[attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
+								[routerLink]="[navItem.route]">
+							{{navItem.name}}
+						</a>
+					</mat-nav-list>
+				</mat-sidenav>
+				<div>
+					<div #root="dir" dir="ltr" class="demo-content">
+						<router-outlet></router-outlet>
+					</div>
+				</div>
+
+			</mat-sidenav-container>
+
+		</div>
+	</div>
+
+
+</mat-sidenav-container>
+
+
+
+

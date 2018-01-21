@@ -5,5 +5,5 @@
 
 export const environment = {
 	production: false,
-	'asap.resource.browser.demo.server.url': 'http://localhost:28080/asap-resource-browser-demo-service/api'
+	'demo.server.url': 'http://localhost:8080/api'
 };

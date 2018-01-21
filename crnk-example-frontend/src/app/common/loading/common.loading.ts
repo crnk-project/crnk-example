@@ -5,7 +5,7 @@ import {Subject} from 'rxjs/Subject';
 import {Store} from '@ngrx/store';
 import {NgrxJsonApiService, NgrxJsonApiStore, NgrxJsonApiModule} from 'ngrx-json-api';
 
-import '../rxjs-operators';
+import '../../rxjs-operators';
 
 // TODO move into ngrx store
 

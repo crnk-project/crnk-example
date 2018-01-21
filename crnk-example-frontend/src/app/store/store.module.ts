@@ -31,12 +31,6 @@ export function getAppState(state: any): AppState {
 	return arbState;//arbState['presentation'] as PresentationState;
 };
 
-
-export const appReducerMap: ActionReducerMap<any> = {
-	app: appReducer
-};
-
-
 @NgModule({
 	imports: [
 		CommonModule,
@@ -44,7 +38,7 @@ export const appReducerMap: ActionReducerMap<any> = {
 		EffectsModule.forFeature([
 			AppNavigationEffects, AppNotificationEffects
 		]),
-		StoreModule.forFeature('app', appReducerMap, {
+		StoreModule.forFeature('app', appReducer, {
 			initialState: {}
 		}),
 	],

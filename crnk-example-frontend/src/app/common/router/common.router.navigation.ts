@@ -57,12 +57,3 @@ export class RouterEffects {
 		private location: Location
 	) {}
 }
-
-@NgModule({
-	imports: [
-		EffectsModule.forFeature([RouterEffects])
-	]
-})
-export class ArbNavigationRoutingModule {
-
-}
