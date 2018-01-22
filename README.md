@@ -103,8 +103,9 @@ In more detail:
      rtain error codes. 
   - `ErrorComponent` displays a single error. Currently it has special handling of `OptimisticLockException`
      with status code `409`.   
-- `LoadingService` displays a loading screen if a task (backend service call) takes a lot of time.
-  Have a look at the `vote` screen where the services have been artificially slowed down with `Thread.sleep(...)`.
+- `LoadingService` displays a loading/busy screen if a resolver within navigation or a JSON API modification
+   takes a lot of time. Have a look at the `vote` screen where the services have been artificially slowed down with 
+   `Thread.sleep(...)`.
 - `RouterEffects` provides various routing actions for ngrx.
 - `AppNavigationEffects` handles the navigation between explorer and editor screen.
   - Upon successful creation of a new resource, it will navigate to the new, permanent url.
