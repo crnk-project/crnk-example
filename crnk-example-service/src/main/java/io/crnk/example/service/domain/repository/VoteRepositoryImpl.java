@@ -45,7 +45,7 @@ public class VoteRepositoryImpl extends ResourceRepositoryBase<Vote, UUID> imple
 	private void slowDown() {
 		// artificially slow it down to simulate loading in frontend
 		try {
-			Thread.sleep(30);
+			Thread.sleep(3000);
 		}
 		catch (InterruptedException e) {
 			throw new IllegalStateException(e);

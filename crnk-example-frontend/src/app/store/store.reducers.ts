@@ -21,7 +21,7 @@ export function appReducer(
 					current: {
 						resourceType: action.resourceType,
 						resourceId: action.resourceId,
-						create: action.create
+						created: action.create
 					}
 				};
 			}

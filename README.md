@@ -10,7 +10,7 @@ This is a Spring-based showcasing the use of [Crnk](https://github.com/crnk-movi
 Further smaller example applications integrating into various frameworks can be found at 
 [crnk-examples](https://github.com/crnk-movie/crnk-framework/tree/master/crnk-examples).
 
-*WARNING: this example project is working but still in development and subject to various improvements, see roadmap*
+*WARNING: this example project is still in development and subject to various improvements, see roadmap*
 
 ## Requirements
 
@@ -78,6 +78,7 @@ use of JSON API:
 - https://www.npmjs.com/package/@crnk/angular-ngrx is used to simplify binding
   of frontend components to JSON API. 
   see http://www.crnk.io/documentation/#_angular_development_with_ngrx.
+- UI components and styling is taken from Angular Material. Some further PrimeNG components are used (currently the table).
  
 In more detail:
 
@@ -90,9 +91,10 @@ In more detail:
   - The explorer allows to be refreshed with a button.
   - The editor can only be saved if all inputs are valid and there is a dirty value.
   - The editor allows to delete the record. 
-  - The editor makes use of the generated expressions to gain type-safety.
-  - The editor attempts to map JSON API error to the individual form fields. If this is not possible
-    it will be shown on the top of the editor (such as for `OptimisticLockException`)
+  - The editor makes use of the generated resource stubs to gain type-safety.
+  - The editor attempts to map JSON API error to the individual form fields. If that is not possible
+    it will be shown on the top of the editor (such as for `OptimisticLockException` that concerns the entire changed resource)
+- `AppResourceResolve` is used during routing to load the necessary data for a screen.    
 - `AppSnackBarService` shows the the user when a resource was successfully created or saved. Notifications
   are obtained from the store. `AppNotificationEffects` is responsible for setting up those notifications..  
 - `TranslateModule` and https://momentjs.com/ is used to do internationalization.
