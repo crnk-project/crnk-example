@@ -13,6 +13,8 @@ import io.crnk.core.engine.transaction.TransactionRunner;
 import io.crnk.example.service.domain.entity.MovieEntity;
 import io.crnk.example.service.domain.entity.PersonEntity;
 import io.crnk.example.service.domain.entity.ScheduleEntity;
+import io.crnk.example.service.domain.repository.VoteRepositoryImpl;
+import io.crnk.example.service.domain.resource.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,6 +31,9 @@ public class TestDataLoader {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+
+	@Autowired
+	private VoteRepositoryImpl voteRepository;
 
 	@PostConstruct
 	public void setup() {
@@ -58,6 +63,16 @@ public class TestDataLoader {
 					em.persist(scheduleEntity);
 				}
 				em.flush();
+
+				for (int i = 0; i < 100; i++) {
+					Vote vote = new Vote();
+					vote.setId(UUID.randomUUID());
+					vote.setCount(i);
+					vote.setName("test" + i);
+					// bypass slow save
+					voteRepository.votes.put(vote.getId(), vote);
+				}
+
 				return null;
 			}
 		});

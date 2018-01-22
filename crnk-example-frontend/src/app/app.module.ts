@@ -19,11 +19,13 @@ import { MovieModule } from './movie/movie.module';
 import { CommonModule } from '@angular/common';
 import {
 	MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule,
-	MatSidenavModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+	MatProgressBarModule,
+	MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { PersonModule } from './person';
+import { VoteModule } from './vote';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -67,6 +69,7 @@ export const reducers: ActionReducerMap<any> = {};
 
 		AppCommonModule,
 		MovieModule,
+		VoteModule,
 		PersonModule,
 		AppStoreModule,
 
@@ -85,6 +88,8 @@ export const reducers: ActionReducerMap<any> = {};
 		MatToolbarModule,
 		MatTooltipModule,
 		MatListModule,
+		MatSnackBarModule,
+		MatProgressBarModule,
 
 		/*
 		MatAutocompleteModule,
@@ -97,7 +102,6 @@ export const reducers: ActionReducerMap<any> = {};
 		MatMenuModule,
 		MatNativeDateModule,
 		MatPaginatorModule,
-		MatProgressBarModule,
 		MatProgressSpinnerModule,
 		MatRadioModule,
 		MatRippleModule,
@@ -106,8 +110,6 @@ export const reducers: ActionReducerMap<any> = {};
 		/*
 		MatSliderModule,
 		MatSlideToggleModule,
-		MatSnackBarModule,
-
 		MatStepperModule,
 		*/
 

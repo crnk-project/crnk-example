@@ -18,6 +18,11 @@
 	"action.remove": "Remove",
 	"action.cancel": "Cancel",
 
-	"service.selected": "Selected service"
+	"editor.save.success": "Saved changes.",
+	"editor.create.success": "Created new entry.",
+
+	"service.selected": "Selected service",
+
+	"error.conflict": "Concurrent modification by another user. Refresh to get most recent changes."
 
 }

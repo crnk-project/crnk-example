@@ -24,6 +24,7 @@ export module Person {
 	export interface Attributes {
 		name?: string;
 		year?: number;
+		version?: number;
 	}
 }
 export interface Person extends CrnkStoreResource {
@@ -57,6 +58,7 @@ export module QPerson {
 	export class QAttributes extends BeanPath<Person.Attributes> {
 		name: StringPath = this.createString('name');
 		year: NumberPath = this.createNumber('year');
+		version: NumberPath = this.createNumber('version');
 	}
 }
 export let createEmptyPerson = function(id: string): Person {

@@ -18,5 +18,10 @@
 	"action.remove": "Entfernen",
 	"action.cancel": "Abbrechen",
 
-	"service.selected": "Ausgewählter Service"
+	"editor.save.success": "Änderung gespeichert.",
+	"editor.create.success": "Erstellt.",
+
+	"service.selected": "Ausgewählter Service",
+
+	"error.conflict": "Änderung durch einen anderen Benutzer. Aktualisieren Sie diese Seite um die aktuellen Änderungen zu sehen."
 }

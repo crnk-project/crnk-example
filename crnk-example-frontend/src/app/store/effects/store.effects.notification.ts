@@ -17,6 +17,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store.model';
 import { AppActionTypes, SetNotificationAction } from '../store.actions';
 import { getAppState } from '../store.module';
+import { MatSnackBar } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Injectable()
@@ -29,20 +31,21 @@ export class AppNotificationEffects {
 
 	constructor(actions: Actions, store: Store<any>) {
 
+		// show as notification in store and directly as material snackbar
 		this.notifyUserUponEditorSaveSuccess = actions
 			.ofType(NgrxJsonApiActionTypes.API_APPLY_SUCCESS)
 			.withLatestFrom(store, (action, state) => getAppState(state))
 			.filter((state: AppState) => state.current != null)
-			.map((state: AppState) => {
-				return new SetNotificationAction('editor',
-					state.current.created ? 'editor.create.success' : 'editor.save.success');
-			});
+			.map((state: AppState) => state.current.created ? 'editor.create.success' : 'editor.save.success')
+			.map(messageKey => new SetNotificationAction('editor', messageKey));
 
+		const clearNotification = () => new SetNotificationAction('editor', null);
 
 		this.hideSaveSuccessAfterTimeout = actions
 			.ofType(AppActionTypes.NOTIFICATION_SET)
-			.delay(5000)
 			.filter((action: SetNotificationAction) => action.id.startsWith('editor'))
-			.map(() => new SetNotificationAction('editor', null));
+			.delay(5000)
+			.filter((action: SetNotificationAction) => action.messageKey != null)
+			.map(clearNotification);
 	}
 }

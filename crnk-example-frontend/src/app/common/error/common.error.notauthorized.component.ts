@@ -13,9 +13,7 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
 				<i class="material-icons">&#xE32A;</i>
 				<h1>Access Denied</h1>
 				<div class="exception-detail">You are not authorized to access this resource.</div>
-				<a href="/" class="ui-button secondary">
-					<span class="ui-button-text">Homepage</span>
-				</a>
+				<a mat-button href="/">Return to Homepage</a>
 			</div>
 		</div>
 	`

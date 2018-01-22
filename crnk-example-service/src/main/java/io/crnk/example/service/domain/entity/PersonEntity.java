@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -22,6 +23,9 @@ public class PersonEntity {
 
 	@OneToMany(mappedBy = "movie")
 	private List<RoleEntity> roles = new ArrayList<>();
+
+	@Version
+	private Integer version;
 
 	public PersonEntity() {
 	}
@@ -56,5 +60,13 @@ public class PersonEntity {
 
 	public void setRoles(List<RoleEntity> roles) {
 		this.roles = roles;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

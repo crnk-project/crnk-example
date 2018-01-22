@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import '../rxjs-operators';
 import { NgModule } from '@angular/core';
-import { ResourceResolve } from './common.resource.resolver';
+import { AppResourceResolve } from './common.resource.resolver';
 import { FormsModule } from '@angular/forms';
 import { CrnkBindingModule } from '@crnk/angular-ngrx';
 import { MessagesModule } from 'primeng/components/messages/messages';
@@ -12,6 +12,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterEffects } from './router/common.router.navigation';
 import { EffectsModule } from '@ngrx/effects';
+import { AppSnackBarService } from './snackbar';
+import { AppErrorRoutingService } from './error/common.error.route';
+import { AppLoadingService } from './loading';
+import { MatButtonModule } from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const ERROR_ROUTES: Routes = [
 	{ path: 'error/forbidden', component: NotAuthorizedComponent },
@@ -22,6 +27,9 @@ export const ERROR_ROUTES: Routes = [
 @NgModule({
 	imports: [CommonModule, MessagesModule,
 		CrnkBindingModule, FormsModule,
+
+		MatButtonModule, TranslateModule,
+
 		RouterModule.forChild(ERROR_ROUTES),
 		EffectsModule.forFeature([RouterEffects])
 	],
@@ -33,7 +41,10 @@ export const ERROR_ROUTES: Routes = [
 		ErrorComponent, ControlErrorsComponent, ResourceErrorsComponent, ErrorsComponent,
 		RouterModule],
 	providers: [
-		ResourceResolve
+		AppResourceResolve,
+		AppSnackBarService,
+		AppErrorRoutingService,
+		AppLoadingService
 	],
 })
 export class AppCommonModule {

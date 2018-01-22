@@ -1,5 +1,5 @@
-import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import {Path} from '@crnk/angular-ngrx';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Path } from '@crnk/angular-ngrx';
 import * as _ from 'lodash';
 
 @Component({
@@ -55,7 +55,7 @@ export class ResourceErrorsComponent {
 	selector: 'demo-error',
 	template: `
 		<div class="ui-message ui-messages-error ui-corner-all">
-			{{message}}
+			{{message | translate}}
 		</div>
 	`,
 })
@@ -67,6 +67,11 @@ export class ErrorComponent {
 		if (!this.error) {
 			return undefined;
 		}
+
+		if (this.error.status == '409') {
+			return 'error.conflict'
+		}
+
 		if (this.error.code || this.error.id || this.error.detail || this.error.title) {
 			if (this.error.detail) {
 				return this.error.detail;
@@ -91,10 +96,10 @@ export class ErrorComponent {
 @Component({
 	selector: 'demo-errors',
 	template: `
-    <div *ngFor="let error of elements">
-        <demo-error [error]="error"></demo-error>
-    </div>
-  `,
+		<div *ngFor="let error of elements">
+			<demo-error [error]="error"></demo-error>
+		</div>
+	`,
 
 })
 export class ErrorsComponent {

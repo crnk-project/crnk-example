@@ -24,6 +24,7 @@ export module Movie {
 	export interface Attributes {
 		name?: string;
 		year?: number;
+		version?: number;
 	}
 }
 export interface Movie extends CrnkStoreResource {
@@ -57,6 +58,7 @@ export module QMovie {
 	export class QAttributes extends BeanPath<Movie.Attributes> {
 		name: StringPath = this.createString('name');
 		year: NumberPath = this.createNumber('year');
+		version: NumberPath = this.createNumber('version');
 	}
 }
 export let createEmptyMovie = function(id: string): Movie {

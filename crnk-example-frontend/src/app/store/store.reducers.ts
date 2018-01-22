@@ -23,13 +23,13 @@ export function appReducer(
 						resourceId: action.resourceId,
 						create: action.create
 					}
-				}
+				};
 			}
 			else {
 				return {
 					...state,
 					current: null
-				}
+				};
 			}
 		}
 		default:
@@ -40,13 +40,13 @@ export function appReducer(
 export function notificationSet(state: AppState, action: SetNotificationAction) {
 	const newNotifications = _.clone(state.notifications);
 	if (action.messageKey) {
-		newNotifications[action.messageKey] = action.messageKey;
+		newNotifications[action.id] = action.messageKey;
 	}
 	else {
-		delete newNotifications[action.messageKey];
+		delete newNotifications[action.id];
 	}
 	return {
 		...state,
 		notifications: newNotifications
-	}
+	};
 }

@@ -3,7 +3,6 @@ import { StoreModule } from '@ngrx/store';
 import '../rxjs-operators';
 import { EffectsModule } from '@ngrx/effects';
 import { NgModule } from '@angular/core';
-import { MovieExplorerComponent, MovieEditorComponent } from '../movie';
 import { AppResourceResolve } from '../common/common.resource.resolver';
 import { FormsModule } from '@angular/forms';
 import { CrnkExpressionFormModule } from '@crnk/angular-ngrx';
@@ -14,41 +13,32 @@ import { NgrxJsonApiModule } from 'ngrx-json-api';
 import { TranslateModule } from '@ngx-translate/core';
 import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatInputModule, MatSnackBarModule } from '@angular/material';
+import { MatButtonModule, MatInputModule } from '@angular/material';
+import { VoteExplorerComponent } from './vote.explorer.component';
 
-export const MOVIE_ROUTES: Routes = [
+export const VOTE_ROUTES: Routes = [
 	{
-		path: 'movie', component: MovieExplorerComponent,
+		path: 'vote', component: VoteExplorerComponent,
 		data: {
-			resourceType: 'movie'
+			resourceType: 'vote'
 		},
 		resolve: {
 			queryId: AppResourceResolve
 		}
-	},
-	{
-		path: 'movie/:id', component: MovieEditorComponent,
-		data: {
-			resourceType: 'movie'
-		},
-		resolve: {
-			queryId: AppResourceResolve
-		}
-	},
+	}
 ];
 
 
 @NgModule({
 	declarations: [
-		MovieEditorComponent,
-		MovieExplorerComponent,
+		VoteExplorerComponent
 	],
 	imports: [
 		CommonModule,
 		StoreModule, RouterModule, FormsModule, EffectsModule, NgrxJsonApiModule,
-		RouterModule.forChild(MOVIE_ROUTES), TranslateModule,
+		RouterModule.forChild(VOTE_ROUTES), TranslateModule,
 
-		MatButtonModule, MatInputModule, MatSnackBarModule,
+		MatButtonModule, MatInputModule,
 
 		DataTableModule, ButtonModule, InputTextModule,
 		AppCommonModule,
@@ -60,7 +50,7 @@ export const MOVIE_ROUTES: Routes = [
 		AppCommonModule, CrnkExpressionFormModule
 	]
 })
-export class MovieModule {
+export class VoteModule {
 
 }
 

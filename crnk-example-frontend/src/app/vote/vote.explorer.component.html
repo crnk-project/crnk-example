@@ -3,9 +3,9 @@
 		<div class="card card-w-title">
 			<h1>Persons</h1>
 
-			<p-dataTable [value]="persons.data" selectionMode="single" [(selection)]="binding.selectedResource"
+			<p-dataTable [value]="votes.data" selectionMode="single" [(selection)]="binding.selectedResource"
 					[lazy]="true" [rows]="10" [paginator]="true"
-					[totalRecords]="persons.meta?.totalResourceCount"
+					[totalRecords]="votes.meta?.totalResourceCount"
 					(onLazyLoad)="binding.onLazyLoad($event)"
 			>
 				<p-column field="attributes.name" [header]="'name' | translate" sortable="true" [filter]="true"></p-column>

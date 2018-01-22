@@ -1,13 +1,13 @@
-import {Injectable, NgModule} from '@angular/core';
-import {NavigationError, NavigationStart, Router} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {NgrxJsonApiService} from 'ngrx-json-api';
-import {QueryError} from '@crnk/angular-ngrx';
-import {Go} from './common.router.navigation';
+import { Injectable, NgModule } from '@angular/core';
+import { NavigationError, NavigationStart, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { NgrxJsonApiService } from 'ngrx-json-api';
+import { QueryError } from '@crnk/angular-ngrx';
+import { Go } from '../router/common.router.navigation';
 
 
 @Injectable()
-export class ErrorRoutingService {
+export class AppErrorRoutingService {
 
 	constructor(private store: Store<any>, router: Router, ngrxJsonApiService: NgrxJsonApiService) {
 		router.events.forEach((event) => {
@@ -40,12 +40,4 @@ export class ErrorRoutingService {
 			}
 		});
 	}
-}
-
-
-@NgModule({
-	providers: [ErrorRoutingService]
-})
-export class ArbErrorRoutingModule {
-
 }

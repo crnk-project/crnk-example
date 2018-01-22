@@ -13,9 +13,7 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
 				<i class="material-icons">&#xE000;</i>
 				<h1>Exception Occured</h1>
 				<div class="exception-detail">Please contact system administrator</div>
-				<a href="/" class="ui-button secondary">
-					<span class="ui-button-text">Homepage</span>
-				</a>
+				<a mat-button href="/">Return to Homepage</a>
 			</div>
 		</div>
 

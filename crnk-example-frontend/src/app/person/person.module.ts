@@ -3,8 +3,7 @@ import { StoreModule } from '@ngrx/store';
 import '../rxjs-operators';
 import { EffectsModule } from '@ngrx/effects';
 import { NgModule } from '@angular/core';
-import { MovieExplorerComponent, MovieEditorComponent } from '../movie';
-import { ResourceResolve } from '../common/common.resource.resolver';
+import { AppResourceResolve } from '../common/common.resource.resolver';
 import { FormsModule } from '@angular/forms';
 import { CrnkExpressionFormModule } from '@crnk/angular-ngrx';
 import { ButtonModule } from 'primeng/components/button/button';
@@ -17,14 +16,14 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { PersonExplorerComponent } from './person.explorer.component';
 
-export const MOVIE_ROUTES: Routes = [
+export const PERSON_ROUTES: Routes = [
 	{
 		path: 'person', component: PersonExplorerComponent,
 		data: {
 			resourceType: 'person'
 		},
 		resolve: {
-			queryId: ResourceResolve
+			queryId: AppResourceResolve
 		}
 	}
 ];
@@ -37,7 +36,7 @@ export const MOVIE_ROUTES: Routes = [
 	imports: [
 		CommonModule,
 		StoreModule, RouterModule, FormsModule, EffectsModule, NgrxJsonApiModule,
-		RouterModule.forChild(MOVIE_ROUTES), TranslateModule,
+		RouterModule.forChild(PERSON_ROUTES), TranslateModule,
 
 		MatButtonModule, MatInputModule,
 

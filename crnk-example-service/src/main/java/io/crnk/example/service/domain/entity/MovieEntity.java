@@ -6,8 +6,10 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class MovieEntity {
@@ -16,12 +18,16 @@ public class MovieEntity {
 	private UUID id;
 
 	@JsonProperty
+	@NotEmpty
 	private String name;
 
 	private int year;
 
 	@OneToMany(mappedBy = "movie")
 	private List<RoleEntity> roles = new ArrayList<>();
+
+	@Version
+	private Integer version;
 
 	public MovieEntity() {
 	}
@@ -56,5 +62,13 @@ public class MovieEntity {
 
 	public void setRoles(List<RoleEntity> roles) {
 		this.roles = roles;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

@@ -43,7 +43,7 @@ task yarnRunBuild(type: YarnTask) {
 	yarnCommand = ['run', 'build']
 	inputs.dir 'src'
 	inputs.files 'angular-cli.json', 'package.json'
-	outputs.dir 'build/npm'
+	outputs.dir 'build/angular/static'
 }
 
 task lint(type: YarnTask) {
@@ -76,6 +76,7 @@ clean.doFirst {
 }
 
 apply plugin: 'java'
+
 sourceSets {
 	main {
 		resources {

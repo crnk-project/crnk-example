@@ -13,9 +13,7 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
 				<i class="material-icons">&#xE001;</i>
 				<h1>Page Not Found</h1>
 				<div class="exception-detail">The resource you are looking for does not exist.</div>
-				<a href="/" class="ui-button secondary">
-					<span class="ui-button-text">Homepage</span>
-				</a>
+				<a mat-button href="/">Return to Homepage</a>
 			</div>
 		</div>
 	`

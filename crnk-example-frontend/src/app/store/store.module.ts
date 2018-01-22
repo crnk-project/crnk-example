@@ -3,7 +3,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ActionReducerMap, Store, StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AppState } from './store.model';
+import { AppState, initAppState } from './store.model';
 import { Observable } from 'rxjs/Observable';
 import { AppNotificationEffects } from './effects/store.effects.notification';
 import { AppNavigationEffects } from './effects/store.effects.navigation';
@@ -28,7 +28,7 @@ export function getAppState(state: any): AppState {
 	if (!arbState) {
 		throw new Error('AppStoreModule not yet initialized');
 	}
-	return arbState;//arbState['presentation'] as PresentationState;
+	return arbState; //arbState['presentation'] as PresentationState;
 };
 
 @NgModule({
@@ -39,7 +39,7 @@ export function getAppState(state: any): AppState {
 			AppNavigationEffects, AppNotificationEffects
 		]),
 		StoreModule.forFeature('app', appReducer, {
-			initialState: {}
+			initialState: initAppState
 		}),
 	],
 	providers: [],

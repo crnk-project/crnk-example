@@ -5,7 +5,6 @@ import java.util.Map;
 
 import io.crnk.core.engine.registry.RegistryEntry;
 import io.crnk.core.engine.registry.ResourceRegistry;
-import io.crnk.spring.boot.v3.CrnkConfigV3;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan("io.crnk.example.service")
-@Import({ CrnkConfigV3.class, ExampleJpaModuleConfigurer.class, CorsConfig.class, TestDataLoader.class })
+@Import({ RepositoryConfiguration.class, CorsConfig.class, TestDataLoader.class })
 public class ExampleConfiguration {
 
 	@Autowired

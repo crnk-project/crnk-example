@@ -35,7 +35,6 @@ export class AppNavigationEffects {
 		actions$: Actions,
 		store: Store<any>
 	) {
-		console.log('test');
 		this.navigateToResource = actions$
 			.ofType(AppActionTypes.OPEN_RESOURCE)
 			.map((action: OpenResourceAction) => {
@@ -57,14 +56,13 @@ export class AppNavigationEffects {
 			.ofType(NgrxJsonApiActionTypes.API_DELETE_SUCCESS)
 			.withLatestFrom(store, (action, state) => getAppState(state))
 			.filter(state => state.current != null && state.current.resourceId != null)
-			.map(state => new OpenResourceAction(state.current.resourceId));
+			.map(state => new OpenResourceAction(state.current.resourceType));
 
 
 		this.openEditorByIdOnceResourceSuccessfullyPosted$ = actions$
 			.ofType(NgrxJsonApiActionTypes.API_APPLY_SUCCESS)
 			.withLatestFrom(store, (action: ApiApplySuccessAction, state) => {
 				const appState = getAppState(state);
-				console.log('hi', state, appState);
 				if (appState.current) {
 					return action.payload.find(apiPatchSuccessFilter(appState.current.resourceType));
 				}

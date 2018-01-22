@@ -13,7 +13,7 @@ import { SetCurrentResourceAction } from '../store';
  * Resolves resources for editors and explorers.
  */
 @Injectable()
-export class ResourceResolve implements Resolve<string> {
+export class AppResourceResolve implements Resolve<string> {
 
 	constructor(private store: Store<any>, private jsonApi: NgrxJsonApiService) {
 	}

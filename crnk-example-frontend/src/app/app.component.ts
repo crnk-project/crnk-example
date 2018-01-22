@@ -4,6 +4,8 @@ import { NgrxJsonApiService } from 'ngrx-json-api';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import 'rxjs/add/operator/toPromise';
+import { AppSnackBarService } from './common/snackbar';
+import { AppLoadingService } from './common/loading';
 
 
 @Component({
@@ -17,10 +19,16 @@ export class AppComponent {
 	navItems = [
 		{ name: 'Home', route: '/' },
 		{ name: 'Movies', route: '/movie' },
-		{ name: 'Persons', route: '/person' }
+		{ name: 'Persons', route: '/person' },
+		{ name: 'Votes', route: '/vote' }
 	];
 
-	constructor(translate: TranslateService, router: Router, jsonApi: NgrxJsonApiService) {
+
+
+	constructor(
+		translate: TranslateService, router: Router, jsonApi: NgrxJsonApiService, snaback: AppSnackBarService,
+		public loading: AppLoadingService
+	) {
 		translate.addLangs(['en', 'fr']);
 		translate.setDefaultLang('en');
 		const browserLang = translate.getBrowserLang();

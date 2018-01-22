@@ -1,11 +1,11 @@
 <form #formRef="ngForm">
 	<div *ngIf="movie != null">
 
-		<demo-errors [errors]="binding.unmappedErrors"></demo-errors>
-
 		<div class="form-container">
 
 			<h1>Movie</h1>
+
+			<demo-errors [errors]="binding.unmappedErrors"></demo-errors>
 
 			<mat-form-field>
 				<input type="text" matInput [crnkFormExpression]="movie.attributes.name"
@@ -107,8 +107,11 @@
 		</div>
 
 		<p>
-			<button mat-raised-button [disabled]="!form.valid" (click)="binding.save()">Save</button>
+			<button mat-raised-button
+					[disabled]="!(binding.valid | async) || !(binding.dirty | async)" (click)="binding.save()">
+				Save
+			</button>
+			<button mat-raised-button (click)="binding.delete()">Delete</button>
 		</p>
-
 	</div>
 </form>
