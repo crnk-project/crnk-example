@@ -1,11 +1,11 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { NavigationError, NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NgrxJsonApiService } from 'ngrx-json-api';
 import { QueryError } from '@crnk/angular-ngrx';
 import { Go } from '../router/common.router.navigation';
 import { APP_JSON_API_EDITOR_ZONE } from '../common.resource.resolver';
-
+import * as _ from 'lodash';
 
 @Injectable()
 export class AppErrorRoutingService {
@@ -21,17 +21,17 @@ export class AppErrorRoutingService {
 			}
 			else if (event instanceof NavigationError) {
 				const errorEvent = event as NavigationError;
-
 				const withinErrorPage = errorEvent.url.toString().indexOf('error') !== -1;
 				if (!withinErrorPage) {
 					let errorPath = '/error/internal';
-					if (errorEvent.error instanceof QueryError) {
+					// TODO errorEvent.error instanceof QueryError not working, why?
+					if (errorEvent.error && _.isArray(errorEvent.error['errors'])) {
 						const queryError = errorEvent.error as QueryError;
 						for (const resourceError of queryError.errors) {
-							if (resourceError.code === '403') {
+							if (resourceError.status === '403') {
 								errorPath = '/error/forbidden';
 							}
-							if (resourceError.code === '404') {
+							if (resourceError.status === '404') {
 								errorPath = '/error/notfound';
 							}
 						}

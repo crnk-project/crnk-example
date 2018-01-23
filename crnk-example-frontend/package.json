@@ -42,7 +42,7 @@
 		"hammerjs": "^2.0.8",
 		"lodash": "^4.17.4",
 		"moment": "^2.8.1",
-		"ngrx-json-api": "^2.2.0",
+		"ngrx-json-api": "^2.2.2",
 		"ngrx-store-freeze": "^0.1.9",
 		"primeng": "^5.0.2",
 		"reselect": "^2.5.4",

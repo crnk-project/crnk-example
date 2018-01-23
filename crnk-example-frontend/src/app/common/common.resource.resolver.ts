@@ -3,13 +3,14 @@ import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
 import '../rxjs-operators';
-import { Query, NgrxJsonApiService, uuid, NGRX_JSON_API_DEFAULT_ZONE } from 'ngrx-json-api';
-import { waitWhileLoading, assumeNoError } from '@crnk/angular-ngrx/binding';
+import { NGRX_JSON_API_DEFAULT_ZONE, NgrxJsonApiService, Query, QueryResult, uuid } from 'ngrx-json-api';
+import { assumeNoError, waitWhileLoading } from '@crnk/angular-ngrx/binding';
 import { createEmptyMovie } from 'resources';
 import { SetCurrentResourceAction } from '../store';
+import { Observable } from 'rxjs/Observable';
 
 
-export const APP_JSON_API_EDITOR_ZONE = 'editor'
+export const APP_JSON_API_EDITOR_ZONE = 'editor';
 
 /**
  * Resolves resources for editors and explorers.
@@ -27,7 +28,7 @@ export class AppResourceResolve implements Resolve<string> {
 		const queryId = type + (id ? '_' + id : '_list');
 
 		// load editor contents in isolated zone
-		const zoneId = id ? APP_JSON_API_EDITOR_ZONE : NGRX_JSON_API_DEFAULT_ZONE
+		const zoneId = id ? APP_JSON_API_EDITOR_ZONE : NGRX_JSON_API_DEFAULT_ZONE;
 		const zone = this.jsonApi.getZone(zoneId);
 
 		const query: Query = {
@@ -67,7 +68,7 @@ export class AppResourceResolve implements Resolve<string> {
 		// throws an Error in case of a JSON API error. Can be generically handled by listing to route changes
 		// TODO implement selectResult covering many and one
 
-		const results$ = id ? zone.selectOneResults(queryId) : zone.selectManyResults(queryId);
+		const results$: Observable<QueryResult> = id ? zone.selectOneResults(queryId) : zone.selectManyResults(queryId);
 		return results$
 			.let(waitWhileLoading())
 			.let(assumeNoError())

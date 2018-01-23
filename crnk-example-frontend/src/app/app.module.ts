@@ -26,6 +26,7 @@ import { AppComponent } from './app.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { PersonModule } from './person';
 import { VoteModule } from './vote';
+import { SecretModule } from './secret';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -71,6 +72,7 @@ export const reducers: ActionReducerMap<any> = {};
 		MovieModule,
 		VoteModule,
 		PersonModule,
+		SecretModule,
 		AppStoreModule,
 
 		RouterModule.forRoot(ROUTES, { useHash: true }),

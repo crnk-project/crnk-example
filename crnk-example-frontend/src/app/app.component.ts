@@ -19,7 +19,8 @@ export class AppComponent {
 		{ name: 'Home', route: '/' },
 		{ name: 'Movies', route: '/movie' },
 		{ name: 'Persons', route: '/person' },
-		{ name: 'Votes', route: '/vote' }
+		{ name: 'Votes', route: '/vote' },
+		{ name: 'Secrets', route: '/secret' }
 	];
 
 

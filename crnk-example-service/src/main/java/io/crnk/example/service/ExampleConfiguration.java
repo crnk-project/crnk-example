@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan("io.crnk.example.service")
-@Import({ RepositoryConfiguration.class, CorsConfig.class, TestDataLoader.class })
+@Import({ RepositoryConfiguration.class, TestDataLoader.class, SecurityConfiguration.class })
 public class ExampleConfiguration {
 
 	@Autowired
