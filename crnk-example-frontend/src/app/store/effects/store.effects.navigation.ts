@@ -16,9 +16,8 @@ import 'rxjs/add/operator/withLatestFrom';
 import '../../rxjs-operators';
 import { Go } from '../../common/router/common.router.navigation';
 import { AppActionTypes, OpenResourceAction } from '../store.actions';
-import { ApiApplySuccessAction, ApiPatchSuccessAction, ApiPostSuccessAction, NgrxJsonApiActionTypes } from 'ngrx-json-api';
-import { AppState } from '../store.model';
-import { apiPatchSuccessFilter, apiPostSuccessFilter } from './store.effects.utils';
+import { ApiApplySuccessAction, ApiPostSuccessAction, NgrxJsonApiActionTypes } from 'ngrx-json-api';
+import { apiPostSuccessFilter } from './store.effects.utils';
 import { getAppState } from '../store.module';
 
 
@@ -63,13 +62,11 @@ export class AppNavigationEffects {
 			.ofType(NgrxJsonApiActionTypes.API_APPLY_SUCCESS)
 			.withLatestFrom(store, (action: ApiApplySuccessAction, state) => {
 				const appState = getAppState(state);
-				console.log(appState);
 				if (appState.current) {
 					return action.payload.find(apiPostSuccessFilter(appState.current.resourceType));
 				}
 				return null;
 			})
-			.do(it => console.log('SWT', it))
 			.filter(action => action != null)
 			.map((action: ApiPostSuccessAction) => action.payload.jsonApiData.data)
 			.map(resource => new OpenResourceAction(resource.type, resource.id));
