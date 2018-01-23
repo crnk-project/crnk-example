@@ -3,11 +3,13 @@ import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
 import '../rxjs-operators';
-import { Query, NgrxJsonApiService, uuid } from 'ngrx-json-api';
+import { Query, NgrxJsonApiService, uuid, NGRX_JSON_API_DEFAULT_ZONE } from 'ngrx-json-api';
 import { waitWhileLoading, assumeNoError } from '@crnk/angular-ngrx/binding';
 import { createEmptyMovie } from 'resources';
 import { SetCurrentResourceAction } from '../store';
 
+
+export const APP_JSON_API_EDITOR_ZONE = 'editor'
 
 /**
  * Resolves resources for editors and explorers.
@@ -23,6 +25,10 @@ export class AppResourceResolve implements Resolve<string> {
 		const type = route.data['resourceType'];
 		const isNew = id === 'create';
 		const queryId = type + (id ? '_' + id : '_list');
+
+		// load editor contents in isolated zone
+		const zoneId = id ? APP_JSON_API_EDITOR_ZONE : NGRX_JSON_API_DEFAULT_ZONE
+		const zone = this.jsonApi.getZone(zoneId);
 
 		const query: Query = {
 			queryId: queryId,
@@ -45,14 +51,14 @@ export class AppResourceResolve implements Resolve<string> {
 			};
 			query.id = uuid();
 			const emptyResource = emptyFactories[type](query.id);
-			this.jsonApi.postResource({
+			zone.postResource({
 				resource: emptyResource
 			});
 		}
 
 		this.store.dispatch(new SetCurrentResourceAction(query.type, query.id, isNew));
 
-		this.jsonApi.putQuery({
+		zone.putQuery({
 			query: query,
 			fromServer: !isNew
 		});
@@ -61,11 +67,11 @@ export class AppResourceResolve implements Resolve<string> {
 		// throws an Error in case of a JSON API error. Can be generically handled by listing to route changes
 		// TODO implement selectResult covering many and one
 
-		const results$ = id ? this.jsonApi.selectOneResults(queryId) : this.jsonApi.selectManyResults(queryId);
+		const results$ = id ? zone.selectOneResults(queryId) : zone.selectManyResults(queryId);
 		return results$
 			.let(waitWhileLoading())
 			.let(assumeNoError())
-			.map(it => queryId)
+			.map(() => queryId)
 			.take(1);
 	}
 }

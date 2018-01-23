@@ -4,8 +4,7 @@ import { NgrxJsonApiService } from 'ngrx-json-api';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import 'rxjs/add/operator/toPromise';
-import { AppSnackBarService } from './common/snackbar';
-import { AppLoadingService } from './common/loading';
+import { AppLoadingService, AppSnackBarService, AppErrorRoutingService } from './common';
 
 
 @Component({
@@ -24,10 +23,12 @@ export class AppComponent {
 	];
 
 
-
 	constructor(
-		translate: TranslateService, router: Router, jsonApi: NgrxJsonApiService, snaback: AppSnackBarService,
-		public loading: AppLoadingService
+		translate: TranslateService, router: Router, jsonApi: NgrxJsonApiService,
+		public loading: AppLoadingService,
+		// listed here to force loading:
+		snaback: AppSnackBarService,
+		routingService: AppErrorRoutingService
 	) {
 		translate.addLangs(['en', 'fr']);
 		translate.setDefaultLang('en');

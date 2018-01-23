@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { BeanBinding } from '@crnk/angular-ngrx/expression';
 import { FormBinding, CrnkBindingService } from '@crnk/angular-ngrx/binding';
 import { QMovie } from 'resources';
+import { APP_JSON_API_EDITOR_ZONE } from '../common';
 
 @Component({
 	selector: 'demo-movie-editor',
@@ -29,6 +30,7 @@ export class MovieEditorComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		const queryId = this.route.snapshot.data['queryId'];
 		this.binding = this.bindingService.bindForm({
+			zoneId: APP_JSON_API_EDITOR_ZONE,
 			form: this.form,
 			queryId: queryId
 		});
