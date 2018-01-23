@@ -69,7 +69,7 @@ export class AppNavigationEffects {
 				}
 				return null;
 			})
-			.do(it => console.log("SWT", it))
+			.do(it => console.log('SWT', it))
 			.filter(action => action != null)
 			.map((action: ApiPostSuccessAction) => action.payload.jsonApiData.data)
 			.map(resource => new OpenResourceAction(resource.type, resource.id));

@@ -33,7 +33,7 @@ typescriptGen {
 }
 typescriptGen.init()
 
-generateTypescript.dependsOn ':crnk-example-service:assemble'
+generateTypescript.dependsOn ':crnk-example-service:jar'
 
 
 task yarnRunBuild(type: YarnTask) {
@@ -75,8 +75,6 @@ clean.doFirst {
 	delete "node_modules/"
 }
 
-apply plugin: 'java'
-
 sourceSets {
 	main {
 		resources {
@@ -84,3 +82,4 @@ sourceSets {
 		}
 	}
 }
+

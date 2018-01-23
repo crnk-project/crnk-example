@@ -4,10 +4,10 @@
 	"angular-cli": {},
 	"scripts": {
 		"ng": "ng",
-		"build": "node_modules/.bin/ng build --preserveSymlinks --prod",
-		"build:debug": "node_modules/.bin/ng build --target=production --environment=prod --verbose --no-progress --aot=false -sm  --preserveSymlinks",
-		"build:dev": "ng build",
-		"start": "ng serve --preserveSymlinks --proxy-config proxy.conf.json",
+		"build": "yarn install && node_modules/.bin/ng build --preserveSymlinks --prod",
+		"build:debug": "yarn install && node_modules/.bin/ng build --target=production --environment=prod --verbose --no-progress --aot=false -sm  --preserveSymlinks",
+		"build:dev": "yarn install && ng build",
+		"start": "yarn install && ng serve --preserveSymlinks --proxy-config proxy.conf.json",
 		"test": "ng test --single-run",
 		"lint": "ng lint --fix",
 		"e2e": "ng e2e"

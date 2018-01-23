@@ -10,7 +10,7 @@
 			<mat-form-field>
 				<input type="text" matInput [crnkFormExpression]="movie.attributes.name"
 						[placeholder]="'name' | translate" />
-				<demo-control-errors [expression]="movie.attributes.name"></demo-control-errors>
+				<mat-error><demo-control-errors [expression]="movie.attributes.name"></demo-control-errors></mat-error>
 			</mat-form-field>
 
 			<mat-form-field>

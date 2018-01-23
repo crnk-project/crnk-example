@@ -1,10 +1,12 @@
 apply plugin: 'java'
-
+tasks.withType(Jar) { jar ->
+	jar.version = null
+}
 
 
 apply plugin: 'application'
 
-mainClassName = "io.crnk.example.service.SpringBootExampleApplication"
+mainClassName = "io.crnk.example.service.ExampleApplication"
 
 def crnkVersion = versions['crnk.version']
 
@@ -36,3 +38,32 @@ dependencies {
 	testCompile 'com.jayway.restassured:rest-assured:2.9.0'
 	testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
 }
+
+distZip.dependsOn ':crnk-example-frontend:assemble'
+distTar.dependsOn ':crnk-example-frontend:assemble'
+
+apply plugin: 'com.bmuschko.docker-java-application'
+
+dockerDistTar {
+	environmentVariable('JAVA_OPTS', '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap')
+}
+
+docker {
+	javaApplication {
+		baseImage = 'anapsix/alpine-java'
+		maintainer = '"remo@adnovum.ch"'
+		ports = [8080]
+		tag = "crnk/example:$project.version"
+		exec {
+			entryPoint "/crnk-example-service/bin/crnk-example-service"
+			defaultCommand 'run'
+		}
+	}
+
+	registryCredentials {
+		email = 'remo@adnovum.ch'
+		username = dockerHubUser
+		password = dockerHubUser
+	}
+}
+

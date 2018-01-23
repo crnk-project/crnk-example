@@ -37,6 +37,11 @@ In order to run this example do:
 
 	gradlew run
 
+or
+
+    docker run --name=crnk -p 8080:8080 crnk/example
+
+
 The frontend application will be available at
  
  	http://localhost:8080/

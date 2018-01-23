@@ -3,6 +3,8 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Store } from '@ngrx/store';
+
+import * as _ from 'lodash';
 import {
 	NgrxJsonApiService, NgrxJsonApiStore, NgrxJsonApiModule, getNgrxJsonApiStore, NgrxJsonApiState,
 	NgrxJsonApiZone
@@ -39,7 +41,7 @@ export class AppLoadingService {
 		// note that not GET operations are tracked, either this happens during navigation or the component is responsible
 		// for displaying a loading indictor
 		this.store.select('NgrxJsonApi').subscribe((jsonapiState: NgrxJsonApiState) => {
-			const zoneIds = _.keys(jsonapiState.zones)
+			const zoneIds = _.keys(jsonapiState.zones);
 			const isBusy = (zone: NgrxJsonApiZone) => zone.isApplying > 0 || zone.isCreating > 0 || zone.isDeleting > 0 ||
 				zone.isUpdating > 0;
 			this.isJsonApiModifying = zoneIds.find(zoneId => isBusy(jsonapiState.zones[zoneId])) != null;
@@ -47,7 +49,7 @@ export class AppLoadingService {
 
 
 		// we wait 300ms before switching to the loading state, but we immediately switch back
-		this._state = this.loadingState.asObservable().distinctUntilChanged().debounce(it => Observable.timer(it ? 300 : 0)));
+		this._state = this.loadingState.asObservable().distinctUntilChanged().debounce(it => Observable.timer(it ? 300 : 0));
 	}
 
 	private updateLoadingState() {

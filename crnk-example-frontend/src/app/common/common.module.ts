@@ -15,7 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppSnackBarService } from './snackbar';
 import { AppErrorRoutingService } from './error/common.error.route';
 import { AppLoadingService } from './loading';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule, MatInputModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 
 export const ERROR_ROUTES: Routes = [
@@ -28,7 +28,7 @@ export const ERROR_ROUTES: Routes = [
 	imports: [CommonModule, MessagesModule,
 		CrnkBindingModule, FormsModule,
 
-		MatButtonModule, TranslateModule,
+		MatButtonModule, MatInputModule, TranslateModule,
 
 		RouterModule.forChild(ERROR_ROUTES),
 		EffectsModule.forFeature([RouterEffects])

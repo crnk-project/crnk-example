@@ -3,6 +3,11 @@ include ':crnk-example-service', 'crnk-example-frontend'
 gradle.beforeProject { Project project ->
 	project.with {
 
+		ext {
+			dockerHubUser = System.getenv('DOCKER_HUB_USER')
+			dockerHubPass = System.getenv('DOCKER_HUB_PASS')
+		}
+
 		buildscript {
 			repositories {
 				mavenLocal()

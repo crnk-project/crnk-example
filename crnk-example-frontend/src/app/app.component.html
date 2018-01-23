@@ -7,7 +7,7 @@
 	</div>
 
 	<div style="width:100%;height:100%">
-		<mat-toolbar color="primary">
+		<mat-toolbar color="primary" class="mat-elevation-z8">
 			<!--
 			<button mat-icon-button (click)="start.open('mouse')">
 				<mat-icon>menu</mat-icon>
@@ -15,13 +15,13 @@
 			-->
 			<div class="demo-toolbar">
 				<h1>Crnk Example</h1>
-				<div>
+				<div >
 					<!--
 					<button mat-icon-button href=""(click)="toggleFullscreen()" title="Toggle fullscreen">
 						<mat-icon>fullscreen</mat-icon>
 					</button>
 					-->
-					<a mat-button href="http://www.crnk.io/documentation/">
+					<a mat-button href="http://www.crnk.io/documentation/#_angular_development_with_ngrx">
 						Documentation
 					</a>
 				</div>
@@ -30,9 +30,9 @@
 
 		<div #root="dir" dir="ltr" style="width:100%;height:100%">
 
-			<mat-sidenav-container style="width:100%;height:100%">
+			<mat-sidenav-container style="width:100%;height:100%" >
 
-				<mat-sidenav #start mode="side" opened="true">
+				<mat-sidenav #start mode="side" opened="true" class="mat-elevation-z8">
 					<mat-nav-list>
 						<a *ngFor="let navItem of navItems"
 								mat-list-item

@@ -50,13 +50,14 @@ export class ResourceErrorsComponent {
  *     <li>JSON API errors</li>
  *     <li>anything resembling a json api error (having a code, title, detail or id)</li>
  * </ul>
+ *
+ * In this application we make use of <mat-errors> to integrate within the form field. From this it will get proper formatting
+ * and coloring.
  */
 @Component({
 	selector: 'demo-error',
 	template: `
-		<div class="ui-message ui-messages-error ui-corner-all">
-			{{message | translate}}
-		</div>
+		{{message | translate}}
 	`,
 })
 export class ErrorComponent {
@@ -68,8 +69,8 @@ export class ErrorComponent {
 			return undefined;
 		}
 
-		if (this.error.status == '409') {
-			return 'error.conflict'
+		if (this.error.status === '409') {
+			return 'error.conflict';
 		}
 
 		if (this.error.code || this.error.id || this.error.detail || this.error.title) {
