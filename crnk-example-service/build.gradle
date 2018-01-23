@@ -1,3 +1,5 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
+
 apply plugin: 'java'
 tasks.withType(Jar) { jar ->
 	jar.version = null
@@ -67,4 +69,17 @@ docker {
 	}
 }
 
-dockerBuildImage.dependsOn assemble
+
+task dockerTagLatest(type: DockerTagImage) {
+	dependsOn dockerBuildImage
+	force = true
+	imageId = dockerBuildImage.getTag()
+	repository = 'crnk/example'
+	tag = "latest"
+}
+
+dockerPushImage{
+	dependsOn dockerTagLatest
+	tag = "latest"
+}
+
