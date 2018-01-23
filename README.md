@@ -83,13 +83,16 @@ use of JSON API:
 - https://www.npmjs.com/package/@crnk/angular-ngrx is used to simplify binding
   of frontend components to JSON API. 
   see http://www.crnk.io/documentation/#_angular_development_with_ngrx.
-- UI components and styling is taken from Angular Material. Some further PrimeNG components are used (currently the table).
+- UI components and styling is taken from Angular Material. Some further PrimeNG components are 
+  used (currently the table). You may use any UI component libary of your choice. Only the table
+  binding of @crnk/angular-ngrx may need to be generalized (currently still PrimeNG-only to a small part). 
  
 In more detail:
 
 - `AppModule` initializes the application.
 - `crnk-typescript-gen` is setup in Gradle to generate resource stubs into `src/resources`.
-- `demo.scss` does some styling, work in progress.
+- `demo.scss` does some styling, work in progress. Google Material does a good job in general. PrimeNG not such much
+  without the commercial themes that are not usable in OSS projects.
 - `MovieModule` shows a typical CRUD pattern with a table (explorer) and editor. 
   - The explorer supports sorting, filtering and pagination.
   - The explorer allows to create an new resource with an editor.
@@ -98,14 +101,18 @@ In more detail:
   - The editor allows to delete the record. 
   - The editor makes use of the generated resource stubs to gain type-safety.
   - The editor attempts to map JSON API error to the individual form fields. If that is not possible
-    it will be shown on the top of the editor (such as for `OptimisticLockException` that concerns the entire changed resource)
-- `AppResourceResolve` is used during routing to load the necessary data for a screen.    
+    it will be shown on the top of the editor (such as for `OptimisticLockException` that concerns the entire changed resource).
+    Leaving the name field empty will give an error. Or editing the resource in two windows concurrently will give conflict
+    error for the later.
+- `AppResourceResolve` is used during routing to load the necessary data for a screen. Here you can make use of advanced
+  loading patterns like inclusions, sparse field sets, loading what has not already be loaded or isolating different
+  parts of the application into different ngrx-json-api zones. The current example is still rather simple.
 - `AppSnackBarService` shows the the user when a resource was successfully created or saved. Notifications
-  are obtained from the store. `AppNotificationEffects` is responsible for setting up those notifications..  
+  are obtained from the store. `AppNotificationEffects` is responsible for putting those notifications into the store.
 - `TranslateModule` and https://momentjs.com/ is used to do internationalization.
-- `app/common/error` displays error screens and provies components for form validation. 
-  - `ErrorRoutingService` triggers the navigation to the various error pages if a service call fails with ce
-     rtain error codes. 
+- `app/common/error` displays error screens and provides components for form validation. 
+  - `ErrorRoutingService` triggers the navigation to the various error pages if a service call fails with certain
+     error code. 
   - `ErrorComponent` displays a single error. Currently it has special handling of `OptimisticLockException`
      with status code `409`.   
 - `LoadingService` displays a loading/busy screen if a resolver within navigation or a JSON API modification
@@ -126,11 +133,12 @@ There are plenty of possible improvements:
 - UI polishing
 - Testing setup for frontend.
 - Refine the data model.
-- Security Setup
-- Inline table editing for frontend
-- More complex table filtering
-- More complex editor with more widgets and nested resources
+- Security Setup.
+- Inline table editing for frontend.
+- More complex table filtering.
+- More complex editor with more widgets and nested resources.
 - More complex logic within repositories, such as an approval flow.
+- More complex data loading patterns in `AppResourceResolve`.
 - ...
 
 Feedback and PRs very welcomed!
