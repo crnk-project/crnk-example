@@ -17,7 +17,7 @@ hs_err_pid*
 
 # User-specific stuff:
 .idea/workspace.xml
-.idea/tasks.xml
+.idea/roles.xml
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
@@ -37,7 +37,7 @@ hs_err_pid*
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
 
-## File-based project format:
+## File-based movie format:
 *.iws
 
 ## Plugin-specific files:
@@ -72,7 +72,7 @@ local.properties
 .recommenders
 
 # Eclipse Core
-.project
+.movie
 
 # External tool builders
 .externalToolBuilders/
@@ -99,7 +99,7 @@ local.properties
 .target
 
 # Tern plugin
-.tern-project
+.tern-movie
 
 # TeXlipse plugin
 .texlipse

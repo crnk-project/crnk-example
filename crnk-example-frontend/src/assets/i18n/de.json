@@ -1,0 +1,27 @@
+{
+
+	"name": "Name",
+
+	"auditInfo.ctlCreTs": "Erstellt um",
+	"auditInfo.ctlCreUid": "Erstellt am",
+	"auditInfo.ctlModTs": "Geändert von",
+	"auditInfo.ctlModUid": "Geändert am",
+
+	"action.refresh": "Aktualisieren",
+	"action.create": "Erstellen",
+	"action.save": "Speichern",
+	"action.delete": "Löschen",
+	"action.select": "Auswählen...",
+	"action.selection.accept": "Auswählen",
+	"action.clear": "Entfernen",
+	"action.add": "Hinzufügen...",
+	"action.remove": "Entfernen",
+	"action.cancel": "Abbrechen",
+
+	"editor.save.success": "Änderung gespeichert.",
+	"editor.create.success": "Erstellt.",
+
+	"service.selected": "Ausgewählter Service",
+
+	"error.conflict": "Änderung durch einen anderen Benutzer. Aktualisieren Sie diese Seite um die aktuellen Änderungen zu sehen."
+}

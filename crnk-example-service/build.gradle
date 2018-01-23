@@ -1,8 +1,14 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
+
 apply plugin: 'java'
+tasks.withType(Jar) { jar ->
+	jar.version = null
+}
+
 
 apply plugin: 'application'
 
-mainClassName = "io.crnk.example.service.SpringBootExampleApplication"
+mainClassName = "io.crnk.example.service.ExampleApplication"
 
 def crnkVersion = versions['crnk.version']
 
@@ -17,20 +23,63 @@ dependencies {
 	compile "io.crnk:crnk-operations:${crnkVersion}"
 	compile "io.crnk:crnk-security:${crnkVersion}"
 
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE'
-	compile 'org.springframework.boot:spring-boot-starter-web:1.5.8.RELEASE'
-	compile 'org.springframework.boot:spring-boot-starter-actuator:1.5.8.RELEASE'
-	compile 'org.springframework.cloud:spring-cloud-starter-sleuth:1.3.0.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.springframework.boot:spring-boot-starter-actuator'
+	compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
 
-	compile 'org.hibernate:hibernate-core:5.1.0.Final'
-	compile 'org.hibernate:hibernate-entitymanager:5.1.0.Final'
-	compile 'com.h2database:h2:1.4.195'
-	compile 'io.zipkin.brave:brave-instrumentation-okhttp3:4.9.1'
+	compile 'org.hibernate:hibernate-core'
+	compile 'com.h2database:h2'
 	compile 'commons-io:commons-io:1.3.2'
 
-	testCompile 'org.springframework.boot:spring-boot-starter-test:1.5.8.RELEASE'
+	compile project(':crnk-example-frontend')
+
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
 	testCompile "io.crnk:crnk-client:${crnkVersion}"
 	testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
 	testCompile 'com.jayway.restassured:rest-assured:2.9.0'
 	testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
 }
+
+distZip.dependsOn ':crnk-example-frontend:assemble'
+distTar.dependsOn ':crnk-example-frontend:assemble'
+
+apply plugin: 'com.bmuschko.docker-java-application'
+
+dockerDistTar {
+	environmentVariable('JAVA_OPTS', '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap')
+}
+
+docker {
+	javaApplication {
+		baseImage = 'anapsix/alpine-java'
+		maintainer = '"remo@adnovum.ch"'
+		ports = [8080]
+		tag = "crnk/example:$project.version"
+		exec {
+			entryPoint "/crnk-example-service/bin/crnk-example-service"
+			defaultCommand 'run'
+		}
+	}
+
+	registryCredentials {
+		email = 'remo@adnovum.ch'
+		username = dockerHubUser
+		password = dockerHubPass
+	}
+}
+
+
+task dockerTagLatest(type: DockerTagImage) {
+	dependsOn dockerBuildImage
+	force = true
+	imageId = dockerBuildImage.getTag()
+	repository = 'crnk/example'
+	tag = "latest"
+}
+
+dockerPushImage{
+	dependsOn dockerTagLatest
+	tag = "latest"
+}
+

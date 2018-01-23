@@ -4,19 +4,23 @@
 			 xs:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 			 xmlns="http://java.sun.com/xml/ns/persistence">
 
-	<persistence-unit name="TEST_SPRING" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem"/>
-			<property name="javax.persistence.jdbc.user" value="sa"/>
+	<persistence-unit name="EXAMPLE-UNIT" transaction-type="RESOURCE_LOCAL">
+		<class>io.crnk.example.service.domain.entity.MovieEntity</class>
+		<class>io.crnk.example.service.domain.entity.RoleEntity</class>
+		<class>io.crnk.example.service.domain.entity.ScheduleEntity</class>
+		<class>io.crnk.example.service.domain.entity.PersonEntity</class>
 
-			<property name="hibernate.id.new_generator_mappings" value="true"/>
-			<property name="hibernate.dialect" value="H2"/>
-			<property name="hibernate.format_sql" value="false"/>
-			<property name="hibernate.hbm2ddl.auto" value="drop-and-create"/>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+
+			<property name="hibernate.id.new_generator_mappings" value="true" />
+			<property name="hibernate.dialect" value="H2" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="drop-and-create" />
 			<property name="hibernate.validator.autoregister_listeners"
-					  value="true"/>
+					  value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>

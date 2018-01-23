@@ -1,25 +1,23 @@
-include ':crnk-example-service'
+include ':crnk-example-service', 'crnk-example-frontend'
 
 gradle.beforeProject { Project project ->
 	project.with {
 
-		// get password from environment if available
-		if (System.env['SIGNING_PASSWORD']) {
-			ext['signing.password'] = System.env['SIGNING_PASSWORD']
-		}
-		String sonarLogin = System.env['SONAR_LOGIN']
-		if (sonarLogin) {
-			System.setProperty("sonar.login", sonarLogin)
+		ext {
+			dockerHubUser = System.getenv('DOCKER_HUB_USER')
+			dockerHubPass = System.getenv('DOCKER_HUB_PASS')
 		}
 
 		buildscript {
 			repositories {
+				mavenLocal()
 				maven {
 					url('https://plugins.gradle.org/m2')
 				}
 			}
 		}
 		repositories {
+			mavenLocal()
 			mavenCentral()
 			maven {
 				url('https://plugins.gradle.org/m2')

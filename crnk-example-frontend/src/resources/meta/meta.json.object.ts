@@ -1,0 +1,34 @@
+import {
+	MetaDataObject,
+	QMetaDataObject
+} from './meta.data.object';
+import {
+	BeanPath,
+	StringPath
+} from '@crnk/angular-ngrx';
+import {
+	ManyQueryResult,
+	OneQueryResult
+} from 'ngrx-json-api';
+
+export interface MetaJsonObject extends MetaDataObject {
+}
+export interface MetaJsonObjectResult extends OneQueryResult {
+	data?: MetaJsonObject;
+}
+export interface MetaJsonObjectListResult extends ManyQueryResult {
+	data?: Array<MetaJsonObject>;
+}
+export class QMetaJsonObject extends BeanPath<MetaJsonObject> {
+	metaId = 'resources.meta.jsonObject';
+	id: StringPath = this.createString('id');
+	type: StringPath = this.createString('type');
+	relationships: QMetaDataObject.QRelationships = new QMetaDataObject.QRelationships(this, 'relationships');
+	attributes: QMetaDataObject.QAttributes = new QMetaDataObject.QAttributes(this, 'attributes');
+}
+export let createEmptyMetaJsonObject = function(id: string): MetaJsonObject {
+	return {
+		id: id,
+		type: 'meta/jsonObject',
+	};
+};

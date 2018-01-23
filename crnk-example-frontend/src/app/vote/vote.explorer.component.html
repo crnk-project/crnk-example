@@ -1,0 +1,18 @@
+<h1>Votes</h1>
+
+<div class="mat-elevation-z8">
+	<p-dataTable [value]="votes.data" selectionMode="single" [(selection)]="binding.selectedResource"
+			[lazy]="true" [rows]="10" [paginator]="true"
+			[totalRecords]="votes.meta?.totalResourceCount"
+			(onLazyLoad)="binding.onLazyLoad($event)"
+	>
+		<p-column field="attributes.name" [header]="'name' | translate" sortable="true" [filter]="true"></p-column>
+	</p-dataTable>
+</div>
+
+<p>
+	<button mat-raised-button (click)="binding.refresh()">Refresh</button>
+	<!--
+	<button mat-raised-button (click)="create()">Create</button>
+	-->
+</p>
