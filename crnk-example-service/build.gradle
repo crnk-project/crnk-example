@@ -63,7 +63,8 @@ docker {
 	registryCredentials {
 		email = 'remo@adnovum.ch'
 		username = dockerHubUser
-		password = dockerHubUser
+		password = dockerHubPass
 	}
 }
 
+dockerBuildImage.dependsOn assemble

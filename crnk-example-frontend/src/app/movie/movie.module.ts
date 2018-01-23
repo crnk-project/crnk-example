@@ -48,7 +48,7 @@ export const MOVIE_ROUTES: Routes = [
 		StoreModule, RouterModule, FormsModule, EffectsModule, NgrxJsonApiModule,
 		RouterModule.forChild(MOVIE_ROUTES), TranslateModule,
 
-		MatButtonModule, MatInputModule, MatSnackBarModule
+		MatButtonModule, MatInputModule, MatSnackBarModule,
 
 		DataTableModule, ButtonModule, InputTextModule,
 		AppCommonModule,
