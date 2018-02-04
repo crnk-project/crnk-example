@@ -85,7 +85,8 @@ public class TestDataLoader {
 
 	protected MovieEntity createMovie(String title, int year, List<String> actors) {
 		MovieEntity movie = new MovieEntity();
-		movie.setId(UUID.randomUUID());
+		// generate same id based on title
+		movie.setId(UUID.nameUUIDFromBytes(title.getBytes()));
 		movie.setName(title);
 		em.persist(movie);
 		return movie;
@@ -93,7 +94,7 @@ public class TestDataLoader {
 
 	protected PersonEntity createPerson(String title) {
 		PersonEntity person = new PersonEntity();
-		person.setId(UUID.randomUUID());
+		person.setId(UUID.nameUUIDFromBytes(title.getBytes()));
 		person.setName(title);
 		em.persist(person);
 		return person;

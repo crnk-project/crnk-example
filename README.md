@@ -50,6 +50,26 @@ The JSON API endpoint will be available at:
  	
  	http://localhost:8080/api/
  	
+Some further URLs to play around that show the power of Crnk:
+
+    http://127.0.0.1:8080/api/movie
+    http://127.0.0.1:8080/api/movie/44cda6d4-1118-3600-9cab-da760bfd678c
+    http://127.0.0.1:8080/api/movie/44cda6d4-1118-3600-9cab-da760bfd678c
+    http://127.0.0.1:8080/api/movie/44cda6d4-1118-3600-9cab-da760bfd678c/project
+    http://127.0.0.1:8080/api/movie/44cda6d4-1118-3600-9cab-da760bfd678c/relationships/project
+    http://127.0.0.1:8080/api/movie?sort=-name
+    http://127.0.0.1:8080/api/movie?sort=-id,name
+    http://127.0.0.1:8080/api/movie?sort=id&page[offset]=0&page[limit]=2
+    http://127.0.0.1:8080/api/movie?filter[name]=Iron Man
+    http://127.0.0.1:8080/api/movie?filter[name][EQ]=Iron Man
+    http://127.0.0.1:8080/api/movie?filter[name][LIKE]=Iron
+    http://127.0.0.1:8080/api/schedule
+    http://127.0.0.1:8080/api/scheduleDto
+    http://127.0.0.1:8080/api/meta/resource
+    http://127.0.0.1:8080/api/vote?fields=name // demos fields set & performance issues
+    http://127.0.0.1:8080/api/secrets // demos error
+ 	
+ 	
 To debug the frontend application go into `crnk-example-frontend` and use:
 
     yarn install
