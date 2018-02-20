@@ -83,11 +83,17 @@ Note that Gradle downloads a nodejs and yarn distribution into the
 
 The `crnk-example-service` project is the backend application showcasing:
 
-- Integration of Crnk into Spring Boot
+- integration of Crnk into Spring Boot
 - exposing entities with crnk-jpa using `ExampleJpaModuleConfigurer`
 - exception mapping with `CustomExceptionMapper`
-- manually writing a repository with `VoteRepositoryImpl` (making use of Thread.sleep to simulate heavy work)
-- delivery of an Angular frontend application accessing these JSON API services.
+- manually writing a resource repository with `VoteRepositoryImpl` (making use of Thread.sleep to simulate heavy work)
+- using `@JsonApiRelationId` with `ScreeningRepositoryImpl` to 
+  handle use cases where the related ID is easy to get, which in turn allows
+  to omit having to implement relationship repositories.
+- implementing a relationship repository with`HistoryRelationshipRepository`.
+- introducing new relationships to existing resources
+  without touching those resources with `HistoryFieldProvider`.  
+- delivery of an Angular frontend application accessing the JSON API endpoint.
 
 The `TestDataLoader` will automatically setup some test data upon start.
 

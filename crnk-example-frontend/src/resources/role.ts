@@ -1,4 +1,8 @@
 import {
+	History,
+	QHistory
+} from './history';
+import {
 	Movie,
 	QMovie
 } from './movie';
@@ -9,6 +13,7 @@ import {
 import {
 	BeanPath,
 	CrnkStoreResource,
+	QTypedManyResourceRelationship,
 	QTypedOneResourceRelationship,
 	StringPath
 } from '@crnk/angular-ngrx';
@@ -16,6 +21,7 @@ import {
 	ManyQueryResult,
 	OneQueryResult,
 	ResourceRelationship,
+	TypedManyResourceRelationship,
 	TypedOneResourceRelationship
 } from 'ngrx-json-api';
 
@@ -24,6 +30,7 @@ export module Role {
 		[key: string]: ResourceRelationship;
 		movie?: TypedOneResourceRelationship<Movie>;
 		person?: TypedOneResourceRelationship<Person>;
+		history?: TypedManyResourceRelationship<History>;
 	}
 	export interface Attributes {
 		name?: string;
@@ -65,6 +72,14 @@ export module QRole {
 			}
 			return this._person;
 		};
+		private _history: QTypedManyResourceRelationship<QHistory, History>;
+		get history(): QTypedManyResourceRelationship<QHistory, History> {
+			if (!this._history) {
+				this._history =
+					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
+			}
+			return this._history;
+		};
 	}
 	export class QAttributes extends BeanPath<Role.Attributes> {
 		name: StringPath = this.createString('name');
@@ -80,6 +95,7 @@ export let createEmptyRole = function(id: string): Role {
 		relationships: {
 			movie: {data: null},
 			person: {data: null},
+			history: {data: []},
 		},
 	};
 };

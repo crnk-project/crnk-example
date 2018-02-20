@@ -1,5 +1,7 @@
 package io.crnk.example.service.domain.resource;
 
+import io.crnk.core.resource.annotations.JsonApiRelation;
+import io.crnk.example.service.domain.entity.MovieEntity;
 import java.util.UUID;
 
 import io.crnk.core.resource.annotations.JsonApiId;
@@ -11,7 +13,8 @@ public class Vote {
 	@JsonApiId
 	private UUID id;
 
-	private String name;
+	@JsonApiRelation
+	private MovieEntity movie;
 
 	private int count;
 
@@ -23,12 +26,12 @@ public class Vote {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public MovieEntity getMovie() {
+		return movie;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMovie(MovieEntity movie) {
+		this.movie = movie;
 	}
 
 	public int getCount() {

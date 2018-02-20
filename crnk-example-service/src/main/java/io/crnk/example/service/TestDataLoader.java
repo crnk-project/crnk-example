@@ -1,5 +1,6 @@
 package io.crnk.example.service;
 
+import io.crnk.example.service.domain.resource.Screening;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -52,7 +53,8 @@ public class TestDataLoader {
 				createPerson("Kate Winslet");
 
 				createMovie("The Accountant", 2016, Arrays.asList("Ben Affleck", "Anna Kendrick"));
-				createMovie("Iron Man", 2008, Arrays.asList("Robert Downey Jr.", "Terrence Howard", "Jeff Bridges"));
+				MovieEntity movie =
+						createMovie("Iron Man", 2008, Arrays.asList("Robert Downey Jr.", "Terrence Howard", "Jeff Bridges"));
 				createMovie("Titanic", 1997, Arrays.asList("Leonardo DiCaprio", "Kate Winslet"));
 				createMovie("Mr. & Mrs. Smith", 2005, Arrays.asList("Brad Pitt", "Angelina Jolie"));
 
@@ -66,9 +68,9 @@ public class TestDataLoader {
 
 				for (int i = 0; i < 100; i++) {
 					Vote vote = new Vote();
-					vote.setId(UUID.randomUUID());
+					vote.setId(UUID.nameUUIDFromBytes(("vote" + i).getBytes()));
 					vote.setCount(i);
-					vote.setName("test" + i);
+					vote.setMovie(movie);
 					// bypass slow save
 					voteRepository.votes.put(vote.getId(), vote);
 				}
@@ -88,6 +90,7 @@ public class TestDataLoader {
 		// generate same id based on title
 		movie.setId(UUID.nameUUIDFromBytes(title.getBytes()));
 		movie.setName(title);
+		movie.setYear(year);
 		em.persist(movie);
 		return movie;
 	}

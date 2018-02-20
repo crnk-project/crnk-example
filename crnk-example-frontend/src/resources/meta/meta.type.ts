@@ -1,4 +1,8 @@
 import {
+	History,
+	QHistory
+} from '../history';
+import {
 	MetaElement,
 	QMetaElement
 } from './meta.element';
@@ -63,6 +67,14 @@ export module QMetaType {
 			}
 			return this._children;
 		};
+		private _history: QTypedManyResourceRelationship<QHistory, History>;
+		get history(): QTypedManyResourceRelationship<QHistory, History> {
+			if (!this._history) {
+				this._history =
+					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
+			}
+			return this._history;
+		};
 	}
 }
 export let createEmptyMetaType = function(id: string): MetaType {
@@ -73,6 +85,7 @@ export let createEmptyMetaType = function(id: string): MetaType {
 			elementType: {data: null},
 			parent: {data: null},
 			children: {data: []},
+			history: {data: []},
 		},
 	};
 };

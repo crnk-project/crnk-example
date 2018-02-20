@@ -4,7 +4,7 @@ gradle.beforeProject { Project project ->
 	project.with {
 
 		ext {
-			dockerHubUser = System.getenv('DOCKER_HUB_USER')
+			dockerHubUser = System.getenv('w')
 			dockerHubPass = System.getenv('DOCKER_HUB_PASS')
 		}
 
