@@ -15,10 +15,12 @@ import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { SecretExplorerComponent } from './secret.explorer.component';
+import { ProtectedGuard } from 'ngx-auth';
 
 export const PERSON_ROUTES: Routes = [
 	{
 		path: 'secret', component: SecretExplorerComponent,
+		canActivate: [ ProtectedGuard ],
 		data: {
 			resourceType: 'secret'
 		},

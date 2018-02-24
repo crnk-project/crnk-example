@@ -6,7 +6,7 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
 	template: `
 		<div class="exception-body error-page">
 			<div class="exception-type">
-				<img src="assets/images/error.svg">
+				<img src="/assets/images/error.svg">
 			</div>
 
 			<div class="card exception-panel">

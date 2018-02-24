@@ -94,6 +94,14 @@ The `crnk-example-service` project is the backend application showcasing:
 - introducing new relationships to existing resources
   without touching those resources with `HistoryFieldProvider`.  
 - delivery of an Angular frontend application accessing the JSON API endpoint.
+- `SecurityConfiguration` performs a OAuth setup with GitHub as provider.
+  `LoginRepository` gives access to information about the logged-in user through http://localhost:8080/api/login.
+  *Enable spring security in the `application.yaml`* to make use of the security features.
+  *Security is disabled by default* to facilitate playing with the example app.
+   The security setup is still work in progress. Currently the Angular app makes use of a session token
+   and the Spring backend takes care of interacting with the GitHub OAuth provider. 
+   In the future we may switch to a session-less, token-based setup (PRs welcomed).
+- `CSRF` (resp. `XSRF` in Angular terminology) protection through `SecurityConfiguration`. 
 
 The `TestDataLoader` will automatically setup some test data upon start.
 
@@ -148,6 +156,9 @@ In more detail:
 - `AppNavigationEffects` handles the navigation between explorer and editor screen.
   - Upon successful creation of a new resource, it will navigate to the new, permanent url.
   - Upon successful deletion of a resource, it will navigate back to the explorer. 
+- use of `https://github.com/serhiisol/ngx-auth` to handle authentication with OAuth setup on backend.
+- `AuthenticationService` performs a redirect to the GitHub login page in case of an unauthenticated REST call.
+  In the future we may switch to token-based setup (see `SecurityConfiguration` above for more information).
 
 More to come... 		
 

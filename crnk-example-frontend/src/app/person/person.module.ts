@@ -15,10 +15,12 @@ import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { PersonExplorerComponent } from './person.explorer.component';
+import { ProtectedGuard } from 'ngx-auth';
 
 export const PERSON_ROUTES: Routes = [
 	{
 		path: 'person', component: PersonExplorerComponent,
+		canActivate: [ ProtectedGuard ],
 		data: {
 			resourceType: 'person'
 		},

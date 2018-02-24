@@ -15,10 +15,12 @@ import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { VoteExplorerComponent } from './vote.explorer.component';
+import { ProtectedGuard } from 'ngx-auth';
 
 export const VOTE_ROUTES: Routes = [
 	{
 		path: 'vote', component: VoteExplorerComponent,
+		canActivate: [ProtectedGuard],
 		data: {
 			resourceType: 'vote'
 		},

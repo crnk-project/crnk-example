@@ -29,11 +29,12 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-security'
 	compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
 
+	compile 'org.springframework.security.oauth:spring-security-oauth2'
+
 	compile 'org.hibernate:hibernate-core'
 	compile 'com.h2database:h2'
 	compile 'commons-io:commons-io:1.3.2'
 	compile 'com.google.guava:guava:18.0'
-
 
 	compile project(':crnk-example-frontend')
 
@@ -81,7 +82,7 @@ task dockerTagLatest(type: DockerTagImage) {
 	tag = "latest"
 }
 
-dockerPushImage{
+dockerPushImage {
 	dependsOn dockerTagLatest
 	tag = "latest"
 }

@@ -16,7 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './common/common.module';
 import { MovieModule } from './movie/movie.module';
-import { CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import {
 	MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule,
 	MatProgressBarModule,
@@ -117,6 +117,10 @@ export const reducers: ActionReducerMap<any> = {};
 		*/
 
 	],
+	providers: [{
+		provide: APP_BASE_HREF,
+		useValue: '/'
+	}],
 	bootstrap: [
 		AppComponent
 	]

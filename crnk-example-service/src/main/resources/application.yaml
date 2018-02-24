@@ -1,0 +1,35 @@
+server:
+  address: 0.0.0.0
+
+spring:
+  security:
+    enabled: false
+
+security:
+  basic:
+    enabled: ${spring.security.enabled}
+
+management:
+  security:
+    enabled: ${spring.security.enabled}
+  port: 8081
+  context-path: /management
+
+crnk:
+  pathPrefix: /api
+  default-page-limit: 20
+  jpa:
+    exposeAll: false
+  security:
+    enabled: ${spring.security.enabled}
+
+github:
+  client:
+    clientId: 68ef680c19080cac43c8
+    # really don't do that when setting up a real-world application, put it into a secure vault!
+    clientSecret: 48c7c62ddb3f2159596534cef8003d0d596ad369
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+  resource:
+    userInfoUri: https://api.github.com/user

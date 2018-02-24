@@ -1,5 +1,6 @@
 package io.crnk.example.service;
 
+import io.crnk.example.service.security.SecurityConfiguration;
 import java.util.HashMap;
 import java.util.Map;
 

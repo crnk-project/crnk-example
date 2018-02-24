@@ -15,10 +15,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppCommonModule } from '../common';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule, MatSnackBarModule } from '@angular/material';
+import { ProtectedGuard } from 'ngx-auth';
 
 export const MOVIE_ROUTES: Routes = [
 	{
 		path: 'movie', component: MovieExplorerComponent,
+		canActivate: [ ProtectedGuard ],
 		data: {
 			resourceType: 'movie'
 		},
