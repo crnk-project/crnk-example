@@ -116,7 +116,7 @@ use of JSON API:
 - https://github.com/abdulhaq-e/ngrx-json-api is used as Angular JSON API library.
 - https://www.npmjs.com/package/@crnk/angular-ngrx is used to simplify binding
   of frontend components to JSON API. 
-  see http://www.crnk.io/documentation/#_angular_development_with_ngrx.
+  see http://www.crnk.io/releases/stable/documentation/#_angular_development_with_ngrx.
 - UI components and styling is taken from Angular Material. Some further PrimeNG components are 
   used (currently the table). You may use any UI component libary of your choice. Only the table
   binding of @crnk/angular-ngrx may need to be generalized (currently still PrimeNG-only to a small part). 
@@ -184,7 +184,7 @@ Feedback and PRs very welcomed!
 ## Links
 
 * [Homepage](http://www.crnk.io)
-* [Documentation](http://www.crnk.io/documentation)
+* [Documentation](http://www.crnk.io/releases/stable/documentation/)
 * [Source code](https://github.com/crnk-project/crnk-example/)
 * [Issue tracker](https://github.com/crnk-project/crnk-example/issues)
 * [Forum](https://gitter.im/crnk-io/Lobby)
