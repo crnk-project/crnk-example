@@ -10,18 +10,16 @@ apply plugin: 'application'
 
 mainClassName = "io.crnk.example.service.ExampleApplication"
 
-def crnkVersion = versions['crnk.version']
-
 dependencies {
 
-	compile "io.crnk:crnk-rs:${crnkVersion}"
-	compile "io.crnk:crnk-spring:${crnkVersion}"
-	compile "io.crnk:crnk-jpa:${crnkVersion}"
-	compile "io.crnk:crnk-validation:${crnkVersion}"
-	compile "io.crnk:crnk-home:${crnkVersion}"
-	compile "io.crnk:crnk-ui:${crnkVersion}"
-	compile "io.crnk:crnk-operations:${crnkVersion}"
-	compile "io.crnk:crnk-security:${crnkVersion}"
+	compile "io.crnk:crnk-rs"
+	compile "io.crnk:crnk-spring"
+	compile "io.crnk:crnk-jpa"
+	compile "io.crnk:crnk-validation"
+	compile "io.crnk:crnk-home"
+	compile "io.crnk:crnk-ui"
+	compile "io.crnk:crnk-operations"
+	compile "io.crnk:crnk-security"
 
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'org.springframework.boot:spring-boot-starter-web'
@@ -39,7 +37,7 @@ dependencies {
 	compile project(':crnk-example-frontend')
 
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
-	testCompile "io.crnk:crnk-client:${crnkVersion}"
+	testCompile "io.crnk:crnk-client"
 	testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
 	testCompile 'com.jayway.restassured:rest-assured:2.9.0'
 	testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'

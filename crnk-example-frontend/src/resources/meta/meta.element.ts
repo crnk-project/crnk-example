@@ -1,8 +1,4 @@
 import {
-	History,
-	QHistory
-} from '../history';
-import {
 	BeanPath,
 	CrnkStoreResource,
 	QTypedManyResourceRelationship,
@@ -22,7 +18,6 @@ export module MetaElement {
 		[key: string]: ResourceRelationship;
 		parent?: TypedOneResourceRelationship<MetaElement>;
 		children?: TypedManyResourceRelationship<MetaElement>;
-		history?: TypedManyResourceRelationship<History>;
 	}
 	export interface Attributes {
 		name?: string;
@@ -63,14 +58,6 @@ export module QMetaElement {
 			}
 			return this._children;
 		};
-		private _history: QTypedManyResourceRelationship<QHistory, History>;
-		get history(): QTypedManyResourceRelationship<QHistory, History> {
-			if (!this._history) {
-				this._history =
-					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
-			}
-			return this._history;
-		};
 	}
 	export class QAttributes extends BeanPath<MetaElement.Attributes> {
 		name: StringPath = this.createString('name');
@@ -85,7 +72,6 @@ export let createEmptyMetaElement = function(id: string): MetaElement {
 		relationships: {
 			parent: {data: null},
 			children: {data: []},
-			history: {data: []},
 		},
 	};
 };

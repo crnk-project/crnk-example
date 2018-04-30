@@ -1,4 +1,3 @@
-// tag::versions[]
 buildscript {
 	dependencies {
 		apply from: "versions.gradle"
@@ -44,15 +43,14 @@ if (JavaVersion.current().isJava8Compatible()) {
 gradle.beforeProject { Project project ->
 	project.with {
 		apply plugin: "eclipse"
-
 		apply plugin: 'io.spring.dependency-management'
 		dependencyManagement {
 			imports {
 				mavenBom 'org.springframework.boot:spring-boot-dependencies:1.5.8.RELEASE'
 				mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Dalston.SR4'
+				mavenBom "io.crnk:crnk-bom:${versions['crnk.version']}"
 			}
 		}
 	}
-
 }
 

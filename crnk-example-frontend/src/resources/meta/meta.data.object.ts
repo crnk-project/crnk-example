@@ -1,8 +1,4 @@
 import {
-	History,
-	QHistory
-} from '../history';
-import {
 	MetaAttribute,
 	QMetaAttribute
 } from './meta.attribute';
@@ -158,14 +154,6 @@ export module QMetaDataObject {
 			}
 			return this._children;
 		};
-		private _history: QTypedManyResourceRelationship<QHistory, History>;
-		get history(): QTypedManyResourceRelationship<QHistory, History> {
-			if (!this._history) {
-				this._history =
-					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
-			}
-			return this._history;
-		};
 	}
 	export class QAttributes extends BeanPath<MetaDataObject.Attributes> {
 		insertable: BooleanPath = this.createBoolean('insertable');
@@ -192,7 +180,6 @@ export let createEmptyMetaDataObject = function(id: string): MetaDataObject {
 			elementType: {data: null},
 			parent: {data: null},
 			children: {data: []},
-			history: {data: []},
 		},
 	};
 };

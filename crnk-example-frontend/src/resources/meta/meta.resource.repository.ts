@@ -1,8 +1,4 @@
 import {
-	History,
-	QHistory
-} from '../history';
-import {
 	MetaDataObject,
 	QMetaDataObject
 } from './meta.data.object';
@@ -93,14 +89,6 @@ export module QMetaResourceRepository {
 			}
 			return this._children;
 		};
-		private _history: QTypedManyResourceRelationship<QHistory, History>;
-		get history(): QTypedManyResourceRelationship<QHistory, History> {
-			if (!this._history) {
-				this._history =
-					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
-			}
-			return this._history;
-		};
 	}
 }
 export let createEmptyMetaResourceRepository = function(id: string): MetaResourceRepository {
@@ -113,7 +101,6 @@ export let createEmptyMetaResourceRepository = function(id: string): MetaResourc
 			listLinksType: {data: null},
 			parent: {data: null},
 			children: {data: []},
-			history: {data: []},
 		},
 	};
 };

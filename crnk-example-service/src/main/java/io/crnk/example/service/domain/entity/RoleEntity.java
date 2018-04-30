@@ -14,7 +14,7 @@ public class RoleEntity {
 	@Id
 	private Long id;
 
-	@JsonProperty("role-name")
+	@JsonProperty("role")
 	private String name;
 
 	@Size(max = 20, message = "Description may not exceed {max} characters.")

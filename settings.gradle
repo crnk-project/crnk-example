@@ -18,7 +18,7 @@ gradle.beforeProject { Project project ->
 		}
 		repositories {
 			mavenLocal()
-			mavenCentral()
+			jcenter()
 			maven {
 				url('https://plugins.gradle.org/m2')
 			}

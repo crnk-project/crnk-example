@@ -1,8 +1,4 @@
 import {
-	History,
-	QHistory
-} from './history';
-import {
 	QRole,
 	Role
 } from './role';
@@ -24,7 +20,6 @@ export module Movie {
 	export interface Relationships {
 		[key: string]: ResourceRelationship;
 		roles?: TypedManyResourceRelationship<Role>;
-		history?: TypedManyResourceRelationship<History>;
 	}
 	export interface Attributes {
 		name?: string;
@@ -59,14 +54,6 @@ export module QMovie {
 			}
 			return this._roles;
 		};
-		private _history: QTypedManyResourceRelationship<QHistory, History>;
-		get history(): QTypedManyResourceRelationship<QHistory, History> {
-			if (!this._history) {
-				this._history =
-					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
-			}
-			return this._history;
-		};
 	}
 	export class QAttributes extends BeanPath<Movie.Attributes> {
 		name: StringPath = this.createString('name');
@@ -82,7 +69,6 @@ export let createEmptyMovie = function(id: string): Movie {
 		},
 		relationships: {
 			roles: {data: []},
-			history: {data: []},
 		},
 	};
 };

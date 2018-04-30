@@ -1,8 +1,4 @@
 import {
-	History,
-	QHistory
-} from './history';
-import {
 	Movie,
 	QMovie
 } from './movie';
@@ -10,7 +6,6 @@ import {
 	BeanPath,
 	CrnkStoreResource,
 	NumberPath,
-	QTypedManyResourceRelationship,
 	QTypedOneResourceRelationship,
 	StringPath
 } from '@crnk/angular-ngrx';
@@ -18,7 +13,6 @@ import {
 	ManyQueryResult,
 	OneQueryResult,
 	ResourceRelationship,
-	TypedManyResourceRelationship,
 	TypedOneResourceRelationship
 } from 'ngrx-json-api';
 
@@ -26,7 +20,6 @@ export module Vote {
 	export interface Relationships {
 		[key: string]: ResourceRelationship;
 		movie?: TypedOneResourceRelationship<Movie>;
-		history?: TypedManyResourceRelationship<History>;
 	}
 	export interface Attributes {
 		count?: number;
@@ -59,14 +52,6 @@ export module QVote {
 			}
 			return this._movie;
 		};
-		private _history: QTypedManyResourceRelationship<QHistory, History>;
-		get history(): QTypedManyResourceRelationship<QHistory, History> {
-			if (!this._history) {
-				this._history =
-					new QTypedManyResourceRelationship<QHistory, History>(this, 'history', QHistory);
-			}
-			return this._history;
-		};
 	}
 	export class QAttributes extends BeanPath<Vote.Attributes> {
 		count: NumberPath = this.createNumber('count');
@@ -80,7 +65,6 @@ export let createEmptyVote = function(id: string): Vote {
 		},
 		relationships: {
 			movie: {data: null},
-			history: {data: []},
 		},
 	};
 };
