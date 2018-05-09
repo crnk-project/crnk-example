@@ -23,5 +23,7 @@
 
 	"service.selected": "Ausgewählter Service",
 
-	"error.conflict": "Änderung durch einen anderen Benutzer. Aktualisieren Sie diese Seite um die aktuellen Änderungen zu sehen."
+	"error.conflict": "Änderung durch einen anderen Benutzer. Aktualisieren Sie diese Seite um die aktuellen Änderungen zu sehen.",
+
+	"app.txt.loggedInAs": "Eingeloggt als: {{userName}}"
 }

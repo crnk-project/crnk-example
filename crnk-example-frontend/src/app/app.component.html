@@ -25,6 +25,13 @@
 						Documentation
 					</a>
 				</div>
+				<div>
+					<div id="loggedIn" style="float:right;">
+						<div *ngIf="login$ | async as login">
+							{{ 'app.txt.loggedInAs' | translate:{userName: login.attributes.userName} }}
+						</div>
+					</div>
+				</div>
 			</div>
 		</mat-toolbar>
 

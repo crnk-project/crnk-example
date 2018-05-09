@@ -2,6 +2,7 @@ package io.crnk.example.service;
 
 import io.crnk.example.service.domain.repository.SecretRepositoryImpl;
 import io.crnk.example.service.domain.repository.VoteRepositoryImpl;
+import io.crnk.example.service.security.LoginRepository;
 import io.crnk.spring.boot.v3.CrnkConfigV3;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -25,5 +26,10 @@ public class RepositoryConfiguration {
 	@Bean
 	public SecretRepositoryImpl secretRepository() {
 		return new SecretRepositoryImpl();
+	}
+
+	@Bean
+	public LoginRepository loginRepository() {
+		return new LoginRepository();
 	}
 }

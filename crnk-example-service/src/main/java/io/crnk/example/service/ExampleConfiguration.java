@@ -1,11 +1,11 @@
 package io.crnk.example.service;
 
-import io.crnk.example.service.security.SecurityConfiguration;
 import java.util.HashMap;
 import java.util.Map;
 
 import io.crnk.core.engine.registry.RegistryEntry;
 import io.crnk.core.engine.registry.ResourceRegistry;
+import io.crnk.example.service.security.SecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;

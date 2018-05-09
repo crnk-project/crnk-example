@@ -1,13 +1,14 @@
 package io.crnk.example.service.security;
 
-import io.crnk.security.ResourcePermission;
-import io.crnk.spring.boot.SecurityModuleConfigurer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import io.crnk.security.ResourcePermission;
+import io.crnk.spring.boot.SecurityModuleConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
@@ -32,8 +33,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CompositeFilter;
 
 /**
@@ -54,11 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private OAuth2ClientContext oauth2ClientContext;
-
-	@Bean
-	public LoginRepository loginRepository() {
-		return new LoginRepository();
-	}
 
 	@Bean
 	public SecurityModuleConfigurer securityModuleConfigurer() {

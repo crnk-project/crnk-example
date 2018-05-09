@@ -1,4 +1,5 @@
 export * from './history';
+export * from './login';
 export * from './movie';
 export * from './person';
 export * from './role';
