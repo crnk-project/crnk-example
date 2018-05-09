@@ -23,6 +23,8 @@
 
 	"service.selected": "Selected service",
 
-	"error.conflict": "Concurrent modification by another user. Refresh to get most recent changes."
+	"error.conflict": "Concurrent modification by another user. Refresh to get most recent changes.",
+
+	"app.txt.loggedInAs": "Logged in as: {{userName}}"
 
 }

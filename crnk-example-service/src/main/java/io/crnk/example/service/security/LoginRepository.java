@@ -1,10 +1,11 @@
 package io.crnk.example.service.security;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepositoryBase;
 import io.crnk.core.resource.list.ResourceList;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +29,7 @@ public class LoginRepository extends ResourceRepositoryBase<Login, String> {
 
 			Login me = new Login();
 			me.setId("me");
-			me.setUserName(authentication.getName());
+			me.setUserName(authentication != null ? authentication.getName() : "anonymous");
 			logins.add(me);
 		}
 		return querySpec.apply(logins);

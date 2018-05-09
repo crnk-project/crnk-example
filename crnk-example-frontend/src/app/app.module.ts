@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActionReducerMap, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -27,12 +27,16 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { PersonModule } from './person';
 import { VoteModule } from './vote';
 import { SecretModule } from './secret';
+import { LoginService } from './common/login/common.login';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
+export function load_login(loginService: LoginService) {
+	return () => loginService.retrieveDetails();
+}
 
 export const reducers: ActionReducerMap<any> = {};
 
@@ -117,10 +121,19 @@ export const reducers: ActionReducerMap<any> = {};
 		*/
 
 	],
-	providers: [{
-		provide: APP_BASE_HREF,
-		useValue: '/'
-	}],
+	providers: [
+		{
+			provide: APP_BASE_HREF,
+			useValue: '/'
+		},
+		LoginService,
+		{
+			provide: APP_INITIALIZER,
+			useFactory: load_login,
+			deps: [LoginService],
+			multi: true
+		}
+	],
 	bootstrap: [
 		AppComponent
 	]
