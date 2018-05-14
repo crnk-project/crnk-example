@@ -12,15 +12,15 @@ import { CRNK_URL_BUILDER, CrnkOperationsModule, OperationsEffects } from '@crnk
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import 'rxjs/add/operator/toPromise';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './common/common.module';
 import { MovieModule } from './movie/movie.module';
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import {
-	MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule,
-	MatProgressBarModule,
-	MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+	MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDialogModule,
+	MatIconModule, MatInputModule, MatListModule, MatProgressBarModule, MatSidenavModule, MatSnackBarModule, MatSortModule,
+	MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -28,6 +28,7 @@ import { PersonModule } from './person';
 import { VoteModule } from './vote';
 import { SecretModule } from './secret';
 import { LoginService } from './common/login/common.login';
+import { CustomHttpInterceptor } from './common/interceptors/common.custom.http.interceptor';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -85,6 +86,7 @@ export const reducers: ActionReducerMap<any> = {};
 		MatIconModule,
 		MatInputModule,
 		MatButtonModule,
+		MatButtonToggleModule,
 		MatCardModule,
 		MatCheckboxModule,
 		MatDialogModule,
@@ -131,6 +133,11 @@ export const reducers: ActionReducerMap<any> = {};
 			provide: APP_INITIALIZER,
 			useFactory: load_login,
 			deps: [LoginService],
+			multi: true
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: CustomHttpInterceptor,
 			multi: true
 		}
 	],

@@ -19,6 +19,7 @@ import { MatButtonModule, MatInputModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProtectedGuard, PublicGuard } from 'ngx-auth';
 import { CommonAuthModule } from './auth/common.auth.module';
+import { AppLanguageService } from './language/common.language';
 
 export const ERROR_ROUTES: Routes = [
 	{
@@ -58,7 +59,8 @@ export const ERROR_ROUTES: Routes = [
 		AppResourceResolve,
 		AppSnackBarService,
 		AppErrorRoutingService,
-		AppLoadingService
+		AppLoadingService,
+		AppLanguageService
 	],
 })
 export class AppCommonModule {

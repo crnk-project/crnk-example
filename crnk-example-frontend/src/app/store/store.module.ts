@@ -13,12 +13,7 @@ import { appReducer } from './store.reducers';
 export function getAppState$() {
 	return (state$: Store<any>): Observable<AppState> => {
 		return state$
-			.select('app')
-			.do(it => {
-				if (!it) {
-					throw new Error('AppStoreModule not initialized');
-				}
-			});
+			.select('app');
 		//.map(it => it['presentation'] as PresentationState);
 	};
 };

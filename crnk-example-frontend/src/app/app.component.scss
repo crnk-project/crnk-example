@@ -25,13 +25,16 @@ body {
 			cursor: pointer;
 		}
 
-		.demo-toolbar {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			width: 100%;
+		.toolbar-fill-remaining-space {
+			// This fills the remaining space, by using flexbox.
+			flex: 1 1 auto;
+		}
+
+		.mat-button-toggle-label-content {
+			font-size: 0.7em;
 		}
 	}
+
 
 	h1 {
 		font-size: 20px;
