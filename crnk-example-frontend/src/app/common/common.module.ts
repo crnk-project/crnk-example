@@ -17,8 +17,11 @@ import { AppErrorRoutingService } from './error/common.error.route';
 import { AppLoadingService } from './loading';
 import { MatButtonModule, MatInputModule } from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProtectedGuard, PublicGuard } from 'ngx-auth';
+import { PublicGuard } from 'ngx-auth';
 import { CommonAuthModule } from './auth/common.auth.module';
+import { AppLanguageService } from './language/common.language';
+import { CustomHttpInterceptor } from './interceptors/common.custom.http.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export const ERROR_ROUTES: Routes = [
 	{
@@ -58,7 +61,13 @@ export const ERROR_ROUTES: Routes = [
 		AppResourceResolve,
 		AppSnackBarService,
 		AppErrorRoutingService,
-		AppLoadingService
+		AppLoadingService,
+		AppLanguageService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: CustomHttpInterceptor,
+			multi: true
+		}
 	],
 })
 export class AppCommonModule {

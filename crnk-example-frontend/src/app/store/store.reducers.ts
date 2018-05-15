@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { Action } from '@ngrx/store';
 import { AppState, initAppState } from './store.model';
-import { AppActionTypes, OpenResourceAction, SetNotificationAction } from './store.actions';
+import { AppActionTypes, OpenResourceAction, SetLanguageAction, SetNotificationAction } from './store.actions';
 
 
 export function appReducer(
@@ -32,10 +32,20 @@ export function appReducer(
 				};
 			}
 		}
+		case AppActionTypes.SET_LANGUAGE: {
+			const action = actionObj as SetLanguageAction;
+			if (action.language) {
+				return {
+					...state,
+					language: action.language
+				};
+			}
+			return state;
+		}
 		default:
 			return state;
 	}
-};
+}
 
 export function notificationSet(state: AppState, action: SetNotificationAction) {
 	const newNotifications = _.clone(state.notifications);

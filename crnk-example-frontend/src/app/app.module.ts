@@ -18,9 +18,9 @@ import { AppCommonModule } from './common/common.module';
 import { MovieModule } from './movie/movie.module';
 import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import {
-	MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule,
-	MatProgressBarModule,
-	MatSidenavModule, MatSnackBarModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
+	MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDialogModule,
+	MatIconModule, MatInputModule, MatListModule, MatProgressBarModule, MatSidenavModule, MatSnackBarModule, MatSortModule,
+	MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -28,6 +28,7 @@ import { PersonModule } from './person';
 import { VoteModule } from './vote';
 import { SecretModule } from './secret';
 import { LoginService } from './common/login/common.login';
+import { AppLanguageService } from './common/language/common.language';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,6 +37,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export function load_login(loginService: LoginService) {
 	return () => loginService.retrieveDetails();
+}
+
+export function init_language(langService: AppLanguageService) {
+	return () => langService.initAppLanguage();
 }
 
 export const reducers: ActionReducerMap<any> = {};
@@ -85,6 +90,7 @@ export const reducers: ActionReducerMap<any> = {};
 		MatIconModule,
 		MatInputModule,
 		MatButtonModule,
+		MatButtonToggleModule,
 		MatCardModule,
 		MatCheckboxModule,
 		MatDialogModule,
@@ -127,12 +133,8 @@ export const reducers: ActionReducerMap<any> = {};
 			useValue: '/'
 		},
 		LoginService,
-		{
-			provide: APP_INITIALIZER,
-			useFactory: load_login,
-			deps: [LoginService],
-			multi: true
-		}
+		{ provide: APP_INITIALIZER, useFactory: load_login, deps: [LoginService], multi: true },
+		{ provide: APP_INITIALIZER, useFactory: init_language, deps: [AppLanguageService], multi: true }
 	],
 	bootstrap: [
 		AppComponent
@@ -141,8 +143,3 @@ export const reducers: ActionReducerMap<any> = {};
 export class AppModule {
 
 }
-
-
-
-
-

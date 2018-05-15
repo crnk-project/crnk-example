@@ -1,9 +1,11 @@
 import { Action } from '@ngrx/store';
+import { LanguageCode } from '../common/language/common.language';
 
 export enum AppActionTypes {
 	NOTIFICATION_SET = '[Demo] NOTIFICATION_SET',
 	OPEN_RESOURCE = '[Demo] OPEN_RESOURCE',
 	SET_CURRENT_RESOURCE = '[Demo] SET_CURRENT_RESOURCE',
+	SET_LANGUAGE = '[Demo] SET_LANGUAGE',
 }
 
 /**
@@ -37,5 +39,15 @@ export class SetCurrentResourceAction implements Action {
 	}
 }
 
+/**
+ * Set language
+ */
+export class SetLanguageAction implements Action {
+	readonly type = AppActionTypes.SET_LANGUAGE;
 
-export type AppActions = SetNotificationAction | OpenResourceAction | SetCurrentResourceAction ;
+	constructor(public language: LanguageCode) {
+	}
+}
+
+
+export type AppActions = SetNotificationAction | OpenResourceAction | SetCurrentResourceAction | SetLanguageAction ;

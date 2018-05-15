@@ -7,20 +7,25 @@
 	</div>
 
 	<div style="width:100%;height:100%">
-		<mat-toolbar color="primary" class="mat-elevation-z8">
-			<!--
-			<button mat-icon-button (click)="start.open('mouse')">
-				<mat-icon>menu</mat-icon>
-			</button>
-			-->
-			<div class="demo-toolbar">
+		<mat-toolbar color="primary">
 				<h1>Crnk Example</h1>
-				<div >
+
+				<!-- This fills the remaining space of the current row -->
+				<span class="toolbar-fill-remaining-space"></span>
+
+				<mat-button-toggle-group [value]="currentLanguage$ | async">
+					<mat-button-toggle  *ngFor="let lang of language.langs" [value]="lang" (change)="language.changeLanguage(lang)">
+						<span>{{ lang | uppercase }}</span>
+					</mat-button-toggle>
+				</mat-button-toggle-group>
+
+				<div>
 					<!--
 					<button mat-icon-button href=""(click)="toggleFullscreen()" title="Toggle fullscreen">
 						<mat-icon>fullscreen</mat-icon>
 					</button>
 					-->
+
 					<a mat-button href="http://www.crnk.io/releases/stable/documentation/#_angular_development_with_ngrx">
 						Documentation
 					</a>
@@ -32,7 +37,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		</mat-toolbar>
 
 		<div #root="dir" dir="ltr" style="width:100%;height:100%">
