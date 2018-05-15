@@ -12,7 +12,7 @@ import { CRNK_URL_BUILDER, CrnkOperationsModule, OperationsEffects } from '@crnk
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import 'rxjs/add/operator/toPromise';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './common/common.module';
 import { MovieModule } from './movie/movie.module';
@@ -28,7 +28,7 @@ import { PersonModule } from './person';
 import { VoteModule } from './vote';
 import { SecretModule } from './secret';
 import { LoginService } from './common/login/common.login';
-import { CustomHttpInterceptor } from './common/interceptors/common.custom.http.interceptor';
+import { AppLanguageService } from './common/language/common.language';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -37,6 +37,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export function load_login(loginService: LoginService) {
 	return () => loginService.retrieveDetails();
+}
+
+export function init_language(langService: AppLanguageService) {
+	return () => langService.initAppLanguage();
 }
 
 export const reducers: ActionReducerMap<any> = {};
@@ -129,17 +133,8 @@ export const reducers: ActionReducerMap<any> = {};
 			useValue: '/'
 		},
 		LoginService,
-		{
-			provide: APP_INITIALIZER,
-			useFactory: load_login,
-			deps: [LoginService],
-			multi: true
-		},
-		{
-			provide: HTTP_INTERCEPTORS,
-			useClass: CustomHttpInterceptor,
-			multi: true
-		}
+		{ provide: APP_INITIALIZER, useFactory: load_login, deps: [LoginService], multi: true },
+		{ provide: APP_INITIALIZER, useFactory: init_language, deps: [AppLanguageService], multi: true }
 	],
 	bootstrap: [
 		AppComponent
@@ -148,8 +143,3 @@ export const reducers: ActionReducerMap<any> = {};
 export class AppModule {
 
 }
-
-
-
-
-

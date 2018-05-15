@@ -23,7 +23,6 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 
 	constructor(store: Store<any>) {
 		store.let(getAppState$())
-			.filter(state => state != null)
 			.subscribe(state => this.currentLanguage = state.language);
 	}
 

@@ -40,11 +40,7 @@ export function appReducer(
 					language: action.language
 				};
 			}
-			else {
-				return {
-					...state
-				};
-			}
+			return state;
 		}
 		default:
 			return state;
