@@ -1,7 +1,7 @@
+import {debounce, distinctUntilChanged} from 'rxjs/operators';
 import { Injectable, NgModule } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import {Observable, Subject, timer} from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as _ from 'lodash';
@@ -49,7 +49,9 @@ export class AppLoadingService {
 
 
 		// we wait 300ms before switching to the loading state, but we immediately switch back
-		this._state = this.loadingState.asObservable().distinctUntilChanged().debounce(it => Observable.timer(it ? 300 : 0));
+		this._state = this.loadingState.asObservable().pipe(
+			distinctUntilChanged(),
+			debounce(it => timer(it ? 300 : 0)));
 	}
 
 	private updateLoadingState() {

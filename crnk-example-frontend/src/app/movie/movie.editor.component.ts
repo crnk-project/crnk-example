@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import '../rxjs-operators';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { BeanBinding } from '@crnk/angular-ngrx/expression';
 import { FormBinding, CrnkBindingService } from '@crnk/angular-ngrx/binding';
 import { QMovie } from 'resources';

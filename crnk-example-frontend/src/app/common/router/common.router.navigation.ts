@@ -1,12 +1,10 @@
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import {Injectable, NgModule} from '@angular/core';
+import {map, tap} from 'rxjs/operators';
+import {Injectable} from '@angular/core';
 import {NavigationExtras, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {Actions, Effect, EffectsModule} from '@ngrx/effects';
-
+import {Actions, Effect} from '@ngrx/effects';
 import {Action} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 export const GO = '[Router] Go';
 export const BACK = '[Router] Back';
@@ -39,17 +37,17 @@ export type RouterActions
 export class RouterEffects {
 
 	@Effect({dispatch: false})
-	navigate$: Observable<any> = this.actions$.ofType(GO)
-		.map((action: Go) => action.payload)
-		.do(({path, query: queryParams, extras}) => this.router.navigate(path, {queryParams, ...extras}));
+	navigate$: Observable<any> = this.actions$.ofType(GO).pipe(
+		map((action: Go) => action.payload),
+		tap(({path, query: queryParams, extras}) => this.router.navigate(path, {queryParams, ...extras})),);
 
 	@Effect({dispatch: false})
-	navigateBack$ = this.actions$.ofType(BACK)
-		.do(() => this.location.back());
+	navigateBack$ = this.actions$.ofType(BACK).pipe(
+		tap(() => this.location.back()));
 
 	@Effect({dispatch: false})
-	navigateForward$ = this.actions$.ofType(FORWARD)
-		.do(() => this.location.forward());
+	navigateForward$ = this.actions$.ofType(FORWARD).pipe(
+		tap(() => this.location.forward()));
 
 	constructor(
 		private actions$: Actions,
