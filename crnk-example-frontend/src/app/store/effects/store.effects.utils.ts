@@ -1,18 +1,11 @@
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/concatAll';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/mapTo';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toArray';
-import 'rxjs/add/operator/withLatestFrom';
 import {
 	ApiDeleteSuccessAction,
 	ApiPatchFailAction,
-	ApiPatchSuccessAction, ApiPostFailAction, ApiPostSuccessAction, Document, NgrxJsonApiActionTypes,
+	ApiPatchSuccessAction,
+	ApiPostFailAction,
+	ApiPostSuccessAction,
+	Document,
+	NgrxJsonApiActionTypes,
 	Resource
 } from 'ngrx-json-api';
 import '../../rxjs-operators';

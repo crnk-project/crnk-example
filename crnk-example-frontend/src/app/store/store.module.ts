@@ -1,10 +1,11 @@
+import {filter} from 'rxjs/operators';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppState, initAppState } from './store.model';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AppNotificationEffects } from './effects/store.effects.notification';
 import { AppNavigationEffects } from './effects/store.effects.navigation';
 import { appReducer } from './store.reducers';
@@ -14,8 +15,8 @@ import { AppLanguageEffects } from './effects/store.effects.language';
 export function getAppState$() {
 	return (state$: Store<any>): Observable<AppState> => {
 		return state$
-			.select('app')
-			.filter(state => state != null);
+			.select('app').pipe(
+			filter(state => state != null));
 		//.map(it => it['presentation'] as PresentationState);
 	};
 };

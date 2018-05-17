@@ -1,3 +1,4 @@
+import {take, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import * as _ from 'lodash';
@@ -7,7 +8,7 @@ import { NGRX_JSON_API_DEFAULT_ZONE, NgrxJsonApiService, Query, QueryResult, uui
 import { assumeNoError, waitWhileLoading } from '@crnk/angular-ngrx/binding';
 import { createEmptyMovie } from 'resources';
 import { SetCurrentResourceAction } from '../store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 
 export const APP_JSON_API_EDITOR_ZONE = 'editor';
@@ -69,11 +70,11 @@ export class AppResourceResolve implements Resolve<string> {
 		// TODO implement selectResult covering many and one
 
 		const results$: Observable<QueryResult> = id ? zone.selectOneResults(queryId) : zone.selectManyResults(queryId);
-		return results$
-			.let(waitWhileLoading())
-			.let(assumeNoError())
-			.map(() => queryId)
-			.take(1);
+		return results$.pipe(
+			(waitWhileLoading()),
+			(assumeNoError()),
+			map(() => queryId),
+			take(1),);
 	}
 }
 

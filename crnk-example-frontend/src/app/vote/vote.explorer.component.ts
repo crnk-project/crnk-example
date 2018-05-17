@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { CrnkBindingService, DataTableBinding } from '@crnk/angular-ngrx';
 import { VoteListResult } from 'resources/index';
 import { Store } from '@ngrx/store';

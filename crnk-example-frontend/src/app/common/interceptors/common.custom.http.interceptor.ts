@@ -1,3 +1,5 @@
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import {
 	HttpErrorResponse,
@@ -8,12 +10,9 @@ import {
 	HttpRequest,
 	HttpResponse
 } from '@angular/common/http';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
 import { LanguageCode } from '../language/common.language';
 import { Store } from '@ngrx/store';
 import { getAppState$ } from '../../store';
-import { Observable } from 'rxjs/Observable';
 
 
 @Injectable()
@@ -22,7 +21,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 	private currentLanguage: LanguageCode;
 
 	constructor(store: Store<any>) {
-		store.let(getAppState$())
+		store.pipe((getAppState$()))
 			.subscribe(state => this.currentLanguage = state.language);
 	}
 
@@ -32,18 +31,18 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 		const updatedReq = req.clone({ headers: this.addCustomHeaders(req.headers)});
 
 		// send the newly created request
-		return next.handle(updatedReq)
-			.do((ev: HttpEvent<any>) => {
+		return next.handle(updatedReq).pipe(
+			tap((ev: HttpEvent<any>) => {
 				if (ev instanceof HttpResponse) {
 					// do sth with the response
 				}
-			})
-			.catch(response => {
+			}),
+			catchError(response => {
 				if (response instanceof HttpErrorResponse) {
 					console.log('CustomHttpInterceptor#intercept() - processing http error', response);
 				}
-				return Observable.throw(response);
-			});
+				return observableThrowError(response);
+			}),);
 	}
 
 	private addCustomHeaders(headers: HttpHeaders): HttpHeaders {

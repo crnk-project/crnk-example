@@ -11,7 +11,7 @@ import { ROUTES } from './app.routes';
 import { CRNK_URL_BUILDER, CrnkOperationsModule, OperationsEffects } from '@crnk/angular-ngrx';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import 'rxjs/add/operator/toPromise';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppStoreModule } from './store/store.module';
 import { AppCommonModule } from './common/common.module';

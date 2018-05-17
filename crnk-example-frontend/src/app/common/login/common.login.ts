@@ -1,8 +1,10 @@
+import {take, tap} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { NgrxJsonApiService, } from 'ngrx-json-api';
 
 import '../../rxjs-operators';
 import { assumeNoError, waitWhileLoading } from '@crnk/angular-ngrx';
+import {ManyQueryResult} from 'ngrx-json-api/src/interfaces';
 
 @Injectable()
 export class LoginService {
@@ -20,13 +22,13 @@ export class LoginService {
 			}
 		});
 
-		return this.jsonapi.selectManyResults('loginQueryId')
-			.let(waitWhileLoading())
-			.let(assumeNoError())
-			.do(result => {
+		return this.jsonapi.selectManyResults('loginQueryId').pipe(
+			waitWhileLoading(),
+			assumeNoError(),
+			tap((result: ManyQueryResult) => {
 				this.data = result.data;
-			})
-			.take(1)
+			}),
+			take(1))
 			.toPromise();
 	}
 }
