@@ -53,7 +53,7 @@ task lint(type: YarnTask) {
 
 	yarnCommand = ['run', 'lint']
 
-	inputs.dir 'src/main/angular'
+	inputs.dir 'src/app'
 
 	def uptodateMarkerFile = file "${buildDir}/tslint.uptodate"
 	outputs.files uptodateMarkerFile

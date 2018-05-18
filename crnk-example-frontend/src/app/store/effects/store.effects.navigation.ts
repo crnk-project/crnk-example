@@ -44,7 +44,7 @@ export class AppNavigationEffects {
 			.ofType(NgrxJsonApiActionTypes.API_DELETE_SUCCESS).pipe(
 			withLatestFrom(store, (action, state) => getAppState(state)),
 			filter(state => state.current != null && state.current.resourceId != null),
-			map(state => new OpenResourceAction(state.current.resourceType)),);
+			map(state => new OpenResourceAction(state.current.resourceType)));
 
 
 		this.openEditorByIdOnceResourceSuccessfullyPosted$ = actions$
@@ -58,6 +58,6 @@ export class AppNavigationEffects {
 			}),
 			filter(action => action != null),
 			map((action: ApiPostSuccessAction) => action.payload.jsonApiData.data),
-			map(resource => new OpenResourceAction(resource.type, resource.id)),);
+			map(resource => new OpenResourceAction(resource.type, resource.id)));
 	}
 }

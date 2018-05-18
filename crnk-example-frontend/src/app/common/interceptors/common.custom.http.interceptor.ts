@@ -42,7 +42,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
 					console.log('CustomHttpInterceptor#intercept() - processing http error', response);
 				}
 				return observableThrowError(response);
-			}),);
+			}));
 	}
 
 	private addCustomHeaders(headers: HttpHeaders): HttpHeaders {

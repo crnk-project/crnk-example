@@ -39,7 +39,7 @@ export class RouterEffects {
 	@Effect({dispatch: false})
 	navigate$: Observable<any> = this.actions$.ofType(GO).pipe(
 		map((action: Go) => action.payload),
-		tap(({path, query: queryParams, extras}) => this.router.navigate(path, {queryParams, ...extras})),);
+		tap(({path, query: queryParams, extras}) => this.router.navigate(path, {queryParams, ...extras})));
 
 	@Effect({dispatch: false})
 	navigateBack$ = this.actions$.ofType(BACK).pipe(
