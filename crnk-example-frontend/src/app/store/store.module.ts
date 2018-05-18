@@ -19,7 +19,7 @@ export function getAppState$() {
 			filter(state => state != null));
 		//.map(it => it['presentation'] as PresentationState);
 	};
-};
+}
 
 export function getAppState(state: any): AppState {
 	const arbState = state['app'];
@@ -27,7 +27,7 @@ export function getAppState(state: any): AppState {
 		throw new Error('AppStoreModule not yet initialized');
 	}
 	return arbState; //arbState['presentation'] as PresentationState;
-};
+}
 
 @NgModule({
 	imports: [

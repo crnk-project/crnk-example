@@ -1,8 +1,7 @@
 {
 	"rulesDirectory": [
 		"node_modules/codelyzer",
-		"node_modules/tslint-eslint-rules/dist/rules",
-		"node_modules/rxjs-tslint"
+		"node_modules/tslint-eslint-rules/dist/rules"
 	],
 	"rules": {
 		"arrow-return-shorthand": true,
@@ -86,10 +85,6 @@
 			"single"
 		],
 		"radix": true,
-		"rxjs-collapse-imports": true,
-		"rxjs-pipeable-operators-only": true,
-		"rxjs-no-static-observable-methods": true,
-		"rxjs-proper-imports": true,
 		"semicolon": [
 			true,
 			"always",
@@ -123,13 +118,13 @@
 		"directive-selector": [
 			true,
 			"attribute",
-			"moap",
+			"",
 			"camelCase"
 		],
 		"component-selector": [
 			true,
 			"element",
-			"moap",
+			"",
 			"kebab-case"
 		],
 		"no-output-on-prefix": true,

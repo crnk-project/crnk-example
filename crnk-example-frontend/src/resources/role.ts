@@ -56,7 +56,7 @@ export module QRole {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		};
+		}
 		private _person: QTypedOneResourceRelationship<QPerson, Person>;
 		get person(): QTypedOneResourceRelationship<QPerson, Person> {
 			if (!this._person) {
@@ -64,7 +64,7 @@ export module QRole {
 					new QTypedOneResourceRelationship<QPerson, Person>(this, 'person', QPerson);
 			}
 			return this._person;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<Role.Attributes> {
 		role: StringPath = this.createString('role');

@@ -46,7 +46,7 @@ export module QMetaType {
 					new QTypedOneResourceRelationship<QMetaType, MetaType>(this, 'elementType', QMetaType);
 			}
 			return this._elementType;
-		};
+		}
 		private _parent: QTypedOneResourceRelationship<QMetaElement, MetaElement>;
 		get parent(): QTypedOneResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._parent) {
@@ -54,7 +54,7 @@ export module QMetaType {
 					new QTypedOneResourceRelationship<QMetaElement, MetaElement>(this, 'parent', QMetaElement);
 			}
 			return this._parent;
-		};
+		}
 		private _children: QTypedManyResourceRelationship<QMetaElement, MetaElement>;
 		get children(): QTypedManyResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._children) {
@@ -62,7 +62,7 @@ export module QMetaType {
 					new QTypedManyResourceRelationship<QMetaElement, MetaElement>(this, 'children', QMetaElement);
 			}
 			return this._children;
-		};
+		}
 	}
 }
 export let createEmptyMetaType = function(id: string): MetaType {
