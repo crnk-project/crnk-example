@@ -20,7 +20,7 @@ export class AppLanguageEffects {
 				localStorage.setItem('language', action.language);
 				translate.use(action.language);
 			}),
-			filter(() => false),); // not returning any action
+			filter(() => false)); // not returning any action
 
 	}
 }

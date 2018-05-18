@@ -74,7 +74,7 @@ export class AppResourceResolve implements Resolve<string> {
 			(waitWhileLoading()),
 			(assumeNoError()),
 			map(() => queryId),
-			take(1),);
+			take(1));
 	}
 }
 

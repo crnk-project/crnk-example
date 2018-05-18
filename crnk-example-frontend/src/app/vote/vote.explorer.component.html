@@ -1,7 +1,7 @@
 <h1>Votes</h1>
 
 <div class="mat-elevation-z8">
-	<p-dataTable [value]="votes.data" selectionMode="single" [(selection)]="binding.selectedResource"
+	<p-dataTable [value]="votes.data" selectionMode="single"
 			[lazy]="true" [rows]="10" [paginator]="true"
 			[totalRecords]="votes.meta?.totalResourceCount"
 			(onLazyLoad)="binding.onLazyLoad($event)"
