@@ -50,6 +50,11 @@ task yarnRunBuild(type: YarnTask) {
 	outputs.dir 'build/angular/static'
 }
 
+task yarnStart(type: YarnTask) {
+	dependsOn yarn
+	yarnCommand = ['run', 'start']
+}
+
 task lint(type: YarnTask) {
 	description = "Run TSLint code analysis"
 	group = "Verification"
