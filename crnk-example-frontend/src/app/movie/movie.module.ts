@@ -30,6 +30,7 @@ export const MOVIE_ROUTES: Routes = [
 	},
 	{
 		path: 'movie/:id', component: MovieEditorComponent,
+		canActivate: [ ProtectedGuard ],
 		data: {
 			resourceType: 'movie'
 		},

@@ -50,7 +50,7 @@ export module QSchedule {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		}
+		};
 	}
 	export class QAttributes extends BeanPath<Schedule.Attributes> {
 		name: StringPath = this.createString('name');

@@ -53,7 +53,7 @@ export module QPerson {
 					new QTypedManyResourceRelationship<QRole, Role>(this, 'roles', QRole);
 			}
 			return this._roles;
-		}
+		};
 	}
 	export class QAttributes extends BeanPath<Person.Attributes> {
 		name: StringPath = this.createString('name');

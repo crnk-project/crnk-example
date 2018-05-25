@@ -68,7 +68,7 @@ export module QMetaAttribute {
 					new QTypedOneResourceRelationship<QMetaType, MetaType>(this, 'type', QMetaType);
 			}
 			return this._type;
-		}
+		};
 		private _oppositeAttribute: QTypedOneResourceRelationship<QMetaAttribute, MetaAttribute>;
 		get oppositeAttribute(): QTypedOneResourceRelationship<QMetaAttribute, MetaAttribute> {
 			if (!this._oppositeAttribute) {
@@ -76,7 +76,7 @@ export module QMetaAttribute {
 					new QTypedOneResourceRelationship<QMetaAttribute, MetaAttribute>(this, 'oppositeAttribute', QMetaAttribute);
 			}
 			return this._oppositeAttribute;
-		}
+		};
 		private _parent: QTypedOneResourceRelationship<QMetaElement, MetaElement>;
 		get parent(): QTypedOneResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._parent) {
@@ -84,7 +84,7 @@ export module QMetaAttribute {
 					new QTypedOneResourceRelationship<QMetaElement, MetaElement>(this, 'parent', QMetaElement);
 			}
 			return this._parent;
-		}
+		};
 		private _children: QTypedManyResourceRelationship<QMetaElement, MetaElement>;
 		get children(): QTypedManyResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._children) {
@@ -92,7 +92,7 @@ export module QMetaAttribute {
 					new QTypedManyResourceRelationship<QMetaElement, MetaElement>(this, 'children', QMetaElement);
 			}
 			return this._children;
-		}
+		};
 	}
 	export class QAttributes extends BeanPath<MetaAttribute.Attributes> {
 		association: BooleanPath = this.createBoolean('association');

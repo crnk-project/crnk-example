@@ -81,7 +81,7 @@ export module QMetaDataObject {
 					new QTypedManyResourceRelationship<QMetaDataObject, MetaDataObject>(this, 'subTypes', QMetaDataObject);
 			}
 			return this._subTypes;
-		}
+		};
 		private _superType: QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject>;
 		get superType(): QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject> {
 			if (!this._superType) {
@@ -89,7 +89,7 @@ export module QMetaDataObject {
 					new QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject>(this, 'superType', QMetaDataObject);
 			}
 			return this._superType;
-		}
+		};
 		private _attributes: QTypedManyResourceRelationship<QMetaAttribute, MetaAttribute>;
 		get attributes(): QTypedManyResourceRelationship<QMetaAttribute, MetaAttribute> {
 			if (!this._attributes) {
@@ -97,7 +97,7 @@ export module QMetaDataObject {
 					new QTypedManyResourceRelationship<QMetaAttribute, MetaAttribute>(this, 'attributes', QMetaAttribute);
 			}
 			return this._attributes;
-		}
+		};
 		private _declaredAttributes: QTypedManyResourceRelationship<QMetaAttribute, MetaAttribute>;
 		get declaredAttributes(): QTypedManyResourceRelationship<QMetaAttribute, MetaAttribute> {
 			if (!this._declaredAttributes) {
@@ -105,7 +105,7 @@ export module QMetaDataObject {
 					new QTypedManyResourceRelationship<QMetaAttribute, MetaAttribute>(this, 'declaredAttributes', QMetaAttribute);
 			}
 			return this._declaredAttributes;
-		}
+		};
 		private _primaryKey: QTypedOneResourceRelationship<QMetaPrimaryKey, MetaPrimaryKey>;
 		get primaryKey(): QTypedOneResourceRelationship<QMetaPrimaryKey, MetaPrimaryKey> {
 			if (!this._primaryKey) {
@@ -113,7 +113,7 @@ export module QMetaDataObject {
 					new QTypedOneResourceRelationship<QMetaPrimaryKey, MetaPrimaryKey>(this, 'primaryKey', QMetaPrimaryKey);
 			}
 			return this._primaryKey;
-		}
+		};
 		private _declaredKeys: QTypedManyResourceRelationship<QMetaKey, MetaKey>;
 		get declaredKeys(): QTypedManyResourceRelationship<QMetaKey, MetaKey> {
 			if (!this._declaredKeys) {
@@ -121,7 +121,7 @@ export module QMetaDataObject {
 					new QTypedManyResourceRelationship<QMetaKey, MetaKey>(this, 'declaredKeys', QMetaKey);
 			}
 			return this._declaredKeys;
-		}
+		};
 		private _interfaces: QTypedManyResourceRelationship<QMetaInterface, MetaInterface>;
 		get interfaces(): QTypedManyResourceRelationship<QMetaInterface, MetaInterface> {
 			if (!this._interfaces) {
@@ -129,7 +129,7 @@ export module QMetaDataObject {
 					new QTypedManyResourceRelationship<QMetaInterface, MetaInterface>(this, 'interfaces', QMetaInterface);
 			}
 			return this._interfaces;
-		}
+		};
 		private _elementType: QTypedOneResourceRelationship<QMetaType, MetaType>;
 		get elementType(): QTypedOneResourceRelationship<QMetaType, MetaType> {
 			if (!this._elementType) {
@@ -137,7 +137,7 @@ export module QMetaDataObject {
 					new QTypedOneResourceRelationship<QMetaType, MetaType>(this, 'elementType', QMetaType);
 			}
 			return this._elementType;
-		}
+		};
 		private _parent: QTypedOneResourceRelationship<QMetaElement, MetaElement>;
 		get parent(): QTypedOneResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._parent) {
@@ -145,7 +145,7 @@ export module QMetaDataObject {
 					new QTypedOneResourceRelationship<QMetaElement, MetaElement>(this, 'parent', QMetaElement);
 			}
 			return this._parent;
-		}
+		};
 		private _children: QTypedManyResourceRelationship<QMetaElement, MetaElement>;
 		get children(): QTypedManyResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._children) {
@@ -153,7 +153,7 @@ export module QMetaDataObject {
 					new QTypedManyResourceRelationship<QMetaElement, MetaElement>(this, 'children', QMetaElement);
 			}
 			return this._children;
-		}
+		};
 	}
 	export class QAttributes extends BeanPath<MetaDataObject.Attributes> {
 		insertable: BooleanPath = this.createBoolean('insertable');

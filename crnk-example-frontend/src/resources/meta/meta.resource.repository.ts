@@ -56,7 +56,7 @@ export module QMetaResourceRepository {
 					new QTypedOneResourceRelationship<QMetaResource, MetaResource>(this, 'resourceType', QMetaResource);
 			}
 			return this._resourceType;
-		}
+		};
 		private _listMetaType: QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject>;
 		get listMetaType(): QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject> {
 			if (!this._listMetaType) {
@@ -64,7 +64,7 @@ export module QMetaResourceRepository {
 					new QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject>(this, 'listMetaType', QMetaDataObject);
 			}
 			return this._listMetaType;
-		}
+		};
 		private _listLinksType: QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject>;
 		get listLinksType(): QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject> {
 			if (!this._listLinksType) {
@@ -72,7 +72,7 @@ export module QMetaResourceRepository {
 					new QTypedOneResourceRelationship<QMetaDataObject, MetaDataObject>(this, 'listLinksType', QMetaDataObject);
 			}
 			return this._listLinksType;
-		}
+		};
 		private _parent: QTypedOneResourceRelationship<QMetaElement, MetaElement>;
 		get parent(): QTypedOneResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._parent) {
@@ -80,7 +80,7 @@ export module QMetaResourceRepository {
 					new QTypedOneResourceRelationship<QMetaElement, MetaElement>(this, 'parent', QMetaElement);
 			}
 			return this._parent;
-		}
+		};
 		private _children: QTypedManyResourceRelationship<QMetaElement, MetaElement>;
 		get children(): QTypedManyResourceRelationship<QMetaElement, MetaElement> {
 			if (!this._children) {
@@ -88,7 +88,7 @@ export module QMetaResourceRepository {
 					new QTypedManyResourceRelationship<QMetaElement, MetaElement>(this, 'children', QMetaElement);
 			}
 			return this._children;
-		}
+		};
 	}
 }
 export let createEmptyMetaResourceRepository = function(id: string): MetaResourceRepository {

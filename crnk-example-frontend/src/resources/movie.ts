@@ -53,7 +53,7 @@ export module QMovie {
 					new QTypedManyResourceRelationship<QRole, Role>(this, 'roles', QRole);
 			}
 			return this._roles;
-		}
+		};
 	}
 	export class QAttributes extends BeanPath<Movie.Attributes> {
 		name: StringPath = this.createString('name');

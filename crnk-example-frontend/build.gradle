@@ -36,7 +36,15 @@ typescriptGen.init()
 generateTypescript.dependsOn ':crnk-example-service:jar'
 
 
+task yarnRunStart(type: YarnTask) {
+	group = 'node'
+	dependsOn yarn
+	yarnCommand = ['run', 'start']
+}
+
+
 task yarnRunBuild(type: YarnTask) {
+	group = 'node'
 	dependsOn yarn
 	dependsOn generateTypescript
 

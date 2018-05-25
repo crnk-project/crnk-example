@@ -51,7 +51,7 @@ export module QVote {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		}
+		};
 	}
 	export class QAttributes extends BeanPath<Vote.Attributes> {
 		count: NumberPath = this.createNumber('count');
