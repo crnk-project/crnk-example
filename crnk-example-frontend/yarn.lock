@@ -183,9 +183,9 @@
   dependencies:
     tslib "^1.9.0"
 
-"@crnk/angular-ngrx@2.6.20180525100530":
-  version "2.6.20180525100530"
-  resolved "https://registry.yarnpkg.com/@crnk/angular-ngrx/-/angular-ngrx-2.6.20180525100530.tgz#1035ff530f763d8a284b2312aa52c453a49b8c07"
+"@crnk/angular-ngrx@2.6.20180606171430":
+  version "2.6.20180606171430"
+  resolved "https://registry.yarnpkg.com/@crnk/angular-ngrx/-/angular-ngrx-2.6.20180606171430.tgz#9f9c9149f4781ed4134d5895e1f1b39786cff72f"
 
 "@ngrx/effects@^6.0.0-beta.3":
   version "6.0.1"

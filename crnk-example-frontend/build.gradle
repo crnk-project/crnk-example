@@ -19,10 +19,6 @@ apply plugin: 'crnk-gen-typescript'
 typescriptGen {
 	generateExpressions = true
 	genDir = file('src/resources')
-	npm {
-		packageName = '@crnk/example-frontend'
-		packagingEnabled = false
-	}
 	runtime {
 		configuration = 'typescriptGenRuntime'
 		spring {
