@@ -11,15 +11,15 @@ import javax.persistence.criteria.From;
 import io.crnk.example.service.domain.entity.MovieEntity;
 import io.crnk.example.service.domain.entity.PersonEntity;
 import io.crnk.example.service.domain.entity.RoleEntity;
-import io.crnk.example.service.domain.resource.ScheduleDto;
 import io.crnk.example.service.domain.entity.ScheduleEntity;
+import io.crnk.example.service.domain.resource.ScheduleDto;
 import io.crnk.jpa.JpaModuleConfig;
 import io.crnk.jpa.JpaRepositoryConfig;
 import io.crnk.jpa.mapping.JpaMapper;
 import io.crnk.jpa.query.Tuple;
 import io.crnk.jpa.query.criteria.JpaCriteriaExpressionFactory;
 import io.crnk.jpa.query.criteria.JpaCriteriaQueryFactory;
-import io.crnk.spring.boot.JpaModuleConfigurer;
+import io.crnk.spring.setup.boot.jpa.JpaModuleConfigurer;
 import org.springframework.stereotype.Component;
 
 @Component

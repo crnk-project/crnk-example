@@ -7,11 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.crnk.example.service.ExampleProperties;
 import io.crnk.security.ResourcePermission;
-import io.crnk.spring.boot.SecurityModuleConfigurer;
+import io.crnk.spring.setup.boot.security.SecurityModuleConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,6 +19,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,6 +31,7 @@ import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticat
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -45,11 +47,14 @@ import org.springframework.web.filter.CompositeFilter;
  * </ul>
  */
 @Configuration
-@ConditionalOnProperty(prefix = "spring.security", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 @EnableWebSecurity
 @EnableOAuth2Client
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+
+	@Autowired
+	private ExampleProperties properties;
 
 	@Autowired
 	private OAuth2ClientContext oauth2ClientContext;
@@ -67,9 +72,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// consider moving to stateless and handle token on Angular side
-
-		// @formatter:off
-		http
+		if (properties.isSecurityEnabled()) {
+			// @formatter:off
+			http
 				.antMatcher("/**").authorizeRequests()
 					.antMatchers("/", "/favicon.ico",
 							"/assets/**",
@@ -79,13 +84,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.and().logout().logoutSuccessUrl("/").permitAll()
 				.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-				.and().exceptionHandling().authenticationEntryPoint(new Http401AuthenticationEntryPoint("headerValue"))
+				.and().exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 				// .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
-
-		// @formatter:on
+			// @formatter:on
+		}
+		else {
+			http.authorizeRequests().antMatchers("/**").permitAll();
+			http.csrf().disable();
+		}
 	}
 
+	@Bean
+	@ConditionalOnProperty(prefix = "example.security-enabled", name = "enabled", havingValue = "true", matchIfMissing = true)
+	public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(filter);
+		registration.setOrder(-100);
+		return registration;
+	}
 
 	@Bean
 	@ConfigurationProperties("github")
@@ -125,31 +142,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return oAuth2ClientAuthenticationFilter;
 	}
 
-	@Bean
-	public FilterRegistrationBean oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
-		FilterRegistrationBean registration = new FilterRegistrationBean();
-		registration.setFilter(filter);
-		registration.setOrder(-100);
-		return registration;
-	}
-
-	/*
-	@Bean
-	public FilterRegistrationBean corsFilterBean() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.addAllowedOrigin("*"); // @Value: http://localhost:8080
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-		source.registerCorsConfiguration("/**", config);
-		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-		bean.setOrder(0);
-		return bean;
-	}
-	*/
-
-	class ClientResources {
+	static class ClientResources {
 
 		@NestedConfigurationProperty
 		private AuthorizationCodeResourceDetails client = new AuthorizationCodeResourceDetails();
