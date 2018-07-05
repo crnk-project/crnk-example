@@ -84,15 +84,16 @@ Note that Gradle downloads a nodejs and yarn distribution into the
 The `crnk-example-service` project is the backend application showcasing:
 
 - integration of Crnk into Spring Boot
-- exposing entities with crnk-jpa using `ExampleJpaModuleConfigurer`
-- exception mapping with `CustomExceptionMapper`
-- manually writing a resource repository with `VoteRepositoryImpl` (making use of Thread.sleep to simulate heavy work)
-- using `@JsonApiRelationId` with `ScreeningRepositoryImpl` to 
+- exposing entities with crnk-jpa using `ExampleJpaModuleConfigurer`.
+- exception mapping with `CustomExceptionMapper`.
+- manually writing a resource repository with `VoteRepository` (making use of Thread.sleep to simulate heavy work)
+- a very simple in-memory repository with`ScreeningRepository`.
+- using `@JsonApiRelationId` with `ScreeningRepository` to 
   handle use cases where the related ID is easy to get, which in turn allows
   to omit having to implement relationship repositories.
-- implementing a relationship repository with`HistoryRelationshipRepository`.
+- implementing a relationship repository with`AttributeChangeRelationshipRepository`.
 - introducing new relationships to existing resources
-  without touching those resources with `HistoryFieldProvider`.  
+  without touching those resources with `AttributeChangeFieldProvider`.  
 - delivery of an Angular frontend application accessing the JSON API endpoint.
 - `SecurityConfiguration` performs a OAuth setup with GitHub as provider.
   `LoginRepository` gives access to information about the logged-in user through http://localhost:8080/api/login.
@@ -102,9 +103,15 @@ The `crnk-example-service` project is the backend application showcasing:
    and the Spring backend takes care of interacting with the GitHub OAuth provider. 
    In the future we may switch to a session-less, token-based setup (PRs welcomed).
 - `CSRF` (resp. `XSRF` in Angular terminology) protection through `SecurityConfiguration`. 
+- `ExampleSecurityConfigurer` to setup role-based access control.
+- `ExampleDecoratorFactory` to intercept and modify requests to repositories.
+
 
 The `TestDataLoader` will automatically setup some test data upon start.
 
+Note that the project is structured based on the the use Crnk features like
+JPA or decoration. For real-world application we do not recommend that, but rather
+structure the application based on business value.
 
 ## Frontend application
 

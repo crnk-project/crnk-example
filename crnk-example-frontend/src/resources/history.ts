@@ -10,6 +10,7 @@ import {
 
 export module History {
 	export interface Attributes {
+		attribute?: string;
 		newValue?: string;
 		oldValue?: string;
 	}
@@ -31,6 +32,7 @@ export class QHistory extends BeanPath<History> {
 }
 export module QHistory {
 	export class QAttributes extends BeanPath<History.Attributes> {
+		attribute: StringPath = this.createString('attribute');
 		newValue: StringPath = this.createString('newValue');
 		oldValue: StringPath = this.createString('oldValue');
 	}

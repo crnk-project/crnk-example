@@ -5,7 +5,7 @@ import java.util.Map;
 
 import io.crnk.core.engine.registry.RegistryEntry;
 import io.crnk.core.engine.registry.ResourceRegistry;
-import io.crnk.example.service.security.SecurityConfiguration;
+import io.crnk.example.service.security.SpringSecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @ComponentScan("io.crnk.example.service")
-@Import({ RepositoryConfiguration.class, TestDataLoader.class, SecurityConfiguration.class })
+@Import({ TestDataLoader.class, SpringSecurityConfiguration.class })
 @EnableConfigurationProperties(ExampleProperties.class)
 public class ExampleConfiguration {
 

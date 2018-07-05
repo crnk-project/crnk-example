@@ -11,7 +11,8 @@ import {
 export module ScheduleDto {
 	export interface Attributes {
 		name?: string;
-		upperName?: string;
+		computedUpperName?: string;
+		decoratedName?: string;
 	}
 }
 export interface ScheduleDto extends CrnkStoreResource {
@@ -32,7 +33,8 @@ export class QScheduleDto extends BeanPath<ScheduleDto> {
 export module QScheduleDto {
 	export class QAttributes extends BeanPath<ScheduleDto.Attributes> {
 		name: StringPath = this.createString('name');
-		upperName: StringPath = this.createString('upperName');
+		computedUpperName: StringPath = this.createString('computedUpperName');
+		decoratedName: StringPath = this.createString('decoratedName');
 	}
 }
 export let createEmptyScheduleDto = function(id: string): ScheduleDto {

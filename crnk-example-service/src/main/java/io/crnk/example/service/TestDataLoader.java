@@ -1,6 +1,5 @@
 package io.crnk.example.service;
 
-import io.crnk.example.service.domain.resource.Screening;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -11,11 +10,15 @@ import javax.persistence.EntityManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.crnk.core.engine.transaction.TransactionRunner;
-import io.crnk.example.service.domain.entity.MovieEntity;
-import io.crnk.example.service.domain.entity.PersonEntity;
-import io.crnk.example.service.domain.entity.ScheduleEntity;
-import io.crnk.example.service.domain.repository.VoteRepositoryImpl;
-import io.crnk.example.service.domain.resource.Vote;
+import io.crnk.example.service.basic.Location;
+import io.crnk.example.service.basic.LocationRepository;
+import io.crnk.example.service.basic.Screening;
+import io.crnk.example.service.basic.ScreeningRepository;
+import io.crnk.example.service.basic.Vote;
+import io.crnk.example.service.basic.VoteRepository;
+import io.crnk.example.service.jpa.MovieEntity;
+import io.crnk.example.service.jpa.PersonEntity;
+import io.crnk.example.service.jpa.ScheduleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,13 +37,24 @@ public class TestDataLoader {
 	private ObjectMapper objectMapper;
 
 	@Autowired
-	private VoteRepositoryImpl voteRepository;
+	private VoteRepository voteRepository;
+
+
+	@Autowired
+	private LocationRepository locationRepository;
+
+	@Autowired
+	private ScreeningRepository screeningRepository;
 
 	@PostConstruct
 	public void setup() {
 		transactionRunner.doInTransaction(new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
+
+				createLocation("zurich");
+				createLocation("paris");
+				createLocation("london");
 
 				createPerson("Ben Affleck");
 				createPerson("Anna Kendrick");
@@ -57,6 +71,8 @@ public class TestDataLoader {
 						createMovie("Iron Man", 2008, Arrays.asList("Robert Downey Jr.", "Terrence Howard", "Jeff Bridges"));
 				createMovie("Titanic", 1997, Arrays.asList("Leonardo DiCaprio", "Kate Winslet"));
 				createMovie("Mr. & Mrs. Smith", 2005, Arrays.asList("Brad Pitt", "Angelina Jolie"));
+
+				createScreening(movie);
 
 				for (int i = 0; i < 10; i++) {
 					ScheduleEntity scheduleEntity = new ScheduleEntity();
@@ -80,6 +96,13 @@ public class TestDataLoader {
 		});
 	}
 
+	private void createScreening(MovieEntity movie) {
+		Screening screening = new Screening();
+		screening.setId(UUID.randomUUID());
+		screening.setMovieId(movie.getId());
+		screeningRepository.create(screening);
+	}
+
 	@PostConstruct
 	public void configureJackson() {
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -101,5 +124,12 @@ public class TestDataLoader {
 		person.setName(title);
 		em.persist(person);
 		return person;
+	}
+
+	protected Location createLocation(String id) {
+		Location location = new Location();
+		location.setId(id);
+		locationRepository.save(location);
+		return location;
 	}
 }

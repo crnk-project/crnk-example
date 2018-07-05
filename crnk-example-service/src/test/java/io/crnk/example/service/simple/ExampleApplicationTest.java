@@ -3,14 +3,16 @@ package io.crnk.example.service.simple;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import javax.security.auth.message.config.AuthConfigFactory;
 
 import com.jayway.restassured.RestAssured;
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepositoryV2;
 import io.crnk.core.resource.list.ResourceList;
-import io.crnk.example.service.domain.entity.ScheduleEntity;
-import io.crnk.example.service.domain.resource.ScheduleDto;
+import io.crnk.example.service.basic.Screening;
+import io.crnk.example.service.jpa.ScheduleDto;
+import io.crnk.example.service.jpa.ScheduleEntity;
 import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -70,12 +72,28 @@ public class ExampleApplicationTest extends BaseTest {
 		Assert.assertEquals("My Schedule", schedule.getName());
 
 		// a computed attribute!
-		Assert.assertEquals("MY SCHEDULE", schedule.getUpperName());
+		Assert.assertEquals("MY SCHEDULE", schedule.getComputedUpperName());
+
+		// a decorated attribute!
+		Assert.assertEquals("decoratedFindAll", schedule.getDecoratedName());
 	}
 
 	@Test
 	public void testAccessHome() {
 		RestAssured.given().contentType("*").when().get("/api/").then()
 				.statusCode(OK.value());
+	}
+
+
+	@Test
+	public void testBasicRelationship() {
+		QuerySpec querySpec = new QuerySpec(Screening.class);
+		querySpec.includeRelation(Arrays.asList("location"));
+		ResourceRepositoryV2<Screening, Serializable> repository = client.getRepositoryForType(Screening.class);
+		ResourceList<Screening> list = repository.findAll(querySpec);
+		Assert.assertNotEquals(0, list.size());
+		for (Screening screening : list) {
+			Assert.assertNotNull(screening.getLocation());
+		}
 	}
 }

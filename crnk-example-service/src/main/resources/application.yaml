@@ -6,20 +6,20 @@ management:
     port: 8081
 
 crnk:
-  pathPrefix: /api
+  path-prefix: /api
   default-page-limit: 20
   jpa:
-    exposeAll: false
+    expose-all: false
   security:
     enabled: ${example.security-enabled}
 
 github:
   client:
-    clientId: 68ef680c19080cac43c8
+    client-id: 68ef680c19080cac43c8
     # really don't do that when setting up a real-world application, put it into a secure vault!
-    clientSecret: 48c7c62ddb3f2159596534cef8003d0d596ad369
-    accessTokenUri: https://github.com/login/oauth/access_token
-    userAuthorizationUri: https://github.com/login/oauth/authorize
-    clientAuthenticationScheme: form
+    client-secret: 48c7c62ddb3f2159596534cef8003d0d596ad369
+    access-token-uri: https://github.com/login/oauth/access_token
+    user-authorization-uri: https://github.com/login/oauth/authorize
+    client-authentication-scheme: form
   resource:
-    userInfoUri: https://api.github.com/user
+    user-info-uri: https://api.github.com/user

@@ -9,12 +9,13 @@ import io.crnk.core.resource.list.ResourceList;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 /**
  * Makes logged-in user available as JSON API resource.
  */
+@Component
 public class LoginRepository extends ResourceRepositoryBase<Login, String> {
-
 
 	public LoginRepository() {
 		super(Login.class);
