@@ -1,4 +1,8 @@
 import {
+	AttributeChange,
+	QAttributeChange
+} from './attribute.change';
+import {
 	QRole,
 	Role
 } from './role';
@@ -20,6 +24,7 @@ export module Movie {
 	export interface Relationships {
 		[key: string]: ResourceRelationship;
 		roles?: TypedManyResourceRelationship<Role>;
+		attributeChanges?: TypedManyResourceRelationship<AttributeChange>;
 	}
 	export interface Attributes {
 		name?: string;
@@ -53,7 +58,15 @@ export module QMovie {
 					new QTypedManyResourceRelationship<QRole, Role>(this, 'roles', QRole);
 			}
 			return this._roles;
-		}
+		};
+		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
+		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
+			if (!this._attributeChanges) {
+				this._attributeChanges =
+					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
+			}
+			return this._attributeChanges;
+		};
 	}
 	export class QAttributes extends BeanPath<Movie.Attributes> {
 		name: StringPath = this.createString('name');
@@ -69,6 +82,7 @@ export let createEmptyMovie = function(id: string): Movie {
 		},
 		relationships: {
 			roles: {data: []},
+			attributeChanges: {data: []},
 		},
 	};
 };

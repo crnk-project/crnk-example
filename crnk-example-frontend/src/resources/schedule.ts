@@ -1,10 +1,15 @@
 import {
+	AttributeChange,
+	QAttributeChange
+} from './attribute.change';
+import {
 	Movie,
 	QMovie
 } from './movie';
 import {
 	BeanPath,
 	CrnkStoreResource,
+	QTypedManyResourceRelationship,
 	QTypedOneResourceRelationship,
 	StringPath
 } from '@crnk/angular-ngrx';
@@ -12,6 +17,7 @@ import {
 	ManyQueryResult,
 	OneQueryResult,
 	ResourceRelationship,
+	TypedManyResourceRelationship,
 	TypedOneResourceRelationship
 } from 'ngrx-json-api';
 
@@ -19,6 +25,7 @@ export module Schedule {
 	export interface Relationships {
 		[key: string]: ResourceRelationship;
 		movie?: TypedOneResourceRelationship<Movie>;
+		attributeChanges?: TypedManyResourceRelationship<AttributeChange>;
 	}
 	export interface Attributes {
 		name?: string;
@@ -50,7 +57,15 @@ export module QSchedule {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		}
+		};
+		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
+		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
+			if (!this._attributeChanges) {
+				this._attributeChanges =
+					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
+			}
+			return this._attributeChanges;
+		};
 	}
 	export class QAttributes extends BeanPath<Schedule.Attributes> {
 		name: StringPath = this.createString('name');
@@ -64,6 +79,7 @@ export let createEmptySchedule = function(id: string): Schedule {
 		},
 		relationships: {
 			movie: {data: null},
+			attributeChanges: {data: []},
 		},
 	};
 };

@@ -1,14 +1,21 @@
 import {
 	BeanPath,
 	CrnkStoreResource,
+	QTypedManyResourceRelationship,
 	StringPath
 } from '@crnk/angular-ngrx';
 import {
 	ManyQueryResult,
-	OneQueryResult
+	OneQueryResult,
+	ResourceRelationship,
+	TypedManyResourceRelationship
 } from 'ngrx-json-api';
 
 export module AttributeChange {
+	export interface Relationships {
+		[key: string]: ResourceRelationship;
+		attributeChanges?: TypedManyResourceRelationship<AttributeChange>;
+	}
 	export interface Attributes {
 		attribute?: string;
 		newValue?: string;
@@ -17,6 +24,7 @@ export module AttributeChange {
 	}
 }
 export interface AttributeChange extends CrnkStoreResource {
+	relationships?: AttributeChange.Relationships;
 	attributes?: AttributeChange.Attributes;
 }
 export interface AttributeChangeResult extends OneQueryResult {
@@ -29,9 +37,20 @@ export class QAttributeChange extends BeanPath<AttributeChange> {
 	metaId = 'resources.attributeChange';
 	id: StringPath = this.createString('id');
 	type: StringPath = this.createString('type');
+	relationships: QAttributeChange.QRelationships = new QAttributeChange.QRelationships(this, 'relationships');
 	attributes: QAttributeChange.QAttributes = new QAttributeChange.QAttributes(this, 'attributes');
 }
 export module QAttributeChange {
+	export class QRelationships extends BeanPath<AttributeChange.Relationships> {
+		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
+		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
+			if (!this._attributeChanges) {
+				this._attributeChanges =
+					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
+			}
+			return this._attributeChanges;
+		};
+	}
 	export class QAttributes extends BeanPath<AttributeChange.Attributes> {
 		attribute: StringPath = this.createString('attribute');
 		newValue: StringPath = this.createString('newValue');
@@ -44,6 +63,9 @@ export let createEmptyAttributeChange = function(id: string): AttributeChange {
 		id: id,
 		type: 'attributeChange',
 		attributes: {
+		},
+		relationships: {
+			attributeChanges: {data: []},
 		},
 	};
 };

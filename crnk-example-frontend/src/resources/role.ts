@@ -1,4 +1,8 @@
 import {
+	AttributeChange,
+	QAttributeChange
+} from './attribute.change';
+import {
 	Movie,
 	QMovie
 } from './movie';
@@ -9,6 +13,7 @@ import {
 import {
 	BeanPath,
 	CrnkStoreResource,
+	QTypedManyResourceRelationship,
 	QTypedOneResourceRelationship,
 	StringPath
 } from '@crnk/angular-ngrx';
@@ -16,6 +21,7 @@ import {
 	ManyQueryResult,
 	OneQueryResult,
 	ResourceRelationship,
+	TypedManyResourceRelationship,
 	TypedOneResourceRelationship
 } from 'ngrx-json-api';
 
@@ -24,6 +30,7 @@ export module Role {
 		[key: string]: ResourceRelationship;
 		movie?: TypedOneResourceRelationship<Movie>;
 		person?: TypedOneResourceRelationship<Person>;
+		attributeChanges?: TypedManyResourceRelationship<AttributeChange>;
 	}
 	export interface Attributes {
 		role?: string;
@@ -56,7 +63,7 @@ export module QRole {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		}
+		};
 		private _person: QTypedOneResourceRelationship<QPerson, Person>;
 		get person(): QTypedOneResourceRelationship<QPerson, Person> {
 			if (!this._person) {
@@ -64,7 +71,15 @@ export module QRole {
 					new QTypedOneResourceRelationship<QPerson, Person>(this, 'person', QPerson);
 			}
 			return this._person;
-		}
+		};
+		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
+		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
+			if (!this._attributeChanges) {
+				this._attributeChanges =
+					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
+			}
+			return this._attributeChanges;
+		};
 	}
 	export class QAttributes extends BeanPath<Role.Attributes> {
 		role: StringPath = this.createString('role');
@@ -80,6 +95,7 @@ export let createEmptyRole = function(id: string): Role {
 		relationships: {
 			movie: {data: null},
 			person: {data: null},
+			attributeChanges: {data: []},
 		},
 	};
 };
