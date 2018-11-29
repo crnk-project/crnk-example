@@ -52,7 +52,7 @@ export module QScheduleDto {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<ScheduleDto.Attributes> {
 		name: StringPath = this.createString('name');

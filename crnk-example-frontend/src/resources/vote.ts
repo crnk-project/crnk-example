@@ -58,7 +58,7 @@ export module QVote {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		};
+		}
 		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
 		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
 			if (!this._attributeChanges) {
@@ -66,7 +66,7 @@ export module QVote {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<Vote.Attributes> {
 		count: NumberPath = this.createNumber('count');

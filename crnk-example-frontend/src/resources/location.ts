@@ -45,7 +45,7 @@ export module QLocation {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 }
 export let createEmptyLocation = function(id: string): Location {

@@ -57,7 +57,7 @@ export module QSchedule {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		};
+		}
 		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
 		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
 			if (!this._attributeChanges) {
@@ -65,7 +65,7 @@ export module QSchedule {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<Schedule.Attributes> {
 		name: StringPath = this.createString('name');

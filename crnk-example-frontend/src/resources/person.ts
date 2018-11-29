@@ -58,7 +58,7 @@ export module QPerson {
 					new QTypedManyResourceRelationship<QRole, Role>(this, 'roles', QRole);
 			}
 			return this._roles;
-		};
+		}
 		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
 		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
 			if (!this._attributeChanges) {
@@ -66,7 +66,7 @@ export module QPerson {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<Person.Attributes> {
 		name: StringPath = this.createString('name');

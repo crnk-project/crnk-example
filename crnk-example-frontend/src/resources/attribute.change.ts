@@ -49,7 +49,7 @@ export module QAttributeChange {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<AttributeChange.Attributes> {
 		attribute: StringPath = this.createString('attribute');

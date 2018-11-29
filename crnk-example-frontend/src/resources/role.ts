@@ -63,7 +63,7 @@ export module QRole {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		};
+		}
 		private _person: QTypedOneResourceRelationship<QPerson, Person>;
 		get person(): QTypedOneResourceRelationship<QPerson, Person> {
 			if (!this._person) {
@@ -71,7 +71,7 @@ export module QRole {
 					new QTypedOneResourceRelationship<QPerson, Person>(this, 'person', QPerson);
 			}
 			return this._person;
-		};
+		}
 		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
 		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
 			if (!this._attributeChanges) {
@@ -79,7 +79,7 @@ export module QRole {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<Role.Attributes> {
 		role: StringPath = this.createString('role');

@@ -57,7 +57,7 @@ export module QScreening {
 					new QTypedOneResourceRelationship<QMovie, Movie>(this, 'movie', QMovie);
 			}
 			return this._movie;
-		};
+		}
 		private _location: QTypedOneResourceRelationship<QLocation, Location>;
 		get location(): QTypedOneResourceRelationship<QLocation, Location> {
 			if (!this._location) {
@@ -65,7 +65,7 @@ export module QScreening {
 					new QTypedOneResourceRelationship<QLocation, Location>(this, 'location', QLocation);
 			}
 			return this._location;
-		};
+		}
 		private _attributeChanges: QTypedManyResourceRelationship<QAttributeChange, AttributeChange>;
 		get attributeChanges(): QTypedManyResourceRelationship<QAttributeChange, AttributeChange> {
 			if (!this._attributeChanges) {
@@ -73,7 +73,7 @@ export module QScreening {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 }
 export let createEmptyScreening = function(id: string): Screening {

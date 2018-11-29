@@ -51,7 +51,7 @@ export module QSecret {
 					new QTypedManyResourceRelationship<QAttributeChange, AttributeChange>(this, 'attributeChanges', QAttributeChange);
 			}
 			return this._attributeChanges;
-		};
+		}
 	}
 	export class QAttributes extends BeanPath<Secret.Attributes> {
 		name: StringPath = this.createString('name');
