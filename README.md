@@ -41,11 +41,6 @@ or
 
     docker run --name=crnk -p 8080:8080 crnk/example
 
-
-The frontend application will be available at
- 
- 	http://localhost:8080/
- 	
 The JSON API endpoint will be available at:
  	
  	http://localhost:8080/api/
@@ -64,31 +59,20 @@ Some further URLs to play around that show the power of Crnk:
     http://127.0.0.1:8080/api/movie?filter[name][EQ]=Iron Man
     http://127.0.0.1:8080/api/movie?filter[name][LIKE]=Iron
     http://127.0.0.1:8080/api/schedule
-    http://127.0.0.1:8080/api/scheduleDto
     http://127.0.0.1:8080/api/meta/resource
     http://127.0.0.1:8080/api/vote?fields=name // demos fields set & performance issues
     http://127.0.0.1:8080/api/secrets // demos error
  	
- 	
-To debug the frontend application go into `crnk-example-frontend` and use:
 
-    yarn install
-    yarn run start
-    
-Note that Gradle downloads a nodejs and yarn distribution into the 
-`.gradle` directory you may make use of (see https://github.com/srs/gradle-node-plugin).
+The `crnk-example-service` project showcases:
 
-
-## Backend application
-
-The `crnk-example-service` project is the backend application showcasing:
-
-- integration of Crnk into Spring Boot
-- exposing entities with crnk-jpa using `ExampleJpaModuleConfigurer`.
-- exception mapping with `CustomExceptionMapper`.
-- manually writing a resource repository with `VoteRepository` (making use of Thread.sleep to simulate heavy work)
-- a very simple in-memory repository with`ScreeningRepository`.
-- using `@JsonApiRelationId` with `ScreeningRepository` to 
+- Integration of Crnk into Spring Boot
+- Exposing entities with crnk-jpa using `MovieRepository`, `PersonRepository`, etc. extending `JpaEntityRepositoryBase`.
+  Behind the scenes the `QuerySpec` is translated to an efficient JPA Criteria query.
+- A simple in-memory repository with`ScreeningRepository` that keeps all resources in a map.
+- A manually written repository with `VoteRepository`. It makes use of Thread.sleep to simulate heavy work.
+- A custom exception is introduced with `CustomExceptionMapper` that is mapped to a JSON API error and HTTP status code.
+- using `@JsonApiRelationId` with `ScreeningRepository` to
   handle use cases where the related ID is easy to get, which in turn allows
   to omit having to implement relationship repositories.
 - implementing a relationship repository with`AttributeChangeRelationshipRepository`.
@@ -106,84 +90,11 @@ The `crnk-example-service` project is the backend application showcasing:
 - `ExampleSecurityConfigurer` to setup role-based access control.
 - `ExampleDecoratorFactory` to intercept and modify requests to repositories.
 
-
 The `TestDataLoader` will automatically setup some test data upon start.
 
 Note that the project is structured based on the the use Crnk features like
 JPA or decoration. For real-world application we do not recommend that, but rather
 structure the application based on business value.
-
-## Frontend application
-
-The `crnk-example-frontend` project is an Angular application showcasing the 
-use of JSON API:
-
-- https://github.com/ngrx/platform is used to do state management with Angular.
-  For a tutorial see http://onehungrymind.com/build-better-angular-2-application-redux-ngrx/.
-- https://github.com/abdulhaq-e/ngrx-json-api is used as Angular JSON API library.
-- https://www.npmjs.com/package/@crnk/angular-ngrx is used to simplify binding
-  of frontend components to JSON API. 
-  see http://www.crnk.io/releases/stable/documentation/#_angular_development_with_ngrx.
-- UI components and styling is taken from Angular Material. Some further PrimeNG components are 
-  used (currently the table). You may use any UI component libary of your choice. Only the table
-  binding of @crnk/angular-ngrx may need to be generalized (currently still PrimeNG-only to a small part). 
- 
-In more detail:
-
-- `AppModule` initializes the application.
-- `crnk-typescript-gen` is setup in Gradle to generate resource stubs into `src/resources`.
-- `demo.scss` does some styling, work in progress. Google Material does a good job in general. PrimeNG not such much
-  without the commercial themes that are not usable in OSS projects.
-- `MovieModule` shows a typical CRUD pattern with a table (explorer) and editor. 
-  - The explorer supports sorting, filtering and pagination.
-  - The explorer allows to create an new resource with an editor.
-  - The explorer allows to be refreshed with a button.
-  - The editor can only be saved if all inputs are valid and there is a dirty value.
-  - The editor allows to delete the record. 
-  - The editor makes use of the generated resource stubs to gain type-safety.
-  - The editor attempts to map JSON API error to the individual form fields. If that is not possible
-    it will be shown on the top of the editor (such as for `OptimisticLockException` that concerns the entire changed resource).
-    Leaving the name field empty will give an error. Or editing the resource in two windows concurrently will give conflict
-    error for the later.
-- `AppResourceResolve` is used during routing to load the necessary data for a screen. Here you can make use of advanced
-  loading patterns like inclusions, sparse field sets, loading what has not already be loaded or isolating different
-  parts of the application into different ngrx-json-api zones. The current example is still rather simple.
-- `AppSnackBarService` shows the the user when a resource was successfully created or saved. Notifications
-  are obtained from the store. `AppNotificationEffects` is responsible for putting those notifications into the store.
-- `TranslateModule` and https://momentjs.com/ is used to do internationalization.
-- `app/common/error` displays error screens and provides components for form validation. 
-  - `ErrorRoutingService` triggers the navigation to the various error pages if a service call fails with certain
-     error code. 
-  - `ErrorComponent` displays a single error. Currently it has special handling of `OptimisticLockException`
-     with status code `409`.   
-- `LoadingService` displays a loading/busy screen if a resolver within navigation or a JSON API modification
-   takes a lot of time. Have a look at the `vote` screen where the services have been artificially slowed down with 
-   `Thread.sleep(...)`.
-- `RouterEffects` provides various routing actions for ngrx.
-- `AppNavigationEffects` handles the navigation between explorer and editor screen.
-  - Upon successful creation of a new resource, it will navigate to the new, permanent url.
-  - Upon successful deletion of a resource, it will navigate back to the explorer. 
-- use of `https://github.com/serhiisol/ngx-auth` to handle authentication with OAuth setup on backend.
-- `AuthenticationService` performs a redirect to the GitHub login page in case of an unauthenticated REST call.
-  In the future we may switch to token-based setup (see `SecurityConfiguration` above for more information).
-
-More to come... 		
-
-
-## Roadmap
-
-There are plenty of possible improvements:
-
-- UI polishing
-- Testing setup for frontend.
-- Refine the data model.
-- Security Setup.
-- Inline table editing for frontend.
-- More complex table filtering.
-- More complex editor with more widgets and nested resources.
-- More complex logic within repositories, such as an approval flow.
-- More complex data loading patterns in `AppResourceResolve`.
-- ...
 
 Feedback and PRs very welcomed!
 

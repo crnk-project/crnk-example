@@ -9,8 +9,11 @@
 		</encoder>
 	</appender>
 
+
+	<logger name="io.crnk" level="INFO"/>
+
 	<logger name="springboot.simple.traceReporter" level="INFO"/>
-	<logger name="org.springframework.security" level="DEBUG"/>
+	<logger name="org.springframework.security" level="WARN"/>
 
 	<root level="WARN">
 		<appender-ref ref="CONSOLE"/>

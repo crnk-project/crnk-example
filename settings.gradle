@@ -1,4 +1,4 @@
-include ':crnk-example-service', 'crnk-example-frontend'
+include ':crnk-example-service'
 
 gradle.beforeProject { Project project ->
 	project.with {

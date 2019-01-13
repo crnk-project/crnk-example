@@ -8,8 +8,6 @@ management:
 crnk:
   path-prefix: /api
   default-page-limit: 20
-  jpa:
-    expose-all: false
   security:
     enabled: ${example.security-enabled}
 
