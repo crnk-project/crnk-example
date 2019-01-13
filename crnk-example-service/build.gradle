@@ -1,8 +1,6 @@
-import com.bmuschko.gradle.docker.tasks.image.DockerTagImage
-
 apply plugin: 'java'
 tasks.withType(Jar) { jar ->
-	jar.version = null
+    jar.version = null
 }
 
 
@@ -12,69 +10,49 @@ mainClassName = "io.crnk.example.service.ExampleApplication"
 
 dependencies {
 
-	compile "io.crnk:crnk-setup-spring-boot2"
-	compile "io.crnk:crnk-jpa"
-	compile "io.crnk:crnk-validation"
-	compile "io.crnk:crnk-home"
-	compile "io.crnk:crnk-ui"
-	compile "io.crnk:crnk-operations"
-	compile "io.crnk:crnk-security"
+    compile "io.crnk:crnk-setup-spring-boot2"
+    compile "io.crnk:crnk-jpa"
+    compile "io.crnk:crnk-validation"
+    compile "io.crnk:crnk-home"
+    compile "io.crnk:crnk-ui"
+    compile "io.crnk:crnk-operations"
+    compile "io.crnk:crnk-security"
 
-	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-	compile 'org.springframework.boot:spring-boot-starter-web'
-	compile 'org.springframework.boot:spring-boot-starter-json'
-	compile 'org.springframework.boot:spring-boot-starter-actuator'
-	compile 'org.springframework.boot:spring-boot-starter-security'
-	compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-json'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE'
 
-	compile 'org.hibernate:hibernate-core'
-	compile 'com.h2database:h2'
-	compile 'commons-io:commons-io:1.3.2'
-	compile 'com.google.guava:guava:18.0'
+    compile 'org.hibernate:hibernate-core'
+    compile 'com.h2database:h2'
+    compile 'commons-io:commons-io:1.3.2'
+    compile 'com.google.guava:guava:18.0'
 
-	testCompile 'org.springframework.boot:spring-boot-starter-test'
-	testCompile "io.crnk:crnk-client"
-	testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
-	testCompile 'com.jayway.restassured:rest-assured:2.9.0'
-	testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile "io.crnk:crnk-client"
+    testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
+    testCompile 'com.jayway.restassured:rest-assured:2.9.0'
+    testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
 }
 
-apply plugin: 'com.bmuschko.docker-java-application'
+apply plugin: 'com.google.cloud.tools.jib'
+jib {
+    from {
+        image = 'adoptopenjdk/openjdk11-openj9:jdk-11.0.1.13-alpine-slim'
+    }
 
-dockerDistTar {
-	environmentVariable('JAVA_OPTS', '-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap')
+    container {
+        ports = ['8080']
+    }
+
+    to {
+        image = "crnk/example"
+        auth {
+            username = dockerHubUser
+            password = dockerHubPass
+        }
+        tags = ['latest']
+    }
 }
-
-docker {
-	javaApplication {
-		baseImage = 'anapsix/alpine-java'
-		maintainer = '"remo@adnovum.ch"'
-		ports = [8080]
-		tag = "crnk/example:$project.version"
-		exec {
-			entryPoint "/crnk-example-service/bin/crnk-example-service"
-			defaultCommand 'run'
-		}
-	}
-
-	registryCredentials {
-		email = 'remo@adnovum.ch'
-		username = dockerHubUser
-		password = dockerHubPass
-	}
-}
-
-
-task dockerTagLatest(type: DockerTagImage) {
-	dependsOn dockerBuildImage
-	force = true
-	imageId = dockerBuildImage.getTag()
-	repository = 'crnk/example'
-	tag = "latest"
-}
-
-dockerPushImage {
-	dependsOn dockerTagLatest
-	tag = "latest"
-}
-
