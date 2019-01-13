@@ -1,6 +1,7 @@
-package io.crnk.example.service.simple;
+package io.crnk.example.service;
 
 import com.jayway.restassured.RestAssured;
+import io.crnk.client.CrnkClient;
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepositoryV2;
 import io.crnk.core.resource.list.ResourceList;
@@ -10,6 +11,11 @@ import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.security.auth.message.config.AuthConfigFactory;
 import java.io.Serializable;
@@ -18,12 +24,24 @@ import java.util.Arrays;
 import static org.springframework.http.HttpStatus.OK;
 
 /**
- * Shows two kinds of test cases: RestAssured and CrnkClient.
+ * Showcases CrnkClient-based and low-level RestAssured test cases.
  */
-public class ExampleApplicationTest extends BaseTest {
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ExampleApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext
+public class ExampleApplicationTest {
+
+    @Value("${local.server.port}")
+    protected int port;
+
+    protected CrnkClient client;
 
     @Before
     public void setup() {
+        RestAssured.port = port;
+        client = new CrnkClient("http://localhost:" + port + "/api");
+        client.findModules();
+
         // NPE fix
         if (AuthConfigFactory.getFactory() == null) {
             AuthConfigFactory.setFactory(new AuthConfigFactoryImpl());
