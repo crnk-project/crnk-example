@@ -10,8 +10,12 @@ mainClassName = "io.crnk.example.service.ExampleApplication"
 
 dependencies {
 
+    compileOnly 'io.crnk:crnk-gen-java' // Intellij classpath workaround, not necessary for Gradle
+    annotationProcessor 'io.crnk:crnk-gen-java'
+
     compile "io.crnk:crnk-setup-spring-boot2"
-    compile "io.crnk:crnk-jpa"
+    compile "io.crnk:crnk-data-jpa"
+    compile "io.crnk:crnk-format-plain-json"
     compile "io.crnk:crnk-validation"
     compile "io.crnk:crnk-home"
     compile "io.crnk:crnk-ui"
@@ -30,6 +34,7 @@ dependencies {
     compile 'commons-io:commons-io:1.3.2'
     compile 'com.google.guava:guava:18.0'
 
+    testCompile "io.crnk:crnk-gen-asciidoc"
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile "io.crnk:crnk-client"
     testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
@@ -37,16 +42,26 @@ dependencies {
     testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
 }
 
+
+apply plugin: 'org.asciidoctor.convert'
+
+asciidoctor {
+    sourceDir = file('build/generated/source/asciidoc')
+    backends = ['html5']
+    attributes 'source-highlighter': 'coderay'
+    sources {
+        include 'index.adoc'
+    }
+}
+
 apply plugin: 'com.google.cloud.tools.jib'
 jib {
     from {
         image = 'adoptopenjdk/openjdk11-openj9:jdk-11.0.1.13-alpine-slim'
     }
-
     container {
         ports = ['8080']
     }
-
     to {
         image = "crnk/example"
         auth {
@@ -56,3 +71,27 @@ jib {
         tags = ['latest']
     }
 }
+
+apply plugin: 'crnk-gen'
+crnkGen {
+    runtime {
+        configuration = 'test'
+    }
+
+    forked = true
+    resourcePackages = ['io.crnk.example']
+
+    asciidoc {
+        enabled = true
+    }
+}
+crnkGen.init()
+
+// compile generated asciidoc files
+tasks.test.doFirst {
+    delete 'build/generated/source/asciidoc'
+}
+check.dependsOn tasks.asciidoctor
+tasks.generateAsciidoc.dependsOn test
+tasks.asciidoctor.dependsOn generateAsciidoc
+tasks.build.dependsOn asciidoctor

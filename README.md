@@ -58,11 +58,22 @@ Some further URLs to play around that show the power of Crnk:
     http://127.0.0.1:8080/api/meta/resource
     http://127.0.0.1:8080/api/vote?fields=name // demos fields set & performance issues
     http://127.0.0.1:8080/api/secrets // demos error
- 	
+
+
+## IDE
+
+Make sure to enable annotation processing support when using IntelliJ IDEA. Otherwise it will
+not be able to find the generated sources from the Crnk annotation processor (type-safe Query objects).
+
+
+## Pointers
+
 
 The `crnk-example-service` project showcases:
 
 - Integration of Crnk into Spring Boot
+- `io.crnk:crnk-format-plain-json` has been applied for slightly simplified version of JSON:API without
+  `attributes`, `relationships`, `includes` section.
 - Exposing entities with crnk-jpa using `MovieRepository`, `PersonRepository`, etc. extending `JpaEntityRepositoryBase`.
   Behind the scenes the `QuerySpec` is translated to an efficient JPA Criteria query.
 - A simple in-memory repository with`ScreeningRepository` that keeps all resources in a map.
@@ -72,19 +83,22 @@ The `crnk-example-service` project showcases:
   handle use cases where the related ID is easy to get, which in turn allows
   to omit having to implement relationship repositories.
 - implementing a relationship repository with`AttributeChangeRelationshipRepository`.
+- implementing a multi-valued nested resource with `Secret` and its identifier `SecretId`.
+- implementing a single-valued nested resource with `SecreeningStatus`. Shared the same ID as the screening itself
+  and make use of `SerializeType.EAGER` to directly be shown with the screening (see
+  http://127.0.0.1:8080/api/screening)
 - introducing new relationships to existing resources
   without touching those resources with `AttributeChangeFieldProvider`.  
-- delivery of an Angular frontend application accessing the JSON API endpoint.
 - `SecurityConfiguration` performs a OAuth setup with GitHub as provider.
-  `LoginRepository` gives access to information about the logged-in user through http://localhost:8080/api/login.
+  `LoginRepository` gives access to information about the logged-in user through http://localhost:8080/api/user.
   *Enable spring security in the `application.yaml`* to make use of the security features.
   *Security is disabled by default* to facilitate playing with the example app.
-   The security setup is still work in progress. Currently the Angular app makes use of a session token
-   and the Spring backend takes care of interacting with the GitHub OAuth provider. 
-   In the future we may switch to a session-less, token-based setup (PRs welcomed).
+   The security setup is still work in progress.
 - `CSRF` (resp. `XSRF` in Angular terminology) protection through `SecurityConfiguration`. 
 - `ExampleSecurityConfigurer` to setup role-based access control.
-- `ExampleDecoratorFactory` to intercept and modify requests to repositories.
+- `ScheduleDecoratorFactory` to intercept and modify requests to repositories.
+- The documentation gets generated to `build/asciidoc` upon executing `gradlew build`. Have a look at the
+  `build.gradle` file and the capturing based on `AsciidocCaptureModule` within the test cases.
 
 The `TestDataLoader` will automatically setup some test data upon start.
 

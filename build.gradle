@@ -1,28 +1,27 @@
 buildscript {
-	dependencies {
-		apply from: "versions.gradle"
-
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
-		classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
-		classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
-		classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
-		classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5-rc1'
-		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
-		classpath 'net.ltgt.gradle:gradle-apt-plugin:0.10'
-		classpath "org.ajoberstar:gradle-git:1.7.2"
-		classpath 'com.google.cloud.tools.jib:com.google.cloud.tools.jib.gradle.plugin:1.0.0-rc1'
-	}
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE"
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
+        classpath 'org.ajoberstar:gradle-git-publish:0.2.1'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5-rc1'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.10'
+        classpath "org.ajoberstar:gradle-git:1.7.2"
+        classpath 'com.google.cloud.tools.jib:com.google.cloud.tools.jib.gradle.plugin:1.0.0-rc1'
+        classpath "io.crnk:crnk-gen-gradle:$CRNK_VERSION"
+    }
 }
 
 wrapper {
-	gradleVersion = '4.10.2'
+    gradleVersion = '4.10.2'
 }
 
 // note that a production build creates javadoc, sources jars and signatures undesired during development
 // for performance reasons
 def isProductionBuild = System.env.NEXUS_DEPLOY_USER != null
 ext {
-	timestampedVersion = isProductionBuild
+    timestampedVersion = isProductionBuild
 }
 
 apply plugin: 'org.ajoberstar.grgit'
@@ -31,22 +30,22 @@ version = BUILD_VERSION_PREFIX + "." + gitCommitTimestamp
 group = GROUP_ID
 
 if (JavaVersion.current().isJava8Compatible()) {
-	allprojects {
-		tasks.withType(Javadoc) {
-			options.addStringOption('Xdoclint:none', '-quiet')
-		}
-	}
+    allprojects {
+        tasks.withType(Javadoc) {
+            // options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
 }
 
 gradle.beforeProject { Project project ->
-	project.with {
-		apply plugin: 'io.spring.dependency-management'
-		dependencyManagement {
-			imports {
-				mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.0.RELEASE'
-				mavenBom "io.crnk:crnk-bom:${versions['crnk.version']}"
-			}
-		}
-	}
+    project.with {
+        apply plugin: 'io.spring.dependency-management'
+        dependencyManagement {
+            imports {
+                mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.0.RELEASE'
+                mavenBom "io.crnk:crnk-bom:$CRNK_VERSION"
+            }
+        }
+    }
 }
 

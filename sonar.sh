@@ -11,9 +11,9 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] && [ -n "${GITHUB_TOKEN:-}" ]; then
         -Dsonar.github.pullRequest=$TRAVIS_PULL_REQUEST \
         -Dsonar.github.repository=$TRAVIS_REPO_SLUG \
         -Dsonar.github.oauth=$GITHUB_TOKEN \
-        -Dsonar.login=$SONAR_TOKEN
+        -Dsonar.user=$SONAR_TOKEN
 
 else
-     mvn org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.login=$SONAR_TOKEN
+     mvn org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar -Dsonar.user=$SONAR_TOKEN
 fi
 #

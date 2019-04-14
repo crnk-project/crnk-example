@@ -10,15 +10,15 @@ import javax.persistence.EntityManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.crnk.core.engine.transaction.TransactionRunner;
-import io.crnk.example.service.basic.Location;
-import io.crnk.example.service.basic.LocationRepository;
-import io.crnk.example.service.basic.Screening;
-import io.crnk.example.service.basic.ScreeningRepository;
-import io.crnk.example.service.basic.Vote;
-import io.crnk.example.service.basic.VoteRepository;
-import io.crnk.example.service.jpa.MovieEntity;
-import io.crnk.example.service.jpa.PersonEntity;
-import io.crnk.example.service.jpa.ScheduleEntity;
+import io.crnk.example.service.model.Location;
+import io.crnk.example.service.repository.LocationRepository;
+import io.crnk.example.service.model.Screening;
+import io.crnk.example.service.repository.ScreeningRepository;
+import io.crnk.example.service.model.Vote;
+import io.crnk.example.service.repository.VoteRepository;
+import io.crnk.example.service.model.MovieEntity;
+import io.crnk.example.service.model.PersonEntity;
+import io.crnk.example.service.model.ScheduleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -77,7 +77,7 @@ public class TestDataLoader {
 				for (int i = 0; i < 10; i++) {
 					ScheduleEntity scheduleEntity = new ScheduleEntity();
 					scheduleEntity.setId((long) i);
-					scheduleEntity.setName("schedule" + i);
+					scheduleEntity.setDescription("schedule" + i);
 					em.persist(scheduleEntity);
 				}
 				em.flush();
@@ -85,7 +85,7 @@ public class TestDataLoader {
 				for (int i = 0; i < 100; i++) {
 					Vote vote = new Vote();
 					vote.setId(UUID.nameUUIDFromBytes(("vote" + i).getBytes()));
-					vote.setCount(i);
+					vote.setStarts(i);
 					vote.setMovie(movie);
 					// bypass slow save
 					voteRepository.votes.put(vote.getId(), vote);

@@ -3,10 +3,14 @@ package io.crnk.example.service;
 import com.jayway.restassured.RestAssured;
 import io.crnk.client.CrnkClient;
 import io.crnk.core.queryspec.QuerySpec;
-import io.crnk.core.repository.ResourceRepositoryV2;
+import io.crnk.core.repository.ResourceRepository;
 import io.crnk.core.resource.list.ResourceList;
-import io.crnk.example.service.basic.Screening;
-import io.crnk.example.service.jpa.ScheduleEntity;
+import io.crnk.example.service.model.Login;
+import io.crnk.example.service.model.MovieEntity;
+import io.crnk.example.service.model.ScheduleEntity;
+import io.crnk.example.service.model.Screening;
+import io.crnk.gen.asciidoc.capture.AsciidocCaptureConfig;
+import io.crnk.gen.asciidoc.capture.AsciidocCaptureModule;
 import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,8 +22,10 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.security.auth.message.config.AuthConfigFactory;
+import java.io.File;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -36,10 +42,16 @@ public class ExampleApplicationTest {
 
     protected CrnkClient client;
 
+    private AsciidocCaptureModule docs;
+
     @Before
     public void setup() {
         RestAssured.port = port;
+
+        docs = setupAsciidoc();
+
         client = new CrnkClient("http://localhost:" + port + "/api");
+        client.addModule(docs);
         client.findModules();
 
         // NPE fix
@@ -48,9 +60,17 @@ public class ExampleApplicationTest {
         }
     }
 
+    private AsciidocCaptureModule setupAsciidoc() {
+        File outputDir = new File("build/generated/source/asciidoc");
+        AsciidocCaptureConfig asciidocConfig = new AsciidocCaptureConfig();
+        asciidocConfig.setGenDir(outputDir);
+        return new AsciidocCaptureModule(asciidocConfig);
+    }
+
+
     @Test
     public void testJpaEntityAccess() {
-        ResourceRepositoryV2<ScheduleEntity, Serializable> entityRepo = client.getRepositoryForType(ScheduleEntity.class);
+        ResourceRepository<ScheduleEntity, Serializable> entityRepo = client.getRepositoryForType(ScheduleEntity.class);
 
         QuerySpec querySpec = new QuerySpec(ScheduleEntity.class);
         ResourceList<ScheduleEntity> list = entityRepo.findAll(querySpec);
@@ -60,11 +80,30 @@ public class ExampleApplicationTest {
 
         ScheduleEntity schedule = new ScheduleEntity();
         schedule.setId(13L);
-        schedule.setName("My Schedule");
-        entityRepo.create(schedule);
+        schedule.setDescription("My Schedule");
+        docs.capture("Create Schedule").call(() -> entityRepo.create(schedule));
 
         list = entityRepo.findAll(querySpec);
         Assert.assertEquals(1, list.size());
+    }
+
+    @Test
+    public void testFindLogin() {
+        ResourceRepository<Login, Object> repository = client.getRepositoryForType(Login.class);
+        Login login = docs.capture("Get Login Information").call(() -> repository.findOne("me", new QuerySpec(Login.class)));
+        Assert.assertNotNull(login);
+    }
+
+    @Test
+    public void testCreateMovie() {
+        String title = "Avengers: Endgame";
+        MovieEntity movie = new MovieEntity();
+        movie.setId(UUID.nameUUIDFromBytes(title.getBytes()));
+        movie.setName(title);
+        movie.setYear(2019);
+
+        ResourceRepository<MovieEntity, Object> repository = client.getRepositoryForType(MovieEntity.class);
+        docs.capture("Get Login Information").call(() -> repository.create(movie));
     }
 
     @Test
@@ -78,7 +117,7 @@ public class ExampleApplicationTest {
     public void testBasicRelationship() {
         QuerySpec querySpec = new QuerySpec(Screening.class);
         querySpec.includeRelation(Arrays.asList("location"));
-        ResourceRepositoryV2<Screening, Serializable> repository = client.getRepositoryForType(Screening.class);
+        ResourceRepository<Screening, Serializable> repository = client.getRepositoryForType(Screening.class);
         ResourceList<Screening> list = repository.findAll(querySpec);
         Assert.assertNotEquals(0, list.size());
         for (Screening screening : list) {

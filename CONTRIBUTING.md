@@ -13,7 +13,7 @@ Before you raise a new issue you must be able to narrow it  down to a minimal te
 Fixing Bugs & Extending the Library
 ===========================
 
-So you have added a feature to a library or you have created something new. Maybe you just have some bit of code that you use all the time in your projects and now you want to give that to the community and let them enjoy the same benefits you have? Great! This is how open source projects begin, grow, thrive and reach new users. Here is how to proceed with a pull request:
+So you have added a feature to a library or you have created something new. Maybe you just have some bit of code that you use all the time in your projects and now you want to give that to the community and let them enjoy the same benefits you have? Great! This is how open source projects begin, grow, thrive and reach new logins. Here is how to proceed with a pull request:
 
 1. [Fork crnk-framework](https://github.com/crnk-movie/crnk-framework#fork-destination-box) repository
 2. Implement your new feature or fix on *dedicated* branch 
