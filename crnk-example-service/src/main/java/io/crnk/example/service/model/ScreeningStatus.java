@@ -4,6 +4,7 @@ import io.crnk.core.resource.annotations.JsonApiId;
 import io.crnk.core.resource.annotations.JsonApiRelation;
 import io.crnk.core.resource.annotations.JsonApiRelationId;
 import io.crnk.core.resource.annotations.JsonApiResource;
+import lombok.Data;
 
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
  * Status of a screening.
  */
 @JsonApiResource(type = "screeningStatus", nested = true)
+@Data
 public class ScreeningStatus {
 
     /**
@@ -26,28 +28,4 @@ public class ScreeningStatus {
     private Screening screening;
 
     private String description;
-
-    public UUID getScreeningId() {
-        return screeningId;
-    }
-
-    public void setScreeningId(UUID screeningId) {
-        this.screeningId = screeningId;
-    }
-
-    public Screening getScreening() {
-        return screening;
-    }
-
-    public void setScreening(Screening screening) {
-        this.screening = screening;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

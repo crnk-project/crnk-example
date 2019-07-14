@@ -15,6 +15,7 @@ dependencies {
 
     compile "io.crnk:crnk-setup-spring-boot2"
     compile "io.crnk:crnk-data-jpa"
+    compile "io.crnk:crnk-data-facet"
     compile "io.crnk:crnk-format-plain-json"
     compile "io.crnk:crnk-validation"
     compile "io.crnk:crnk-home"
@@ -40,6 +41,11 @@ dependencies {
     testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
     testCompile 'com.jayway.restassured:rest-assured:2.9.0'
     testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
+
+    compileOnly "org.projectlombok:lombok:$LOMBOK_VERSION"
+    testCompileOnly "org.projectlombok:lombok:$LOMBOK_VERSION"
+    annotationProcessor "org.projectlombok:lombok:$LOMBOK_VERSION"
+    testAnnotationProcessor "org.projectlombok:lombok:$LOMBOK_VERSION"
 }
 
 

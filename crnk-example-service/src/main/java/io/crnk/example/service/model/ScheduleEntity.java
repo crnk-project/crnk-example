@@ -1,6 +1,7 @@
 package io.crnk.example.service.model;
 
 import io.crnk.core.resource.annotations.JsonApiResource;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
  */
 @JsonApiResource(type = "schedule")
 @Entity
+@Data
 public class ScheduleEntity {
 
     @Id
@@ -22,27 +24,4 @@ public class ScheduleEntity {
     @ManyToOne
     private MovieEntity movie;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public MovieEntity getMovie() {
-        return movie;
-    }
-
-    public void setMovie(MovieEntity movie) {
-        this.movie = movie;
-    }
 }

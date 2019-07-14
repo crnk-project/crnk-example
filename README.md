@@ -58,6 +58,7 @@ Some further URLs to play around that show the power of Crnk:
     http://127.0.0.1:8080/api/meta/resource
     http://127.0.0.1:8080/api/vote?fields=name // demos fields set & performance issues
     http://127.0.0.1:8080/api/secrets // demos error
+    http://127.0.0.1:8080/api/facet?filter[resourceType]=movie // get movie facets
 
 
 ## IDE
@@ -71,6 +72,7 @@ not be able to find the generated sources from the Crnk annotation processor (ty
 
 The `crnk-example-service` project showcases:
 
+- Use of Lombok to avoid getter/setter boiler-plate.
 - Integration of Crnk into Spring Boot
 - `io.crnk:crnk-format-plain-json` has been applied for slightly simplified version of JSON:API without
   `attributes`, `relationships`, `includes` section.
@@ -94,11 +96,13 @@ The `crnk-example-service` project showcases:
   *Enable spring security in the `application.yaml`* to make use of the security features.
   *Security is disabled by default* to facilitate playing with the example app.
    The security setup is still work in progress.
-- `CSRF` (resp. `XSRF` in Angular terminology) protection through `SecurityConfiguration`. 
+- `CSRF` (resp. `XSRF` in Angular terminology) protection through `SpringSecurityConfiguration`.
 - `ExampleSecurityConfigurer` to setup role-based access control.
 - `ScheduleDecoratorFactory` to intercept and modify requests to repositories.
 - The documentation gets generated to `build/asciidoc` upon executing `gradlew build`. Have a look at the
   `build.gradle` file and the capturing based on `AsciidocCaptureModule` within the test cases.
+- Support for facetted search by applying `crnk-data-facets`. `MovieEntity.year` as been marked as being facetted with `@Facet`.
+  See `http://127.0.0.1:8080/api/facet?filter[resourceType]=movie`.
 
 The `TestDataLoader` will automatically setup some test data upon start.
 

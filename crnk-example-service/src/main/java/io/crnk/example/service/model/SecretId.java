@@ -6,12 +6,14 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.crnk.core.resource.annotations.JsonApiEmbeddable;
 import io.crnk.core.resource.annotations.JsonApiId;
 import io.crnk.core.resource.annotations.JsonApiRelationId;
+import lombok.Data;
 
 /**
  * Identifier for nested Secret resource.
  */
 @JsonApiEmbeddable
 @JsonSerialize(using = ToStringSerializer.class)
+@Data
 public class SecretId {
 
     /**
@@ -29,27 +31,10 @@ public class SecretId {
     public SecretId() {
     }
 
-
     public SecretId(String idString) {
         String[] elements = idString.split("\\-");
         loginId = elements[0];
         id = elements[1];
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
     }
 
     public int hashCode() {

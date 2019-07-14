@@ -5,6 +5,7 @@ import io.crnk.core.resource.annotations.JsonApiRelation;
 import io.crnk.core.resource.annotations.JsonApiRelationId;
 import io.crnk.core.resource.annotations.JsonApiResource;
 import io.crnk.core.resource.annotations.SerializeType;
+import lombok.Data;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import java.util.UUID;
  * Screening of a movie at a particular location.
  */
 @JsonApiResource(type = "screening")
+@Data
 public class Screening {
 
     @JsonApiId
@@ -45,55 +47,4 @@ public class Screening {
      */
     private OffsetDateTime time;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public ScreeningStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ScreeningStatus status) {
-        this.status = status;
-    }
-
-    public OffsetDateTime getTime() {
-        return time;
-    }
-
-    public void setTime(OffsetDateTime time) {
-        this.time = time;
-    }
-
-    public UUID getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(UUID movieId) {
-        this.movieId = movieId;
-
-        // movie reference becomes invalid
-        this.movie = null;
-    }
-
-    public MovieEntity getMovie() {
-        return movie;
-    }
-
-    public void setMovie(MovieEntity movie) {
-        this.movie = movie;
-        this.movieId = movie != null ? movie.getId() : null;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 }
