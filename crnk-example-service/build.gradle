@@ -2,6 +2,7 @@ apply plugin: 'java'
 tasks.withType(Jar) { jar ->
     jar.version = null
 }
+version = "1" // helm version not allowed to too long (not needed currently)
 
 
 apply plugin: 'application'
@@ -101,3 +102,47 @@ check.dependsOn tasks.asciidoctor
 tasks.generateAsciidoc.dependsOn test
 tasks.asciidoctor.dependsOn generateAsciidoc
 tasks.build.dependsOn asciidoctor
+
+
+// deployment example to google cloud with Kubernetes and Helm
+apply plugin: 'kubectl'
+apply plugin: 'gcloud'
+apply plugin: 'helm'
+gcloud {
+    keyFile = file("$projectDir/secrets/gcloud.key")
+    region = System.getenv("CRNK_GCLOUD_REGION")
+    project = System.getenv("CRNK_GCLOUD_PROJECT")
+    gke {
+        clusterName =  System.getenv("CRNK_GCLOUD_CLUSTER")
+    }
+    client {
+        imageName = 'google/cloud-sdk'
+        version = '224.0.0'
+    }
+}
+gcloudSetProject.dependsOn gcloudActivateServiceAccount
+gcloudGetKubernetesCredentials.dependsOn gcloudSetProject
+
+task deploy() {
+    dependsOn gcloudGetKubernetesCredentials, helmPackage, tasks.jib
+    doFirst {
+        kubectl.exec({ commandLine = "kubectl apply -f=${file('src/main/kubernetes/example-namespace.yaml')}" })
+
+        File yamlFile = file("build/helm/crnk-example.yaml")
+        yamlFile.parentFile.mkdirs()
+
+        String imageId = file("build/jib-image.id").text
+        if (imageId.startsWith("sha256:")) {
+            imageId = imageId.substring(7);
+        }
+        imageId = imageId.trim()
+
+        helm.exec({
+            commandLine = "helm template --name=crnk --set image.tag=${imageId} ${helmPackageCrnkExample.outputs.files.singleFile} --namespace=default"
+            stdoutFile = yamlFile
+        })
+
+        kubectl.exec({ commandLine = "kubectl apply -f=${yamlFile} -n=default" })
+    }
+}
+

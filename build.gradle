@@ -10,11 +10,24 @@ buildscript {
         classpath "org.ajoberstar:gradle-git:1.7.2"
         classpath 'com.google.cloud.tools.jib:com.google.cloud.tools.jib.gradle.plugin:1.0.0-rc1'
         classpath "io.crnk:crnk-gen-gradle:$CRNK_VERSION"
+
     }
 }
 
+plugins {
+    id "com.github.rmee.jdk-bootstrap" version "1.0.20190725142159"
+    id "com.github.rmee.kubectl" version "1.0.20190725142159"
+    id "com.github.rmee.helm" version "1.0.20190725142159"
+    id "com.github.rmee.gcloud" version "1.0.20190725142159"
+}
+
 wrapper {
-    gradleVersion = '4.10.2'
+    gradleVersion = '5.5'
+}
+
+apply plugin: 'jdk-bootstrap'
+jdk {
+    useAdoptOpenJdk8(JDK_VERSION)
 }
 
 // note that a production build creates javadoc, sources jars and signatures undesired during development

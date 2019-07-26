@@ -76,9 +76,9 @@ The `crnk-example-service` project showcases:
 - Integration of Crnk into Spring Boot
 - `io.crnk:crnk-format-plain-json` has been applied for slightly simplified version of JSON:API without
   `attributes`, `relationships`, `includes` section.
+- A simple in-memory repository with`ScreeningRepository` that keeps all resources in a map.
 - Exposing entities with crnk-jpa using `MovieRepository`, `PersonRepository`, etc. extending `JpaEntityRepositoryBase`.
   Behind the scenes the `QuerySpec` is translated to an efficient JPA Criteria query.
-- A simple in-memory repository with`ScreeningRepository` that keeps all resources in a map.
 - A manually written repository with `VoteRepository`. It makes use of Thread.sleep to simulate heavy work.
 - A custom exception is introduced with `CustomExceptionMapper` that is mapped to a JSON API error and HTTP status code.
 - using `@JsonApiRelationId` with `ScreeningRepository` to
@@ -106,9 +106,8 @@ The `crnk-example-service` project showcases:
 
 The `TestDataLoader` will automatically setup some test data upon start.
 
-Note that the project is structured based on the the use Crnk features like
-JPA or decoration. For real-world application we do not recommend that, but rather
-structure the application based on business value.
+The project itself makes use of an number of third-party plugins to bootstrap a JDK, build Helm packages and
+allow a Kubernetes installation to Google Cloud. For more information see https://github.com/rmee/gradle-plugins/.
 
 Feedback and PRs very welcomed!
 

@@ -128,3 +128,4 @@ buildNumber.properties
 build
 
 node_modules
+secrets

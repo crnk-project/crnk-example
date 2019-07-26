@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Crnk example application
+name: crnk-example
+version: 0.1.0
