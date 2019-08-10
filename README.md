@@ -66,6 +66,20 @@ Some further URLs to play around that show the power of Crnk:
 Make sure to enable annotation processing support when using IntelliJ IDEA. Otherwise it will
 not be able to find the generated sources from the Crnk annotation processor (type-safe Query objects).
 
+## Build Setup
+
+The project makes use of https://github.com/rmee/gradle-plugins/ for the build setup.
+
+- if no JAVA_HOME is configured (recommended), a suitable JDK will be downloaded automatically
+  by the `jdk-bootstrap` plugin.
+- `src/main/helm` holds a Helm chart to deploy to Kubernetes. 
+- Deployment to Kubernetes is triggered by the `deploy` task. All the deployment is confined
+  to Docker images and a project-specific home directory located in `build/home`. No installation
+  of any tooling necessary thanks to the plugins in use. Further wrapper scripts like `./kubectl`
+  allow to use this deployment setup from a shell (GitBash, Linux, etc.). For deployment 
+  `CRNK_GCLOUD_REGION`, `CRNK_GCLOUD_PROJECT`, `CRNK_GCLOUD_CLUSTER` environment variables must
+  be set and credentials be available in `crnk-example-service/secrets/gcloud.key`.
+
 
 ## Pointers
 
