@@ -1,5 +1,6 @@
 package io.crnk.example.service;
 
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -100,6 +101,7 @@ public class TestDataLoader {
 		Screening screening = new Screening();
 		screening.setId(UUID.randomUUID());
 		screening.setMovieId(movie.getId());
+		screening.setTime(OffsetDateTime.now());
 		screeningRepository.create(screening);
 	}
 
