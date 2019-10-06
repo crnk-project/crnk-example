@@ -7,6 +7,7 @@ import io.crnk.core.repository.ResourceRepository;
 import io.crnk.core.resource.list.ResourceList;
 import io.crnk.example.service.model.Login;
 import io.crnk.example.service.model.MovieEntity;
+import io.crnk.example.service.model.PersonEntity;
 import io.crnk.example.service.model.ScheduleEntity;
 import io.crnk.example.service.model.Screening;
 import io.crnk.gen.asciidoc.capture.AsciidocCaptureConfig;
@@ -25,6 +26,7 @@ import javax.security.auth.message.config.AuthConfigFactory;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -85,6 +87,27 @@ public class ExampleApplicationTest {
 
         list = entityRepo.findAll(querySpec);
         Assert.assertEquals(1, list.size());
+    }
+
+    @Test
+    public void testJsonApiSetter() {
+        ResourceRepository<PersonEntity, Serializable> entityRepo = client.getRepositoryForType(PersonEntity.class);
+
+        QuerySpec querySpec = new QuerySpec(PersonEntity.class);
+        ResourceList<PersonEntity> list = entityRepo.findAll(querySpec);
+        for (PersonEntity person : list) {
+            Map<String, String> properties = person.getProperties();
+            Assert.assertNotEquals(0, properties.size());
+        }
+
+        PersonEntity person = new PersonEntity();
+        person.setId(UUID.randomUUID());
+        person.setName("john doe");
+        person.setProperties("todo", "My Schedule");
+        entityRepo.create(person);
+
+        person = entityRepo.findOne(person.getId(), querySpec);
+        Assert.assertEquals(1, person.getProperties().size());
     }
 
     @Test

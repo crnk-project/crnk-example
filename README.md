@@ -105,6 +105,7 @@ The `crnk-example-service` project showcases:
   http://127.0.0.1:8080/api/screening)
 - introducing new relationships to existing resources
   without touching those resources with `AttributeChangeFieldProvider`.  
+- `PersonEntity` as dynamic resource by annotating a `Map`-based field with `@JsonAnyGetter` and `@JsonAnySetter`  
 - `SecurityConfiguration` performs a OAuth setup with GitHub as provider.
   `LoginRepository` gives access to information about the logged-in user through http://localhost:8080/api/user.
   *Enable spring security in the `application.yaml`* to make use of the security features.
