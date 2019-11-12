@@ -14,7 +14,8 @@ gradle.beforeProject { Project project ->
                 maven {
                     url('https://plugins.gradle.org/m2')
                 }
-                maven { url 'https://dl.bintray.com/crnk-project/mavenLatest/' }
+                // get latest crnk builds here:
+                // maven { url 'https://dl.bintray.com/crnk-project/mavenLatest/' }
             }
         }
         repositories {
@@ -23,7 +24,8 @@ gradle.beforeProject { Project project ->
             maven {
                 url('https://plugins.gradle.org/m2')
             }
-            maven { url 'https://dl.bintray.com/crnk-project/mavenLatest/' }
+            // get latest crnk builds here:
+            // maven { url 'https://dl.bintray.com/crnk-project/mavenLatest/' }
         }
         version = rootProject.version
         group = rootProject.group
