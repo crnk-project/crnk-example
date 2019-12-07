@@ -6,7 +6,7 @@
 
 This is a Spring-based showcasing the use of [Crnk](https://github.com/crnk-project/crnk-framework).
 Further smaller example applications integrating into various frameworks can be found at 
-[crnk-examples](https://github.com/crnk-project/crnk-framework/tree/master/crnk-examples).
+[crnk-integration-examples](https://github.com/crnk-project/crnk-framework/tree/master/crnk-integration-examples).
 
 *WARNING: this example project is still in development and subject to various improvements, see roadmap*
 
