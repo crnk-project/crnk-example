@@ -5,14 +5,14 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://github.com/crnk-project/crnk-framework/blob/master/LICENSE.txt)
 
 This is a Spring-based showcasing the use of [Crnk](https://github.com/crnk-project/crnk-framework).
-Further smaller example applications integrating into various frameworks can be found at 
+Further smaller example applications integrating into various frameworks can be found at
 [crnk-integration-examples](https://github.com/crnk-project/crnk-framework/tree/master/crnk-integration-examples).
 
 *WARNING: this example project is still in development and subject to various improvements, see roadmap*
 
 ## Requirements
 
-Crnk requires Java 8 or later. 
+Crnk requires Java 8 or later.
 
 ## Licensing
 
@@ -25,7 +25,7 @@ You can grab a copy of the license at http://www.apache.org/licenses/LICENSE-2.0
 Crnk make use of Gradle for its build. To build the project run
 
     gradlew build
-    
+
 
 ## Running the application
 
@@ -38,9 +38,9 @@ or
     docker run --name=crnk -p 8080:8080 crnk/example
 
 The JSON API endpoint will be available at:
- 	
+
  	http://localhost:8080/api/
- 	
+
 Some further URLs to play around that show the power of Crnk:
 
     http://127.0.0.1:8080/api/movie
@@ -72,11 +72,11 @@ The project makes use of https://github.com/rmee/gradle-plugins/ for the build s
 
 - if no JAVA_HOME is configured (recommended), a suitable JDK will be downloaded automatically
   by the `jdk-bootstrap` plugin.
-- `src/main/helm` holds a Helm chart to deploy to Kubernetes. 
+- `src/main/helm` holds a Helm chart to deploy to Kubernetes.
 - Deployment to Kubernetes is triggered by the `deploy` task. All the deployment is confined
   to Docker images and a project-specific home directory located in `build/home`. No installation
   of any tooling necessary thanks to the plugins in use. Further wrapper scripts like `./kubectl`
-  allow to use this deployment setup from a shell (GitBash, Linux, etc.). For deployment 
+  allow to use this deployment setup from a shell (GitBash, Linux, etc.). For deployment
   `CRNK_GCLOUD_REGION`, `CRNK_GCLOUD_PROJECT`, `CRNK_GCLOUD_CLUSTER` environment variables must
   be set and credentials be available in `crnk-example-service/secrets/gcloud.key`.
 
@@ -104,8 +104,8 @@ The `crnk-example-service` project showcases:
   and make use of `SerializeType.EAGER` to directly be shown with the screening (see
   http://127.0.0.1:8080/api/screening)
 - introducing new relationships to existing resources
-  without touching those resources with `AttributeChangeFieldProvider`.  
-- `PersonEntity` as dynamic resource by annotating a `Map`-based field with `@JsonAnyGetter` and `@JsonAnySetter`  
+  without touching those resources with `AttributeChangeFieldProvider`.
+- `PersonEntity` as dynamic resource by annotating a `Map`-based field with `@JsonAnyGetter` and `@JsonAnySetter`
 - `SecurityConfiguration` performs a OAuth setup with GitHub as provider.
   `LoginRepository` gives access to information about the logged-in user through http://localhost:8080/api/user.
   *Enable spring security in the `application.yaml`* to make use of the security features.
@@ -118,6 +118,11 @@ The `crnk-example-service` project showcases:
   `build.gradle` file and the capturing based on `AsciidocCaptureModule` within the test cases.
 - Support for facetted search by applying `crnk-data-facets`. `MovieEntity.year` as been marked as being facetted with `@Facet`.
   See `http://127.0.0.1:8080/api/facet?filter[resourceType]=movie`.
+- `MovieRepository` provides an interface for the `MovieRepositoryImpl` which allows type-safe access
+  to movie result lists in `CrnkClient`.
+- `MovieRepository` makes use of `HasMoreResourcesMetaInformation` through a custom `MovieList` type. This
+   triggers the use of a previous/next paging strategy, rather than always computing the total count
+   in a second, potentially expensive query.
 
 The `TestDataLoader` will automatically setup some test data upon start.
 
