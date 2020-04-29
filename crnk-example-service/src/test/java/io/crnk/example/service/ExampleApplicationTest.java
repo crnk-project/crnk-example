@@ -11,6 +11,7 @@ import io.crnk.example.service.model.PersonEntity;
 import io.crnk.example.service.model.ScheduleEntity;
 import io.crnk.example.service.model.Screening;
 import io.crnk.example.service.repository.MovieRepository;
+import io.crnk.format.plainjson.PlainJsonFormatModule;
 import io.crnk.gen.asciidoc.capture.AsciidocCaptureConfig;
 import io.crnk.gen.asciidoc.capture.AsciidocCaptureModule;
 import org.apache.catalina.authenticator.jaspic.AuthConfigFactoryImpl;
@@ -55,6 +56,7 @@ public class ExampleApplicationTest {
 
 		client = new CrnkClient("http://localhost:" + port + "/api");
 		client.addModule(docs);
+		client.addModule(new PlainJsonFormatModule());
 		client.findModules();
 
 		// NPE fix
@@ -64,9 +66,10 @@ public class ExampleApplicationTest {
 	}
 
 	private AsciidocCaptureModule setupAsciidoc() {
-		File outputDir = new File("build/generated/source/asciidoc");
+		File outputDir = new File("build/generated/sources/asciidoc");
 		AsciidocCaptureConfig asciidocConfig = new AsciidocCaptureConfig();
 		asciidocConfig.setGenDir(outputDir);
+		asciidocConfig.setPortOverride(8080);
 		return new AsciidocCaptureModule(asciidocConfig);
 	}
 

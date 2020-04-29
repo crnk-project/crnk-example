@@ -53,7 +53,7 @@ dependencies {
 apply plugin: 'org.asciidoctor.convert'
 
 asciidoctor {
-    sourceDir = file('build/generated/source/asciidoc')
+    sourceDir = file('build/generated/sources/asciidoc')
     backends = ['html5']
     attributes 'source-highlighter': 'coderay'
     sources {
@@ -85,7 +85,7 @@ crnkGen {
         configuration = 'test'
     }
 
-    forked = true
+    forked = false
     resourcePackages = ['io.crnk.example']
 
     asciidoc {
@@ -96,7 +96,7 @@ crnkGen.init()
 
 // compile generated asciidoc files
 tasks.test.doFirst {
-    delete 'build/generated/source/asciidoc'
+    delete 'build/generated/sources/asciidoc'
 }
 check.dependsOn tasks.asciidoctor
 tasks.generateAsciidoc.dependsOn test

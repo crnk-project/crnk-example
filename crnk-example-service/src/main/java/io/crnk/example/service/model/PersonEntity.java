@@ -25,37 +25,40 @@ import java.util.UUID;
 @Data
 public class PersonEntity {
 
-    @Id
-    private UUID id;
+	@Id
+	private UUID id;
 
-    @JsonProperty
-    private String name;
+	/**
+	 * Name of subject, e.g. Hans Müller (some UTF8 testing here...)
+	 */
+	@JsonProperty
+	private String name;
 
-    private int year;
+	private int year;
 
-    @OneToMany(mappedBy = "movie")
-    private List<RoleEntity> roles = new ArrayList<>();
+	@OneToMany(mappedBy = "movie")
+	private List<RoleEntity> roles = new ArrayList<>();
 
-    @Version
-    private Integer version;
+	@Version
+	private Integer version;
 
-    @ElementCollection
-    private Map<String, String> properties;
+	@ElementCollection
+	private Map<String, String> properties;
 
-    @JsonAnyGetter
-    public Map<String, String> getProperties() {
-        return properties;
-    }
+	@JsonAnyGetter
+	public Map<String, String> getProperties() {
+		return properties;
+	}
 
-    public void setProperties(Map<String, String> properties) {
-        this.properties = properties;
-    }
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
+	}
 
-    @JsonAnySetter
-    public void setProperties(String propertyName, String propertyValue) {
-        if (properties == null) {
-            properties = new HashMap<>();
-        }
-        this.properties.put(propertyName, propertyValue);
-    }
+	@JsonAnySetter
+	public void setProperties(String propertyName, String propertyValue) {
+		if (properties == null) {
+			properties = new HashMap<>();
+		}
+		this.properties.put(propertyName, propertyValue);
+	}
 }

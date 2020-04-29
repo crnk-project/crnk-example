@@ -21,7 +21,7 @@ public class Login {
     private String id;
 
     /**
-     * Name of the logged in user.
+     * Name of the logged in user
      */
     private String userName;
 
