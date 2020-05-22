@@ -10,38 +10,41 @@ apply plugin: 'application'
 mainClassName = "io.crnk.example.service.ExampleApplication"
 
 dependencies {
+	implementation platform('org.springframework.boot:spring-boot-dependencies:2.1.0.RELEASE')
+	implementation platform("io.crnk:crnk-bom:$CRNK_VERSION")
+	annotationProcessor platform("io.crnk:crnk-bom:$CRNK_VERSION")
 
     compileOnly 'io.crnk:crnk-gen-java' // Intellij classpath workaround, not necessary for Gradle
     annotationProcessor 'io.crnk:crnk-gen-java'
 
-    compile "io.crnk:crnk-setup-spring-boot2"
-    compile "io.crnk:crnk-data-jpa"
-    compile "io.crnk:crnk-data-facet"
-    compile "io.crnk:crnk-format-plain-json"
-    compile "io.crnk:crnk-validation"
-    compile "io.crnk:crnk-home"
-    compile "io.crnk:crnk-ui"
-    compile "io.crnk:crnk-operations"
-    compile "io.crnk:crnk-security"
+    implementation "io.crnk:crnk-setup-spring-boot2"
+    implementation "io.crnk:crnk-data-jpa"
+    implementation "io.crnk:crnk-data-facet"
+    implementation "io.crnk:crnk-format-plain-json"
+    implementation "io.crnk:crnk-validation"
+    implementation "io.crnk:crnk-home"
+    implementation "io.crnk:crnk-ui"
+    implementation "io.crnk:crnk-operations"
+    implementation "io.crnk:crnk-security"
 
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-json'
-    compile 'org.springframework.boot:spring-boot-starter-actuator'
-    compile 'org.springframework.boot:spring-boot-starter-security'
-    compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.0.1.RELEASE'
 
-    compile 'org.hibernate:hibernate-core'
-    compile 'com.h2database:h2'
-    compile 'commons-io:commons-io:1.3.2'
-    compile 'com.google.guava:guava:18.0'
+    implementation 'org.hibernate:hibernate-core'
+    implementation 'com.h2database:h2'
+    implementation 'commons-io:commons-io:1.3.2'
+    implementation 'com.google.guava:guava:18.0'
 
-    testCompile "io.crnk:crnk-gen-asciidoc"
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile "io.crnk:crnk-client"
-    testCompile 'com.squareup.okhttp3:okhttp:3.4.1'
-    testCompile 'com.jayway.restassured:rest-assured:2.9.0'
-    testCompile 'com.jayway.restassured:json-schema-validator:2.9.0'
+    testImplementation "io.crnk:crnk-gen-asciidoc"
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "io.crnk:crnk-client"
+	testImplementation 'com.squareup.okhttp3:okhttp:3.4.1'
+	testImplementation 'com.jayway.restassured:rest-assured:2.9.0'
+	testImplementation 'com.jayway.restassured:json-schema-validator:2.9.0'
 
     compileOnly "org.projectlombok:lombok:$LOMBOK_VERSION"
     testCompileOnly "org.projectlombok:lombok:$LOMBOK_VERSION"
