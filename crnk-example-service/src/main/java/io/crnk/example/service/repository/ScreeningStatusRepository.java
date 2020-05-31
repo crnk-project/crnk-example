@@ -4,6 +4,7 @@ import io.crnk.core.queryspec.FilterSpec;
 import io.crnk.core.queryspec.PathSpec;
 import io.crnk.core.queryspec.QuerySpec;
 import io.crnk.core.repository.ResourceRepositoryBase;
+import io.crnk.core.resource.annotations.JsonApiExposed;
 import io.crnk.core.resource.list.DefaultResourceList;
 import io.crnk.core.resource.list.ResourceList;
 import io.crnk.example.service.model.ScreeningStatus;
@@ -13,15 +14,25 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Showcases a simple in-memory repository.
  */
 @Component
+@JsonApiExposed(false)
 public class ScreeningStatusRepository extends ResourceRepositoryBase<ScreeningStatus, UUID> {
+
+    private ConcurrentHashMap<UUID, ScreeningStatus> map = new ConcurrentHashMap<>();
 
     public ScreeningStatusRepository() {
         super(ScreeningStatus.class);
+    }
+
+    @Override
+    public ScreeningStatus create(ScreeningStatus status) {
+        map.put(status.getScreeningId(), status);
+        return status;
     }
 
     /**
@@ -31,14 +42,20 @@ public class ScreeningStatusRepository extends ResourceRepositoryBase<ScreeningS
     @Override
     public ResourceList<ScreeningStatus> findAll(QuerySpec querySpec) {
         Optional<FilterSpec> filterSpec = querySpec.findFilter(PathSpec.of("screening.id"));
+        if (!filterSpec.isPresent()) {
+            filterSpec = querySpec.findFilter(PathSpec.of("screeningId"));
+        }
         if (filterSpec.isPresent()) {
             Collection<UUID> ids = toCollection(filterSpec.get().getValue());
 
             DefaultResourceList list = new DefaultResourceList();
             for (UUID id : ids) {
-                ScreeningStatus status = new ScreeningStatus();
-                status.setScreeningId(id);
-                status.setDescription("Currently running");
+                ScreeningStatus status = map.get(id);
+                if (status == null) {
+                    status = new ScreeningStatus();
+                    status.setScreeningId(id);
+                    status.setDescription("Currently running");
+                }
                 list.add(status);
             }
             return querySpec.apply(list);

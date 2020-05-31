@@ -8,6 +8,8 @@ import io.crnk.core.resource.list.ResourceListBase;
 import io.crnk.core.resource.meta.HasMoreResourcesMetaInformation;
 import io.crnk.example.service.model.MovieEntity;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
@@ -23,7 +25,8 @@ public interface MovieRepository extends ResourceRepository<MovieEntity, UUID> {
 
 	}
 
-	@Data
+	@Getter
+	@Setter
 	class ScheduleListLinks extends DefaultPagedLinksInformation implements LinksInformation {
 
 		public String externalLink = "https://www.imdb.com/";
