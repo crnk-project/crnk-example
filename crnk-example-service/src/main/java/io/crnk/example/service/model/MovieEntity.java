@@ -62,29 +62,17 @@ public class MovieEntity {
 
     @Transient
     @JsonApiLinksInformation
-    private MovieLinks links;
-	
-	public void setId(UUID id)
-	{
-		this.id = id;
-		links = new MovieLinks(id);
-	}
-	
+    private MovieLinks links = new MovieLinks();
+
     public static class MovieLinks implements  LinksInformation
     {
-    
-    	public MovieLinks(UUID movieID)
-    	{
-    		this.movieID = movieID;
-    		
-    	}
-    	private movieID;
+   
     	private String rates;
     	private String comments;
     
 		public String getRates() {
 			
-			return "https://www.imdb.com/" + movieID + "/rates";
+			return "https://www.imdb.com/" + getId() + "/rates";
 		}
     	
     	public void setRates(String rates){
@@ -93,7 +81,7 @@ public class MovieEntity {
     	
     	public String getComments() {
 			
-		 	return "https://www.imdb.com/" + movieID + "/comments";
+		 	return "https://www.imdb.com/" + getId() + "/comments";
 		}
     	
     	public void setComments(String comments){
