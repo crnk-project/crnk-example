@@ -1,6 +1,8 @@
 package io.crnk.example.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.crnk.core.resource.annotations.JsonApiLinksInformation;
+import io.crnk.core.resource.links.LinksInformation;
 import io.crnk.core.resource.annotations.JsonApiRelation;
 import io.crnk.core.resource.annotations.JsonApiResource;
 import io.crnk.data.facet.annotation.Facet;
@@ -57,5 +59,48 @@ public class MovieEntity {
 
 	@Version
 	private Integer version;
+
+    @Transient
+    @JsonApiLinksInformation
+    private MovieLinks links;
+	
+	public void setId(UUID id)
+	{
+		this.id = id;
+		links = new MovieLinks(id);
+	}
+	
+    public static class MovieLinks implements  LinksInformation
+    {
+    
+    	public MovieLinks(UUID movieID)
+    	{
+    		this.movieID = movieID;
+    		
+    	}
+    	private movieID;
+    	private String rates;
+    	private String comments;
+    
+		public String getRates() {
+			
+			return "https://www.imdb.com/" + movieID + "/rates";
+		}
+    	
+    	public void setRates(String rates){
+    		this.rates = rates;
+    	}
+    	
+    	public String getComments() {
+			
+		 	return "https://www.imdb.com/" + movieID + "/comments";
+		}
+    	
+    	public void setComments(String comments){
+    		this.comments = comments;
+    	}
+	
+	 }
+
 
 }
