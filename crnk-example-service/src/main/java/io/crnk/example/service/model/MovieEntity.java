@@ -59,20 +59,25 @@ public class MovieEntity {
 
 	@Version
 	private Integer version;
-
+	
+    //This is an example on links customization.
+	//The links object in the response will look like
+	//"links":{"rates":"https://www.imdb.com/{MovieID}/rates", "comments":"https://www.imdb.com/{MovieID}/comments" }
+	//You can find that there is no self link type here, If you want to add it beside your customization just remove the comments below.
     @Transient
     @JsonApiLinksInformation
     private MovieLinks links = new MovieLinks();
 
-    public static class MovieLinks implements  LinksInformation
+    public class MovieLinks implements  LinksInformation//,SelfLinksInformation
     {
-   
+		//private String self;
     	private String rates;
     	private String comments;
     
 		public String getRates() {
-			
-			return "https://www.imdb.com/" + getId() + "/rates";
+			if (rates == null)
+				return "https://www.imdb.com/" + getId() + "/rates"; 
+			return rates;
 		}
     	
     	public void setRates(String rates){
@@ -80,13 +85,27 @@ public class MovieEntity {
     	}
     	
     	public String getComments() {
-			
-		 	return "https://www.imdb.com/" + getId() + "/comments";
+			if (comments == null)
+		 		return "https://www.imdb.com/" + getId() + "/comments";
+			return comments;
 		}
     	
     	public void setComments(String comments){
     		this.comments = comments;
     	}
+		/*
+		@Override
+		public Link getSelf() {
+			if(self == null)
+				return new DefaultLink("/movie/" + getId());
+			return self;
+		}
+
+		@Override
+		public void setSelf(Link self) {
+			this.self = self.getHref(); 
+		}
+		*/
 	
 	 }
 
