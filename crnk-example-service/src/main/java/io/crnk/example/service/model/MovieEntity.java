@@ -2,6 +2,7 @@ package io.crnk.example.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.crnk.core.resource.annotations.JsonApiLinksInformation;
+import io.crnk.core.resource.links.SelfLinksInformation;
 import io.crnk.core.resource.links.LinksInformation;
 import io.crnk.core.resource.annotations.JsonApiRelation;
 import io.crnk.core.resource.annotations.JsonApiResource;
