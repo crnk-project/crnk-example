@@ -10,7 +10,6 @@ import lombok.Data;
  * Login secret for the user. Implemented as nested resource of login.
  */
 @JsonApiResource(type = "secret", nested = true)
-@JsonApiExposed(false) // do not have endpoint on its own, only nested one
 @Data
 public class Secret {
 
