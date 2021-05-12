@@ -1,6 +1,10 @@
 package io.crnk.example.service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.crnk.core.resource.links.Link;
+import io.crnk.core.resource.annotations.JsonApiLinksInformation;
+import io.crnk.core.resource.links.SelfLinksInformation;
+import io.crnk.core.resource.links.LinksInformation;
 import io.crnk.core.resource.annotations.JsonApiRelation;
 import io.crnk.core.resource.annotations.JsonApiResource;
 import io.crnk.data.facet.annotation.Facet;
@@ -57,5 +61,37 @@ public class MovieEntity {
 
 	@Version
 	private Integer version;
+	
+	/**
+     * This is an example on links customization.
+	 * The links object in the response will look like
+	 * "links":{"self":"localhost:8080/movie/{MovieID}", "rates":"https://www.imdb.com/{MovieID}/rates", "comments":"https://www.imdb.com/{MovieID}/comments" }
+	 * if you don't want the self link type to appear in the links object just remove it from the MovieLinks and in that case
+	 * the MovieLinks class shouldn't implement the SelfLinksInformation interface.
+	 */
+	@Transient
+    @JsonApiLinksInformation
+    private MovieLinks links = new MovieLinks();
+	
+	@Data
+    public class MovieLinks implements  LinksInformation, SelfLinksInformation
+    {
+		private Link self;
+    	private String rates;
+    	private String comments;
+    
+		public String getRates() {
+			if (rates == null)
+				return "https://www.imdb.com/" + getId() + "/rates"; 
+			return rates;
+		}
+		
+    	public String getComments() {
+			if (comments == null)
+		 		return "https://www.imdb.com/" + getId() + "/comments";
+			return comments;
+		}
+		
+	 }
 
 }
